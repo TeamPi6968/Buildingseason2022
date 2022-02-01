@@ -50,6 +50,7 @@ void Robot::AutonomousInit() {
   } else {
     // Default Auto goes here
   }
+  
 }
 
 void Robot::AutonomousPeriodic() {
