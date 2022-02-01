@@ -9,7 +9,7 @@
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/PS4Controller.h>
 
-#include "Intake_toggle_functions.h"
+#include "Intake.h"
 #include "Swerve.h"
 #include "Climb.h"
 

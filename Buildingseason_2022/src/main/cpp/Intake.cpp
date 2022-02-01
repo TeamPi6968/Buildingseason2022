@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Intake_toggle_functions.h" 
+#include "Intake.h" 
 //#include <iostream>
  
 Intake::Intake(frc::PS4Controller *controller){

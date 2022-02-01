@@ -11,22 +11,16 @@ void Swerve::Initialize_swerve(){
 
   frc::SmartDashboard::PutNumber("Cont X value", 0);
   frc::SmartDashboard::PutNumber("Cont Y value", 0);
-  frc::SmartDashboard::PutNumber("Angle", angle);
-  frc::SmartDashboard::PutNumber("X", x);
-  frc::SmartDashboard::PutNumber("Kp", kp);
-  frc::SmartDashboard::PutNumber("Ki", ki);
-  frc::SmartDashboard::PutNumber("Kd", kd);
+  frc::SmartDashboard::PutNumber("X", vector_rotation);
 
-  motorFLR.SetSelectedSensorPosition(11264);
-  motorFRR.SetSelectedSensorPosition(11264);        
-  motorRRR.SetSelectedSensorPosition(11264);
-  motorRLR.SetSelectedSensorPosition(11264);
+  motorFLR.SetSelectedSensorPosition(2.5*oneTurn);
+  motorFRR.SetSelectedSensorPosition(2.5*oneTurn);        
+  motorRRR.SetSelectedSensorPosition(2.5*oneTurn);
+  motorRLR.SetSelectedSensorPosition(2.5*oneTurn);
 }
 
 void Swerve::Configure_PID(){
-  kp = frc::SmartDashboard::GetNumber("Kp", 0);
-  ki = frc::SmartDashboard::GetNumber("Ki", 0);
-  kd = frc::SmartDashboard::GetNumber("Kd", 0);
+
 
   //PID values of Front Left Rotation
   motorFLR.Config_kP(0, kp);
@@ -37,24 +31,15 @@ void Swerve::Configure_PID(){
   motorFRR.Config_kI(0, ki);
   motorFRR.Config_kD(0, kd);
   //PID values of Rear Right Rotation
-  motorRRR.Config_kP(0, kp);
-  motorRRR.Config_kI(0, ki);
-  motorRRR.Config_kD(0, kd);
+  motorRRR.Config_kP(0, kp2);
+  motorRRR.Config_kI(0, ki2);
+  motorRRR.Config_kD(0, kd2);
   //PID values of Rear Left Rotation
-  motorRLR.Config_kP(0, kp);
-  motorRLR.Config_kI(0, ki);
-  motorRLR.Config_kD(0, kd);
+  motorRLR.Config_kP(0, kp2);
+  motorRLR.Config_kI(0, ki2);
+  motorRLR.Config_kD(0, kd2);
 
-  desiredPosition = frc::SmartDashboard::GetNumber("Talon Desired Position",0); 
-  //position = motorFLD.GetSelectedSensorPosition(); //Read current position
-  frc::SmartDashboard::PutNumber("PositionW1 Graph", positionFR);
-  frc::SmartDashboard::PutNumber("PositionW1 Num", positionFR);
-  frc::SmartDashboard::PutNumber("PositionW2 Graph", positionFL);
-  frc::SmartDashboard::PutNumber("PositionW2 Num", positionFL);
-  frc::SmartDashboard::PutNumber("PositionW3 Graph", positionBL);
-  frc::SmartDashboard::PutNumber("PositionW3 Num", positionBL);
-  frc::SmartDashboard::PutNumber("PositionW4 Graph", positionBR);
-  frc::SmartDashboard::PutNumber("PositionW4 Num", positionBR);
+
 }
 
 void Swerve::calculate_vector_straffe(){
@@ -73,11 +58,13 @@ void Swerve::calculate_vector_straffe(){
 }
 
 void Swerve::calculate_vector_rotation(){
+frc::SmartDashboard::PutNumber("X", vector_rotation);
  vector_rotation = swerveJoystick->GetRightX();
 
- if(vector_rotation<=0.1 && vector_rotation >= -0.1){
-  vector_rotation = 0;
-}
+ if(vector_rotation<=0.1 && vector_rotation >= -0.1)
+  {
+    vector_rotation = 0;
+  }
 
 }
 
@@ -280,17 +267,17 @@ void Swerve::set_rotations_w4(){
 void Swerve::set_motor_position(){
 if(vector_straffe <= 0.1 && (vector_rotation <= 0.1 && vector_rotation >= -0.1 ))
 {
-  positionFR = 11264 + (rotationCounter_w1*45056);    // 90 degrees //back to start position
-  positionFL = 11264 + (rotationCounter_w2*45056);    // 90 degrees
-  positionBL = 11264 + (rotationCounter_w3*45056);    // 90 degrees
-  positionBR = 11264 + (rotationCounter_w4*45056);    // 90 degrees
+  positionFR = 2.5*oneTurn + (rotationCounter_w1*10*oneTurn);    // 90 degrees //back to start position
+  positionFL = 2.5*oneTurn + (rotationCounter_w2*10*oneTurn);    // 90 degrees
+  positionBL = 2.5*oneTurn + (rotationCounter_w3*10*oneTurn);    // 90 degrees
+  positionBR = 2.5*oneTurn + (rotationCounter_w4*10*oneTurn);    // 90 degrees
 }
 else
 {
-  positionFR =(45056 * (Total_angle_W1/360))+(rotationCounter_w1*45056); //(45056 * (angle/360)) + rot_count*45056 
-  positionFL =(45056 * (Total_angle_W2/360))+(rotationCounter_w2*45056); //(45056 * (angle/360)) + rot_count*45056 
-  positionBL =(45056 * (Total_angle_W3/360))+(rotationCounter_w3*45056); //(45056 * (angle/360)) + rot_count*45056 
-  positionBR =(45056 * (Total_angle_W4/360))+(rotationCounter_w4*45056); //(45056 * (angle/360)) + rot_count*45056       
+  positionFR =(10*oneTurn * (Total_angle_W1/360))+(rotationCounter_w1*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
+  positionFL =(10*oneTurn * (Total_angle_W2/360))+(rotationCounter_w2*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
+  positionBL =(10*oneTurn * (Total_angle_W3/360))+(rotationCounter_w3*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
+  positionBR =(10*oneTurn * (Total_angle_W4/360))+(rotationCounter_w4*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056       
 }
   motorFRR.Set(ControlMode::Position, positionFR);  
   motorFLR.Set(ControlMode::Position, positionFL);     
