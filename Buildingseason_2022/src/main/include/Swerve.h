@@ -38,18 +38,18 @@ class Swerve{
   TalonSRX motorRLR = {6}; //  rear left rotation
 
   // Variables swervedrive
-  int positionFL = 0;
-  int positionFR = 0;
-  int positionBL = 0;
-  int positionBR = 0;
+  const int oneTurn = 4096;
+  int positionFL = 2.5*oneTurn;
+  int positionFR = 2.5*oneTurn;
+  int positionBL = 2.5*oneTurn;
+  int positionBR = 2.5*oneTurn;
 
-  int desiredPosition = 0;
-  int lastPosition = 0;
   double kp = 0.4;
-  double ki = 0.000001;
-  double kd = 0.2;
-  int x = 0;
-  double angle = 0;
+  double ki = 0.00009;
+  double kd = 0.45;
+  double kp2 = 0.5;
+  double ki2 = 0.0001;
+  double kd2 = 0.5;
   bool w1_wasIn4 = false; 
   bool w1_wasIn1 = false;
   bool w2_wasIn4 = false; 
@@ -62,7 +62,7 @@ class Swerve{
   double rotationCounter_w2 = 0;
   double rotationCounter_w3 = 0;
   double rotationCounter_w4 = 0;
-  int speedmode = 1;
+  double speedmode = 1;
 
   double Total_XW1 = 0;
   double Total_YW1 = 0;
