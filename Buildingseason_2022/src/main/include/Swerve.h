@@ -7,7 +7,9 @@
 
 class Swerve{
   private:
-  frc::PS4Controller *swerveJoystick;
+
+  frc::PS4Controller *swerveJoystick; //Pointer to controller
+  //Functions for the swerve drive
   void calculate_vector_straffe();
   void calculate_vector_rotation();
   void calculate_total_vector();
@@ -21,6 +23,7 @@ class Swerve{
   void set_rotations_w4();
   void set_motor_position();
   void set_motor_speed();
+
   public:
   Swerve(frc::PS4Controller *controller);
 
@@ -28,28 +31,35 @@ class Swerve{
   void Configure_PID();
   void Swerve_mainloop();
 
-  TalonSRX motorFLD = {1};        
-  TalonSRX motorFRD = {3};          
-  TalonSRX motorFRR = {4}; // front right rotation
-  TalonSRX motorFLR = {2}; // front left rotation
-  TalonSRX motorRRD = {7};
-  TalonSRX motorRRR = {8}; // rear right rotation     
-  TalonSRX motorRLD = {5};
-  TalonSRX motorRLR = {6}; //  rear left rotation
+  TalonSRX motorFLD = {1}; //Front Left Drive       
+  TalonSRX motorFLR = {2}; //Front Left Rotation
+  TalonSRX motorFRD = {3}; //Front Rear Drive       
+  TalonSRX motorFRR = {4}; //Front Rear Rotation
+  TalonSRX motorRLD = {5}; //Back Left Drive
+  TalonSRX motorRLR = {6}; //Back Left Rotation
+  TalonSRX motorRRD = {7}; //Back Rear Drive
+  TalonSRX motorRRR = {8}; //Back Rear Rotation  
+  
 
   // Variables swervedrive
-  const int oneTurn = 4096;
-  int positionFL = 2.5*oneTurn;
+  const int oneTurn = 4096; //Encoder pulses for one rotation Falcon fx
+
+  int positionFL = 2.5*oneTurn;  //Oriantation is 90 degrees rotated so every wheel needs to correct that error
   int positionFR = 2.5*oneTurn;
   int positionBL = 2.5*oneTurn;
   int positionBR = 2.5*oneTurn;
 
+  //PID values of the front wheels
   double kp = 0.4;
   double ki = 0.00009;
   double kd = 0.45;
+
+  //PID values of the back wheels
   double kp2 = 0.5;
   double ki2 = 0.0001;
   double kd2 = 0.5;
+
+  //Keep track of where the wheels are for smooth transition
   bool w1_wasIn4 = false; 
   bool w1_wasIn1 = false;
   bool w2_wasIn4 = false; 
@@ -58,6 +68,8 @@ class Swerve{
   bool w3_wasIn1 = false;
   bool w4_wasIn4 = false; 
   bool w4_wasIn1 = false;
+
+  //Rotation counter of the wheels
   double rotationCounter_w1 = 0;
   double rotationCounter_w2 = 0;
   double rotationCounter_w3 = 0;
