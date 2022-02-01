@@ -50,7 +50,6 @@ void Robot::AutonomousInit() {
   } else {
     // Default Auto goes here
   }
-  
 }
 
 void Robot::AutonomousPeriodic() {
@@ -70,6 +69,7 @@ void Robot::TeleopInit() {
 void Robot::TeleopPeriodic() {
   intake->mainloop();
   swerve->Swerve_mainloop();
+  
 }
 
 void Robot::DisabledInit() {}
