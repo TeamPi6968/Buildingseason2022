@@ -11,11 +11,13 @@
 #include <frc/PS4Controller.h>
 
 #include "Intake_toggle_functions.h"
+#include "Swerve.h"
 
 
 class Robot : public frc::TimedRobot {
  public:
   Intake *intake;
+  Swerve *swerve;
   void RobotInit() override;
   void RobotPeriodic() override;
   void AutonomousInit() override;
