@@ -88,7 +88,8 @@ void Swerve::calculate_total_vector(){
 }
 
 void Swerve::calculate_total_angle_w1(){
-    if((Total_XW1 >= 0) && (Total_YW1 <= 0))   // first quarter, angle <= 90, rotaions <= 2.75, total nb <= 11264 (be careful directions on the code is different)
+    if((Total_XW1 >= 0) && (Total_YW1 <= 0)) //Angle is in first quarter
+    //Angle <= 90, Rotaions <= 2.75, Total nb <= 11264 (be careful directions on the code is different)
     {
     Total_angle_W1 = ((atan(-Total_YW1/Total_XW1))/M_PI_2) * 90;
     }

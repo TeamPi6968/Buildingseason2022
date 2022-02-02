@@ -13,6 +13,7 @@
 #include "Swerve.h"
 #include "Storage.h"
 #include "Climb.h"
+#include "Turret.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -20,6 +21,7 @@ class Robot : public frc::TimedRobot {
   Swerve *swerve;
   Storage *storage;
   Climb *climb;
+  Turret *turret;
 
   void RobotInit() override;
   void RobotPeriodic() override;
