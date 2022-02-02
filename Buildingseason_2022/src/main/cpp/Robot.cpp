@@ -97,7 +97,7 @@ void Robot::TeleopPeriodic() {
   intake->mainloop();
   storage->mainloop();
   swerve->Swerve_mainloop();
-  turret->turret_mainloop();
+  turret->turret_Teleop(turret->angle, turret->rotation);
   climb->Teleop();
 }
 

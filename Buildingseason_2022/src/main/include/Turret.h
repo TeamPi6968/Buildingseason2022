@@ -18,7 +18,7 @@ class Turret
  void HomingAngle();
  void HomingRotation();
  void Configure_Turret_PID();
- void turret_mainloop();
+ void turret_Teleop(double angle, double rotation);
  void Shoot();
  void NoShoot();
  void Jetson();
@@ -29,6 +29,16 @@ class Turret
  float SetRotation = 0;
  float SetAngle = 0;
  bool Set_Shot = false;
+ int X = 0;
+ int X_Center = 300;
+ int Y = 0;
+ int Y_Center = 300;
+ double motorSpeedL = 0.2;
+ double motorSpeedR = 0.2;
+ double angle;
+ double rotation;
+ double Depth;
+ double shootSpeed;
 
  //timer config
  units::second_t read_time_shooter;//read the current time
@@ -45,14 +55,14 @@ class Turret
 
 
 // Limit swtiches config
- const int LimitSwitchPort_1 = 0;
- const int LimitSwitchPort_2 = 0;
- const int AngleSwitchPort_1 = 2;
- const int AngleSwitchPort_2 = 2;
- frc::DigitalInput RotSwitch {LimitSwitchPort_1};
- frc::DigitalInput RotSwitch2 {LimitSwitchPort_2};
- frc::DigitalInput AngleSwitch {AngleSwitchPort_1};
- frc::DigitalInput AngleSwitch2 {AngleSwitchPort_2};
+ const int LimitSwitchPort_L = 0;
+ const int LimitSwitchPort_R = 0;
+ const int AngleSwitchPort_U = 2;
+ const int AngleSwitchPort_D = 2;
+ frc::DigitalInput RotSwitchL {LimitSwitchPort_L};
+ frc::DigitalInput RotSwitchR {LimitSwitchPort_R};
+ frc::DigitalInput AngleSwitchU {AngleSwitchPort_U};
+ frc::DigitalInput AngleSwitchD {AngleSwitchPort_D};
 
  //Motor can config
  const int turret_High_CAN = 14;
@@ -67,8 +77,7 @@ class Turret
 //PID values of the Angle
 double kP_A = 0.1, kI_A  = 1e-4, kD_A  = 1, kMaxOutput_A = 1, kMinOutput_A = -1;
 
-// motorspeeds
- const double ShooterSpeed = 0.2;
+
 
 // Motor config
  WPI_TalonFX Turret_master {turret_master_CAN};

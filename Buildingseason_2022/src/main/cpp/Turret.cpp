@@ -39,11 +39,9 @@ frc::SmartDashboard::PutNumber("shooting speed",0);
 void Turret::Jetson()
 {
 // imitating input from the Jetson
-<<<<<<< HEAD
  double rotation = frc::SmartDashboard::GetNumber("rotation",0);
  double angle = frc::SmartDashboard::GetNumber("angle",0);
  
-=======
  rotation = frc::SmartDashboard::GetNumber("rotation",0);
  angle = frc::SmartDashboard::GetNumber("angle",0);
  X = frc::SmartDashboard::GetNumber("X",0);
@@ -57,7 +55,6 @@ void Turret::Jetson()
  // Angle calculations with Y
 
  // motor calculations with the Depth
->>>>>>> f064d0bf710e794d018bc95862103843f37618e6
 }
 
 void Turret::Rotation(double rotation)
