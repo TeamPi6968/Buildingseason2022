@@ -52,7 +52,7 @@ class Turret
 // Motor config
  WPI_TalonFX Turret_master {turret_master_CAN};
  WPI_TalonFX Turret_slave {turret_slave_CAN};
- WPI_TalonFX Turret_slave {turret_slave_CAN};
+ WPI_TalonFX Turret_HIGH {turret_High_CAN};
  rev::CANSparkMax Rotation_motor{rotation_motor_CAN, rev::CANSparkMax::MotorType::kBrushless};
  rev::CANSparkMax Angle_motor{angle_motor_CAN, rev::CANSparkMax::MotorType::kBrushless};
 
