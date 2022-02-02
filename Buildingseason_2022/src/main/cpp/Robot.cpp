@@ -81,7 +81,7 @@ void Robot::TeleopPeriodic() {
     intake->Stop_when_full();
   }
 
-  ////////Communication between storage and turret////////
+  ///////Communication between storage and turret////////
   //if(turret is activated){
   //storage->Turret_activated(); 
   //}
