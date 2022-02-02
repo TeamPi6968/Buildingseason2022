@@ -54,7 +54,11 @@ void Storage::Toggle_color_sensor_2(){
 }
 
 void Storage::Turn_when_intake_true(){//When motor intake = true the storage motor between the 2 balls are true
-  motor_2to1.Set(ControlMode::PercentOutput, 0.1);
+  motor_2to1.Set(ControlMode::PercentOutput, motorspeed_2_to_1);
+}
+
+void Storage::Turret_activated(){
+  outtake_button = true;
 }
 
 void Storage::mainloop(){//The whole storage proces
@@ -90,7 +94,7 @@ void Storage::mainloop(){//The whole storage proces
   break;
 
   case 1:
-    motor_2to1.Set(ControlMode::PercentOutput, 0.1);//motor is turning
+    motor_2to1.Set(ControlMode::PercentOutput, motorspeed_2_to_1);//motor is turning
     color_sensor_1_state = false;
     color_sensor_2_state = false;
     //when red ball is in range on color sensor 1
@@ -112,6 +116,7 @@ void Storage::mainloop(){//The whole storage proces
   motor_turret.Set(ControlMode::PercentOutput, 0);//motor stopped
     color_sensor_1_state = false;
     color_sensor_2_state = false;
+    Turret_activated();
     if(outtake_button == true){//if shooter is activated
       storage_stage = 3;//go to case 3
     }
@@ -119,6 +124,7 @@ void Storage::mainloop(){//The whole storage proces
   
   case 3:
   motor_turret.Set(ControlMode::PercentOutput, 0.1);//motor is turning
+  outtake_button = false;
   //if color sensor 1 doesnt detect ball anymore
   if(current_range_color_sensor_1 < min_marging_red or current_range_color_sensor_1 > max_marging_red){
     time.Reset();
