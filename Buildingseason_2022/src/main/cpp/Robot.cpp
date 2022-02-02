@@ -67,6 +67,7 @@ void Robot::AutonomousPeriodic() {
 void Robot::TeleopInit() {
   swerve->Initialize_swerve();
   swerve->Configure_PID();
+  turret->Jetson_Config();
 }
 
 void Robot::TeleopPeriodic() {
@@ -86,6 +87,7 @@ void Robot::TeleopPeriodic() {
   //}
   if(storage->color_sensor_1_state == false){
     //Turret can't shoot
+    turret->NoShoot();
   }
   
   intake->mainloop();

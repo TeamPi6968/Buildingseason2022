@@ -12,18 +12,23 @@ class Turret
 {
  public:
 // functions
- void Angle ();
- void Rotation ();
+ void Angle(double angle);
+ void Rotation(double rotation);
  void AngleUpdate();
  void HomingAngle();
  void HomingRotation();
  void Configure_Turret_PID();
  void turret_mainloop();
+ void Shoot();
+ void NoShoot();
+ void Jetson();
+ void Jetson_Config();
 
  Turret(frc::PS4Controller *controller);
 
  float SetRotation = 0;
  float SetAngle = 0;
+ bool Shot = false;
 
  
 
@@ -54,7 +59,8 @@ class Turret
 //PID values of the Angle
 double kP_A = 0.1, kI_A  = 1e-4, kD_A  = 1, kMaxOutput_A = 1, kMinOutput_A = -1;
 
- const int homing_speed = 0.2;
+// motorspeeds
+ const double ShooterSpeed = 0.2;
 
 // Motor config
  WPI_TalonFX Turret_master {turret_master_CAN};

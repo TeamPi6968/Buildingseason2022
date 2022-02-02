@@ -24,18 +24,32 @@ void Turret::Configure_Turret_PID()
     A_pidController.SetOutputRange(kMinOutput_A, kMaxOutput_A);
 }
 
-void Turret::Rotation()
+void Turret::Jetson_Config()
 {
-double rotations = frc::SmartDashboard::GetNumber("Rotation Turret", SetRotation);
+frc::SmartDashboard::PutNumber("rotation",0);
+frc::SmartDashboard::PutNumber("angle",0);
+}
+
+void Turret::Jetson()
+{
+// imitating input from the Jetson
+ double rotation = frc::SmartDashboard::GetNumber("rotation",0);
+ double angle = frc::SmartDashboard::GetNumber("angle",0);
+ Rotation(rotation);
+}
+
+void Turret::Rotation(double rotation)
+{
+
  if (RotSwitch.Get() == true || RotSwitch2.Get() == true) {
         Rotation_motor.Set(0);
     }
     else {
-    R_pidController.SetReference(rotations, rev::ControlType::kPosition);
+    R_pidController.SetReference(rotation, rev::ControlType::kPosition);
     }
 }
 
-void Turret::Angle()
+void Turret::Angle(double angle)
 {
 frc::SmartDashboard::GetNumber("Angle Turret", SetAngle);
  if (AngleSwitch.Get() == true) {
@@ -43,8 +57,33 @@ frc::SmartDashboard::GetNumber("Angle Turret", SetAngle);
     }
     else {
         Angle_motor.Set(SetAngle);
+        A_pidController.SetReference(angle, rev::ControlType::kPosition);
     }
 }
+
+void Turret::Shoot()
+{
+bool Shoot_button = turret_Joystick->GetCrossButton();
+
+ if(Shoot_button == true)
+ {
+     Turret_HIGH.Set(ControlMode::PercentOutput, ShooterSpeed);
+     Turret_master.Set(ControlMode::PercentOutput, ShooterSpeed);
+     Shot = true;
+ }
+ else{
+     Turret_HIGH.Set(ControlMode::PercentOutput, 0);
+     Turret_master.Set(ControlMode::PercentOutput, 0);
+     Shot = false;
+ }
+}
+
+void Turret::NoShoot()
+{
+    Turret_HIGH.Set(ControlMode::PercentOutput, 0);
+    Turret_master.Set(ControlMode::PercentOutput, 0);
+}
+
 
 
 
@@ -60,5 +99,6 @@ void Turret::HomingRotation()
 
 void Turret::turret_mainloop()
 {
+    
 
 }
