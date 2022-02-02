@@ -2,13 +2,12 @@
 
 #include "Swerve.h"
 
+//Create a swerve module
 Swerve::Swerve(frc::PS4Controller *controller){
-  swerveJoystick = controller;
+  swerveJoystick = controller; //Assing the joystick
 }
-
-void Swerve::Initialize_swerve(){
-  //give the wheels the rotaion of 90 degrees as thay are alliant right now
-
+//Give the wheels the rotaion of 90 degrees as thay are alliant right now
+void Swerve::Initialize_swerve(){ 
   frc::SmartDashboard::PutNumber("Cont X value", 0);
   frc::SmartDashboard::PutNumber("Cont Y value", 0);
   frc::SmartDashboard::PutNumber("X", vector_rotation);
@@ -18,10 +17,8 @@ void Swerve::Initialize_swerve(){
   motorRRR.SetSelectedSensorPosition(2.5*oneTurn);
   motorRLR.SetSelectedSensorPosition(2.5*oneTurn);
 }
-
+//Configure the PID values for the swerve
 void Swerve::Configure_PID(){
-
-
   //PID values of Front Left Rotation
   motorFLR.Config_kP(0, kp);
   motorFLR.Config_kI(0, ki);
@@ -38,16 +35,15 @@ void Swerve::Configure_PID(){
   motorRLR.Config_kP(0, kp2);
   motorRLR.Config_kI(0, ki2);
   motorRLR.Config_kD(0, kd2);
-
-
 }
 
 void Swerve::calculate_vector_straffe(){
+  //Get values of controller
   xVal_straffe = swerveJoystick->GetLeftX();
   yVal_straffe = swerveJoystick->GetLeftY();
-
+  //Calculate vector
   vector_straffe = sqrt(pow(xVal_straffe, 2) + pow(yVal_straffe, 2));
-
+  //Set values to zero when the vector is smaller than 0.1 due the misreadings when you don't touch the joystick
   if(vector_straffe<=0.1){
     xVal_straffe = 0;
     yVal_straffe = 0;
@@ -58,17 +54,24 @@ void Swerve::calculate_vector_straffe(){
 }
 
 void Swerve::calculate_vector_rotation(){
-frc::SmartDashboard::PutNumber("X", vector_rotation);
- vector_rotation = swerveJoystick->GetRightX();
-
- if(vector_rotation<=0.1 && vector_rotation >= -0.1)
+  //Get values of controller
+  vector_rotation = swerveJoystick->GetRightX();
+  //Set values to zero when the vector is smaller than 0.1 due the misreadings when you don't touch the joystick
+  if(vector_rotation<=0.1 && vector_rotation >= -0.1)
   {
     vector_rotation = 0;
   }
-
 }
 
 void Swerve::calculate_total_vector(){
+  //Calculate the X and Y values of the vector of every wheel
+  /*
+        -Y
+        |
+  -X ---|--- X
+        |
+        Y
+  */
   Total_XW1 = (xVal_straffe+(vector_rotation/sqrt(2)))/2;
   Total_YW1 = (yVal_straffe+(vector_rotation/sqrt(2)))/2;
   Total_XW2 = (xVal_straffe+(vector_rotation/sqrt(2)))/2;
@@ -77,8 +80,8 @@ void Swerve::calculate_total_vector(){
   Total_YW3 = (yVal_straffe-(vector_rotation/sqrt(2)))/2;
   Total_XW4 = (xVal_straffe-(vector_rotation/sqrt(2)))/2;
   Total_YW4 = (yVal_straffe+(vector_rotation/sqrt(2)))/2;
-
-  Total_Vector_W1 = sqrt(pow(Total_XW1, 2) + pow(Total_YW1, 2));
+  //Calculate the magnitute of the resulting vector
+  Total_Vector_W1 = sqrt(pow(Total_XW1, 2) + pow(Total_YW1, 2)); 
   Total_Vector_W2 = sqrt(pow(Total_XW2, 2) + pow(Total_YW2, 2));
   Total_Vector_W3 = sqrt(pow(Total_XW3, 2) + pow(Total_YW3, 2));
   Total_Vector_W4 = sqrt(pow(Total_XW4, 2) + pow(Total_YW4, 2));

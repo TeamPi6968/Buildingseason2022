@@ -15,8 +15,12 @@ void Robot::RobotInit() {
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   intake = new Intake(&Joystick_1);
   swerve = new Swerve(&Joystick_1);
+//<<<<<<< HEAD
   storage = new Storage(&Joystick_1);
 
+//=======
+  climb = new Climb(&Joystick_1);
+//>>>>>>> 5825983be09740da49f87a669a29829584fb4ce3
 }
 
 /**
@@ -71,6 +75,10 @@ void Robot::TeleopPeriodic() {
   intake->mainloop();
   storage->mainloop();
   swerve->Swerve_mainloop();
+//<<<<<<< HEAD
+//=======
+  climb->Teleop();
+//>>>>>>> 5825983be09740da49f87a669a29829584fb4ce3
 }
 
 void Robot::DisabledInit() {}

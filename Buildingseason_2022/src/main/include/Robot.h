@@ -2,7 +2,6 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-#pragma once
 
 #include <string>
 
@@ -12,13 +11,22 @@
 
 #include "Intake.h"
 #include "Swerve.h"
+//<<<<<<< HEAD
 #include "Storage.h"
+//=======
+#include "Climb.h"
+
+//>>>>>>> 5825983be09740da49f87a669a29829584fb4ce3
 
 class Robot : public frc::TimedRobot {
  public:
   Intake *intake;
   Swerve *swerve;
+//<<<<<<< HEAD
   Storage *storage;
+//=======
+  Climb *climb;
+//>>>>>>> 5825983be09740da49f87a669a29829584fb4ce3
   void RobotInit() override;
   void RobotPeriodic() override;
   void AutonomousInit() override;
