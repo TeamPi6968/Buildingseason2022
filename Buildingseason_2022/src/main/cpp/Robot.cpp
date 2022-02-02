@@ -70,6 +70,7 @@ void Robot::TeleopInit() {
 }
 
 void Robot::TeleopPeriodic() {
+  ////////Communication between Intake and storage////////
   if(intake->Set_motor_intake_low == true){//Motor from storage turn when in intake motors turn (only when storage isnt full)
     storage->Turn_when_intake_true();
   }
@@ -79,6 +80,14 @@ void Robot::TeleopPeriodic() {
     intake->Stop_when_full();
   }
 
+  ////////Communication between storage and turret////////
+  //if(turret is activated){
+  //storage->Turret_activated(); 
+  //}
+  if(storage->color_sensor_1_state == false){
+    //Turret can't shoot
+  }
+  
   intake->mainloop();
   storage->mainloop();
   swerve->Swerve_mainloop();
