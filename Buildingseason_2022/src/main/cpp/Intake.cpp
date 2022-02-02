@@ -88,7 +88,7 @@ void Intake::Toggle_motor_high(){//could be removed
 
 void Intake::Toggle_motor_stop(){//Temperarly function
   
-  Stop_motor_intake = intakeJoystick->GetCrossButton();//stop the motor
+  bool Stop_motor_intake = intakeJoystick->GetCrossButton();//stop the motor
   frc::SmartDashboard::PutNumber("stop motor",toggle_motor_stop);
    
   if(Stop_motor_intake == true){
