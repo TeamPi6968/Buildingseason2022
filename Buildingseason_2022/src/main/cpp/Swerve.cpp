@@ -87,26 +87,30 @@ void Swerve::calculate_total_vector(){
   Total_Vector_W4 = sqrt(pow(Total_XW4, 2) + pow(Total_YW4, 2));
 }
 
-void Swerve::calculate_total_angle_w1(){
-    if((Total_XW1 >= 0) && (Total_YW1 <= 0)) //Angle is in first quarter
-    //Angle <= 90, Rotaions <= 2.75, Total nb <= 11264 (be careful directions on the code is different)
-    {
-    Total_angle_W1 = ((atan(-Total_YW1/Total_XW1))/M_PI_2) * 90;
-    }
-    else if((Total_XW1 < 0) && (Total_YW1 <= 0))   // second quarter, angle 180>= angle > 90 , rotaions <= 5.5, total nb <= 22528 
-    {
-    Total_angle_W1 = 180 - (((atan(Total_YW1/Total_XW1))*90)/M_PI_2);
-    }
-    else if(Total_XW1 < 0 && Total_YW1 > 0)   // Third quarter, angle 270 >= angle > 180 , rotaions <= 8.25, total nb <= 33792 
-    {    
-    Total_angle_W1 = 270 - (((atan(-Total_XW1/Total_YW1))*90)/M_PI_2);// this angle is from 270 line (backwards) negative x positve y
-    }
-    else if(Total_XW1 >= 0 && Total_YW1 >= 0)   // forth quarter, angle 360 >= angle > 270 , rotaions <= 11, total nb <= 45056 
-    {
-    Total_angle_W1 = 360 - (((atan(Total_YW1/Total_XW1))*90)/M_PI_2);      // this angle is from 0 line (backwards)
-    }
+double Swerve::calculate_total_angle_of_wheel(double X, double Y){
+  if((X >= 0) && (Y <= 0)) //Angle is in first quarter
+  //Angle <= 90, Rotaions <= 2.5, Total pulzen 4096*2.5 = 10240 (be careful directions on the code is different)
+  {
+    return ((atan(-Y/X))/M_PI_2) * 90;
+  }
+  else if((X < 0) && (Y <= 0)) //Angle is in second quarter
+  //Angle 180 >= && Angle > 90, Rotaions <= 5, Total pulzen 4096*5 = 20.480
+  {
+    return 180 - (((atan(Y/X))*90)/M_PI_2);
+  }
+  else if(X < 0 && Y > 0) //Angle is in third quarter  
+  //Angle 270 >= && Angle > 180, Rotaions <= 7.5, Total pulzen 4096*7.5 = 30.720  
+  {
+    return 270 - (((atan(-X/Y))*90)/M_PI_2); 
+  } 
+  else if(X >= 0 && Y >= 0) //Angle is in fourth quarter  
+  //Angle 360 >= && Angle > 270, Rotaions <= 10, Total pulzen 4096*10 = 40960
+  { 
+    return 360 - (((atan(Y/X))*90)/M_PI_2);
+  }
 }
 
+/*
 void Swerve::calculate_total_angle_w2(){
     if((Total_XW2 >= 0) && (Total_YW2 <= 0))   // first quarter, angle <= 90, rotaions <= 2.75, total nb <= 11264 (be careful directions on the code is different)
     {
@@ -163,30 +167,31 @@ void Swerve::calculate_total_angle_w4(){
     Total_angle_W4 = 360 - (((atan(Total_YW4/Total_XW4))*90)/M_PI_2);      // this angle is from 0 line (backwards)
     }
 }
+*/
 
 void Swerve::set_rotations_w1(){
-    if(Total_angle_W1 >= 0 && Total_angle_W1 <= 90)
+    if(Total_angle_W1 >= 0 && Total_angle_W1 <= 90) //Wheel in Q1
     {
     w1_wasIn1 = true;
-    if(w1_wasIn4)
+    if(w1_wasIn4) //Came from Q4 so made one round 
     {
-        rotationCounter_w1++;
-        w1_wasIn4 = false;
+      rotationCounter_w1++;
+      w1_wasIn4 = false;
     }
     }
-    else if(Total_angle_W1 >= 270 && Total_angle_W1 < 360)
+    else if(Total_angle_W1 >= 270 && Total_angle_W1 < 360) //Wheel in Q4
     {
     w1_wasIn4 = true;
-    if(w1_wasIn1)
+    if(w1_wasIn1) //Came from Q1 so made one round 
     {
-        rotationCounter_w1--;
-        w1_wasIn1 = false;
+      rotationCounter_w1--;
+      w1_wasIn1 = false;
     }
     }
-    else
+    else //Not in a quarter
     {
-    w1_wasIn4 = false;
-    w1_wasIn1 = false;
+      w1_wasIn4 = false; 
+      w1_wasIn1 = false;
     }
 }
 
@@ -196,8 +201,8 @@ void Swerve::set_rotations_w2(){
     w2_wasIn1 = true;
     if(w2_wasIn4)
     {
-        rotationCounter_w2++;
-        w2_wasIn4 = false;
+      rotationCounter_w2++;
+      w2_wasIn4 = false;
     }
     }
     else if(Total_angle_W2 >= 270 && Total_angle_W2 < 360)
@@ -205,8 +210,8 @@ void Swerve::set_rotations_w2(){
     w2_wasIn4 = true;
     if(w2_wasIn1)
     {
-        rotationCounter_w2--;
-        w2_wasIn1 = false;
+      rotationCounter_w2--;
+      w2_wasIn1 = false;
     }
     }
     else
@@ -222,8 +227,8 @@ void Swerve::set_rotations_w3(){
     w3_wasIn1 = true;
     if(w3_wasIn4)
     {
-        rotationCounter_w3++;
-        w3_wasIn4 = false;
+      rotationCounter_w3++;
+      w3_wasIn4 = false;
     }
     }
     else if(Total_angle_W3 >= 270 && Total_angle_W3 < 360)
@@ -231,14 +236,14 @@ void Swerve::set_rotations_w3(){
     w3_wasIn4 = true;
     if(w3_wasIn1)
     {
-        rotationCounter_w3--;
-        w3_wasIn1 = false;
+      rotationCounter_w3--;
+      w3_wasIn1 = false;
     }
     }
     else
     {
-    w3_wasIn4 = false;
-    w3_wasIn1 = false;
+      w3_wasIn4 = false;
+      w3_wasIn1 = false;
     }  
 }
 
@@ -248,8 +253,8 @@ void Swerve::set_rotations_w4(){
     w4_wasIn1 = true;
     if(w4_wasIn4)
     {
-        rotationCounter_w4++;
-        w4_wasIn4 = false;
+      rotationCounter_w4++;
+      w4_wasIn4 = false;
     }
     }
     else if(Total_angle_W4 >= 270 && Total_angle_W4 < 360)
@@ -257,26 +262,26 @@ void Swerve::set_rotations_w4(){
     w4_wasIn4 = true;
     if(w4_wasIn1)
     {
-        rotationCounter_w4--;
-        w4_wasIn1 = false;
+      rotationCounter_w4--;
+      w4_wasIn1 = false;
     }
     }
     else
     {
-    w4_wasIn4 = false;
-    w4_wasIn1 = false;
+      w4_wasIn4 = false;
+      w4_wasIn1 = false;
     }
 }
 
-void Swerve::set_motor_position(){
-if(vector_straffe <= 0.1 && (vector_rotation <= 0.1 && vector_rotation >= -0.1 ))
+void Swerve::set_motor_position(){ //Rotate the module
+if(vector_straffe <= 0.1 && (vector_rotation <= 0.1 && vector_rotation >= -0.1 )) //Both movements active
 {
-  positionFR = 2.5*oneTurn + (rotationCounter_w1*10*oneTurn);    // 90 degrees //back to start position
-  positionFL = 2.5*oneTurn + (rotationCounter_w2*10*oneTurn);    // 90 degrees
-  positionBL = 2.5*oneTurn + (rotationCounter_w3*10*oneTurn);    // 90 degrees
-  positionBR = 2.5*oneTurn + (rotationCounter_w4*10*oneTurn);    // 90 degrees
+  positionFR = 2.5*oneTurn + (rotationCounter_w1*10*oneTurn); //90 degrees back to start position
+  positionFL = 2.5*oneTurn + (rotationCounter_w2*10*oneTurn); //90 degrees
+  positionBL = 2.5*oneTurn + (rotationCounter_w3*10*oneTurn); //90 degrees
+  positionBR = 2.5*oneTurn + (rotationCounter_w4*10*oneTurn); //90 degrees
 }
-else
+else 
 {
   positionFR =(10*oneTurn * (Total_angle_W1/360))+(rotationCounter_w1*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
   positionFL =(10*oneTurn * (Total_angle_W2/360))+(rotationCounter_w2*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
@@ -289,21 +294,21 @@ else
   motorRRR.Set(ControlMode::Position, positionBR);
 }
 
-void Swerve::set_motor_speed(){
+void Swerve::set_motor_speed(){ //Drive the motors
   motorFRD.Set(ControlMode::PercentOutput, Total_Vector_W1/speedmode);
   motorFLD.Set(ControlMode::PercentOutput, -Total_Vector_W2/speedmode);
   motorRRD.Set(ControlMode::PercentOutput, Total_Vector_W3/speedmode);
   motorRLD.Set(ControlMode::PercentOutput, -Total_Vector_W4/speedmode);
 }
 
-void Swerve::Swerve_mainloop(){
+void Swerve::Swerve_mainloop(){ //Mainloop of the drivetrain
     calculate_vector_straffe();
     calculate_vector_rotation();
     calculate_total_vector();
-    calculate_total_angle_w1();
-    calculate_total_angle_w2();
-    calculate_total_angle_w3();
-    calculate_total_angle_w4();
+    Total_angle_W1 = calculate_total_angle_of_wheel(Total_XW1, Total_YW1);
+    Total_angle_W2 = calculate_total_angle_of_wheel(Total_XW2, Total_YW2);
+    Total_angle_W3 = calculate_total_angle_of_wheel(Total_XW3, Total_YW3);
+    Total_angle_W4 = calculate_total_angle_of_wheel(Total_XW4, Total_YW4);
     set_rotations_w1();
     set_rotations_w2();
     set_rotations_w3();

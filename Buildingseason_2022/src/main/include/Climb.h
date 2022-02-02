@@ -7,18 +7,18 @@
 
 class Climb
 {
-
 private:
-    frc::PS4Controller *Joystick;
-    const float controllerspeed = 100;
+    frc::PS4Controller *Joystick; //Link controller
+    const float controllerspeed = 100; 
 
-    // climb motors
-    TalonFX LClimbMotor = {12}; // Master motor, Set Can ID, bakboord
-    TalonFX RClimbMotor = {7}; // Slave motor,  Set Can ID, stuurboord
+    //Climb motors
+    TalonFX LClimbMotor = {12}; //Master motor, Set Can ID, left
+    TalonFX RClimbMotor = {7}; //Slave motor,  Set Can ID, right
 
-    // Servo rachet modes
+    //This methode is not working now 2-2-2022
+    //Servo rachet modes
     frc::Servo LClimbServo{1}; //Set PWM Port
-    frc::Servo RClimbServo{2};
+    frc::Servo RClimbServo{2}; //Set PWM Port
 
     //Servo angles
     const float LServoOpenAngle = 0;
@@ -31,12 +31,14 @@ private:
     const float ClimbHeight = 1000;
     const float ClimbError = 10;
 
+    //Functions
     void Rachets(bool open);
     void SetPosition(float position);
     void SetPositionController(float axis);
 
 public:
-    Climb(frc::PS4Controller *controller);
+
+    Climb(frc::PS4Controller *controller); //Create object
 
     //TeleOp control
     void Teleop();
@@ -44,6 +46,6 @@ public:
     //First set climb position (returns if it reached it)
     bool SetClimbPosition();
 
-    //climbs, returns if it climbed
+    //Climbs, returns true if it climbed
     bool ClimbNow();
 };

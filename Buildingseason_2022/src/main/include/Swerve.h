@@ -13,10 +13,10 @@ class Swerve{
   void calculate_vector_straffe();
   void calculate_vector_rotation();
   void calculate_total_vector();
-  void calculate_total_angle_w1();
-  void calculate_total_angle_w2();
-  void calculate_total_angle_w3();
-  void calculate_total_angle_w4();
+  double calculate_total_angle_of_wheel(double X, double Y);
+  // void calculate_total_angle_w2();
+  // void calculate_total_angle_w3();
+  // void calculate_total_angle_w4();
   void set_rotations_w1();
   void set_rotations_w2();
   void set_rotations_w3();
