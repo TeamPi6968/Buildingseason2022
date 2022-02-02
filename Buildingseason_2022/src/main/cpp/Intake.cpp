@@ -56,7 +56,7 @@ void Intake::Toggle_cilinder_state(){
   }
 }
 
-void Intake::Toggle_motor_low(){
+void Intake::Toggle_motor_low(){//Temperarly function
   Set_motor_intake_low = intakeJoystick->GetR1Button();//Set motor lower ground
   frc::SmartDashboard::PutNumber("Motor low",toggle_motor_low);
   if(Set_motor_intake_low == true){
@@ -71,7 +71,7 @@ void Intake::Toggle_motor_low(){
   }
 }
 
-void Intake::Toggle_motor_high(){
+void Intake::Toggle_motor_high(){//could be removed
   bool Set_motor_intake_high = intakeJoystick->GetL1Button(); //Set motor for higher ground
   frc::SmartDashboard::PutNumber("Motor high",toggle_motor_high);
   if(Set_motor_intake_high == true){
@@ -86,9 +86,9 @@ void Intake::Toggle_motor_high(){
   }
 }
 
-void Intake::Toggle_motor_stop(){
+void Intake::Toggle_motor_stop(){//Temperarly function
   
-  bool Stop_motor_intake = intakeJoystick->GetCrossButton();//stop the motor
+  Stop_motor_intake = intakeJoystick->GetCrossButton();//stop the motor
   frc::SmartDashboard::PutNumber("stop motor",toggle_motor_stop);
    
   if(Stop_motor_intake == true){
