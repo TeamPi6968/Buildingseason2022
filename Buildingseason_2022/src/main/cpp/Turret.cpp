@@ -37,7 +37,7 @@ void Turret::Jetson()
 // imitating input from the Jetson
  double rotation = frc::SmartDashboard::GetNumber("rotation",0);
  double angle = frc::SmartDashboard::GetNumber("angle",0);
- Rotation(rotation);
+ 
 }
 
 void Turret::Rotation(double rotation)

@@ -15,7 +15,7 @@ public:
     Intake(frc::PS4Controller *controller);
     void Toggle_cilinder_out_sensor();//Temperarly function for testing without components
     void Toggle_cilinder_in_sensor();//Temperarly function for testing without components
-    void Toggle_cilinder_state();//Temperarly function for testing without components
+    void Toggle_cilinder_state();//Cilinder in and out
     void Toggle_motor_high();//Temperarly function for testing without components
     void Toggle_motor_low();//Temperarly function for testing without components
     void Toggle_motor_stop();//Temperarly function for testing without components
@@ -31,6 +31,7 @@ public:
     bool pnuematic_cilinder = 0;//Temperarly value to set cilinder
     bool Set_motor_intake_low = 0;//Temperarly value to set montor intake
     bool Stop_motor_intake = 0;//Temperarly value to stop montor intake
+    
 
     int waarde_toggle_sensor_in;//Temperarly value 
     int waarde_toggle_sensor_out;//Temperarly value 
