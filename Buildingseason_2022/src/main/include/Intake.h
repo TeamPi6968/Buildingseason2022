@@ -19,6 +19,7 @@ public:
     void Toggle_motor_high();
     void Toggle_motor_low();
     void Toggle_motor_stop();
+    void Stop_when_full();
     void mainloop();
     
     bool toggle_sensor_in = 0;
@@ -27,7 +28,8 @@ public:
     bool toggle_motor_low = 0;
     bool toggle_motor_high = 0;
     bool toggle_motor_stop = 0;
-    bool pnuematic_cilinder;
+    bool pnuematic_cilinder = 0;
+    bool Set_motor_intake_low = 0;
 
     int waarde_toggle_sensor_in;
     int waarde_toggle_sensor_out;

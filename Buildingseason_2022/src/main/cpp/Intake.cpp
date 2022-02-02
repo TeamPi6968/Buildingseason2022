@@ -57,7 +57,7 @@ void Intake::Toggle_cilinder_state(){
 }
 
 void Intake::Toggle_motor_low(){
-  bool Set_motor_intake_low = intakeJoystick->GetR1Button();//Set motor lower ground
+  Set_motor_intake_low = intakeJoystick->GetR1Button();//Set motor lower ground
   frc::SmartDashboard::PutNumber("Motor low",toggle_motor_low);
   if(Set_motor_intake_low == true){
     if(waarde_toggle_motor_low == 0){
@@ -101,6 +101,11 @@ void Intake::Toggle_motor_stop(){
   else if(Stop_motor_intake == false){
     waarde_toggle_motor_stop = 0;
   }
+}
+
+void Intake::Stop_when_full(){
+  motor_intake = false;
+  pnuematic_cilinder = true;
 }
 
 void Intake::mainloop(){

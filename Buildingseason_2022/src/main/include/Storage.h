@@ -16,9 +16,11 @@ class Storage{
     private:
     frc::PS4Controller *storageJoystick;
     frc::Timer time{};
-    VictorSPX motor_2to1 {6};
+    VictorSPX motor_2to1 {6};//Can ID not defined
+    VictorSPX motor_turret {7};//Can ID not defined
     public:
         Storage(frc::PS4Controller *controller);
+        void Turn_when_intake_true();
         void mainloop();
         void Toggle_color_sensor_1();
         void Toggle_color_sensor_2();
