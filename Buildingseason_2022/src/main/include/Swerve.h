@@ -31,33 +31,34 @@ class Swerve{
   void Configure_PID();
   void Swerve_mainloop();
 
-  TalonSRX motorFLD = {1}; //Front Left Drive       
-  TalonSRX motorFLR = {2}; //Front Left Rotation
-  TalonSRX motorFRD = {3}; //Front Rear Drive       
-  TalonSRX motorFRR = {4}; //Front Rear Rotation
-  TalonSRX motorRLD = {5}; //Back Left Drive
-  TalonSRX motorRLR = {6}; //Back Left Rotation
-  TalonSRX motorRRD = {7}; //Back Rear Drive
-  TalonSRX motorRRR = {8}; //Back Rear Rotation  
+  TalonFX motorFLD = {1}; //Front Left Drive       
+  TalonFX motorFLR = {2}; //Front Left Rotation
+  TalonFX motorFRD = {3}; //Front Rear Drive       
+  TalonFX motorFRR = {4}; //Front Rear Rotation
+  TalonFX motorRLD = {5}; //Back Left Drive
+  TalonFX motorRLR = {6}; //Back Left Rotation
+  TalonFX motorRRD = {7}; //Back Rear Drive
+  TalonFX motorRRR = {8}; //Back Rear Rotation  
   
 
   // Variables swervedrive
   const int oneTurn = 4096; //Encoder pulses for one rotation Falcon fx
 
-  int positionFL = 2.5*oneTurn;  //Oriantation is 90 degrees rotated so every wheel needs to correct that error
+  //Oriantation is 90 degrees rotated so every wheel needs to correct that error
+  int positionFL = 2.5*oneTurn;  
   int positionFR = 2.5*oneTurn;
   int positionBL = 2.5*oneTurn;
   int positionBR = 2.5*oneTurn;
 
   //PID values of the front wheels
   double kp = 0.4;
-  double ki = 0.00009;
+  double ki = 0.0001;
   double kd = 0.45;
 
   //PID values of the back wheels
-  double kp2 = 0.5;
-  double ki2 = 0.0001;
-  double kd2 = 0.5;
+  double kp2 = 0.51;
+  double ki2 = 0.0008;
+  double kd2 = 0.51;
 
   //Keep track of where the wheels are for smooth transition
   bool w1_wasIn4 = false; 
@@ -74,8 +75,11 @@ class Swerve{
   double rotationCounter_w2 = 0;
   double rotationCounter_w3 = 0;
   double rotationCounter_w4 = 0;
+
+  //Speed limitation of the swervedrive (0.5 is the lower limit)
   double speedmode = 1;
 
+  //Variables of the wheels X,Y,Vector and Angle
   double Total_XW1 = 0;
   double Total_YW1 = 0;
   double Total_Vector_W1 = 0;
@@ -92,6 +96,8 @@ class Swerve{
   double Total_YW4 = 0;
   double Total_Vector_W4 = 0;
   double Total_angle_W4 = 0;
+
+  //Variables of the movements
   double xVal_straffe = 0;
   double yVal_straffe = 0;
   double vector_straffe = 0;

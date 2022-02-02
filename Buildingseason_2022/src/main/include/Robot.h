@@ -11,14 +11,16 @@
 
 #include "Intake.h"
 #include "Swerve.h"
+#include "Storage.h"
 #include "Climb.h"
-
 
 class Robot : public frc::TimedRobot {
  public:
   Intake *intake;
   Swerve *swerve;
+  Storage *storage;
   Climb *climb;
+
   void RobotInit() override;
   void RobotPeriodic() override;
   void AutonomousInit() override;
