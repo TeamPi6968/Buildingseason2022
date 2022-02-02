@@ -1,10 +1,9 @@
-#include <Turret_Class.h>
+#pragma once
+#include <Turret.h>
 
-Turret::Turret()
+Turret::Turret(frc::PS4Controller *controller)
 { 
- Turret_slave.Follow(Turret_master);
- Turret_master.SetInverted(TalonFXInvertType::Clockwise);
- Turret_slave.SetInverted(TalonFXInvertType::CounterClockwise);
+ turret_Joystick = controller;
 }
 
 void Turret::Rotation()
@@ -39,6 +38,11 @@ void Turret::HomingAngle()
 }
 
 void Turret::HomingRotation()
+{
+
+}
+
+void Turret::turret_mainloop()
 {
 
 }

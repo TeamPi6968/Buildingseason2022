@@ -21,6 +21,8 @@ void Robot::RobotInit() {
 //=======
   climb = new Climb(&Joystick_1);
 //>>>>>>> 5825983be09740da49f87a669a29829584fb4ce3
+
+  turret = new Turret(&Joystick_1);
 }
 
 /**
@@ -75,6 +77,8 @@ void Robot::TeleopPeriodic() {
   intake->mainloop();
   storage->mainloop();
   swerve->Swerve_mainloop();
+  turret->turret_mainloop();
+  
 //<<<<<<< HEAD
 //=======
   climb->Teleop();
