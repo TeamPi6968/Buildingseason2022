@@ -82,9 +82,13 @@ void Robot::TeleopPeriodic() {
   }
 
   ///////Communication between storage and turret////////
-  //if(turret is activated){
-  //storage->Turret_activated(); 
-  //}
+  bool shoot = Joystick_1.GetCircleButton();
+  if(shoot == true){
+    turret->Set_Shot = true;
+    turret->timer_Shooter.Reset();
+    turret->timer_Shooter.Start();
+    storage->Turret_activated(); 
+  }
   if(storage->color_sensor_1_state == false){
     //Turret can't shoot
     turret->NoShoot();

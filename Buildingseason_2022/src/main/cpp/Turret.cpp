@@ -1,6 +1,8 @@
 #pragma once
 #include <Turret.h>
 
+
+
 Turret::Turret(frc::PS4Controller *controller)
 { 
  turret_Joystick = controller;
@@ -63,19 +65,13 @@ frc::SmartDashboard::GetNumber("Angle Turret", SetAngle);
 
 void Turret::Shoot()
 {
-bool Shoot_button = turret_Joystick->GetCrossButton();
-
- if(Shoot_button == true)
- {
+    if(Set_Shot == true){
      Turret_HIGH.Set(ControlMode::PercentOutput, ShooterSpeed);
      Turret_master.Set(ControlMode::PercentOutput, ShooterSpeed);
-     Shot = true;
- }
- else{
-     Turret_HIGH.Set(ControlMode::PercentOutput, 0);
-     Turret_master.Set(ControlMode::PercentOutput, 0);
-     Shot = false;
- }
+     if(timer_Shooter.Get()>period_shooter){
+        Set_Shot == false;
+     }
+    }
 }
 
 void Turret::NoShoot()
@@ -83,8 +79,6 @@ void Turret::NoShoot()
     Turret_HIGH.Set(ControlMode::PercentOutput, 0);
     Turret_master.Set(ControlMode::PercentOutput, 0);
 }
-
-
 
 
 void Turret::HomingAngle()

@@ -28,13 +28,21 @@ class Turret
 
  float SetRotation = 0;
  float SetAngle = 0;
- bool Shot = false;
+ bool Set_Shot = false;
+
+ //timer config
+ units::second_t read_time_shooter;//read the current time
+ units::second_t period_shooter {10};//Delay time
+ frc::Timer timer_Shooter{};
+
+
 
  
 
  private:
 //controller confic
  frc::PS4Controller *turret_Joystick;
+
 
 // Limit swtiches config
  const int LimitSwitchPort_1 = 0;
