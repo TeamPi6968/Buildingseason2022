@@ -89,7 +89,7 @@ else if(RotSwitchR.Get() == true)
 
 void Turret::Angle(double angle)
 {
-A_pidController.SetReference(rotation, rev::ControlType::kPosition);
+A_pidController.SetReference(angle, rev::ControlType::kPosition);
 
 if(AngleSwitchD.Get() == true)
 {
