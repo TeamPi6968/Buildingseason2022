@@ -35,6 +35,8 @@ class Turret
  int Y_Center = 300;
  double motorSpeedL = 0.2;
  double motorSpeedR = 0.2;
+ double rotation;
+ double angle;
  double Depth;
  double shootSpeed;
 
