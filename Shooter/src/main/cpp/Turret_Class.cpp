@@ -1,4 +1,5 @@
 #include <Turret_Class.h>
+#include <iostream>
 
 Turret::Turret()
 { 
@@ -29,30 +30,33 @@ void Turret::Angle()
 
 void Turret::SmartDashUpdate()
 {
- frc::SmartDashboard::GetNumber("Rotation Turret", SetRotation);
- frc::SmartDashboard::GetNumber("Angle Turret", SetAngle);
+//  SetRotation = frc::SmartDashboard::GetNumber("Rotation Turret", 0); //issue is with getnumber
+//  SetAngle = frc::SmartDashboard::GetNumber("Angle Turret", 0);
+//  SetRotation = frc::SmartDashboard::PutNumber("Rotation Turret", 0.1);
+//  SetAngle = frc::SmartDashboard::PutNumber("Angle Turret", 0.1);
+SetRotation = -0.1;
 }
 
-void Turret::HomingAngle()
-{
-  if (AngleSwitch.Get() == true)
-    {
-     while (AngleSwitch.Get() == true)
-        {
-         Angle_motor.Set(-0.1); //Go opposite direction of the limit switch
-        }
-     Angle_motor.Set(0); //stop it after rot limit switch is false
-    }
- else
-    {
-     Angle_motor.Set(0.1);
-     if(AngleSwitch.Get() == true)
-        {
-         Angle_motor.Set(0); //stop motor after limit switch is true
-         Angle_encoder.SetPosition(0); //set encoder to pos 0
-        }
-    }
-}
+// void Turret::HomingAngle()
+// {
+//   if (AngleSwitch.Get() == true)
+//     {
+//      while (AngleSwitch.Get() == true)
+//         {
+//          Angle_motor.Set(0.1); //Go opposite direction of the limit switch
+//         }
+//      Angle_motor.Set(0); //stop it after rot limit switch is false
+//     }
+//  else
+//     {
+//      Angle_motor.Set(-0.1);
+//      if(AngleSwitch.Get() == true)
+//         {
+//          Angle_motor.Set(0); //stop motor after limit switch is true
+//          Angle_encoder.SetPosition(0); //set encoder to pos 0
+//         }
+//     }
+// }
 
 void Turret::HomingRotation()
 {
@@ -62,15 +66,42 @@ void Turret::HomingRotation()
         {
          Rotation_motor.Set(-0.1); //Go opposite direction of the limit switch
         }
-     Rotation_motor.Set(0); //stop it after rot limit switch is false
+     Rotation_motor.Set(0); //stop it after rot limit switch is false maybe unesseccary
     }
  else
     {
-     Rotation_motor.Set(0.1);
-     if(RotSwitch.Get() == true)
+     while (RotSwitch.Get() == false)
+     {
+        Rotation_motor.Set(0.1);
+     }
+     if (RotSwitch.Get() == true)
+     {
+        Rotation_motor.Set(0); //stop motor after limit switch is true
+        Rotation_encoder.SetPosition(0); //set encoder to pos 0
+     }
+    }
+}
+
+void Turret::HomingAngle()
+{
+ if (AngleSwitch.Get() == true)
+    {
+     while (AngleSwitch.Get() == true)
         {
-         Rotation_motor.Set(0); //stop motor after limit switch is true
-         Rotation_encoder.SetPosition(0); //set encoder to pos 0
+         Angle_motor.Set(-0.1); //Go opposite direction of the limit switch
         }
+     Angle_motor.Set(0); //stop it after rot limit switch is false maybe unesseccary
+    }
+ else
+    {
+     while (AngleSwitch.Get() == false)
+     {
+        Angle_motor.Set(0.1);
+     }
+     if (AngleSwitch.Get() == true)
+     {
+        Angle_motor.Set(0); //stop motor after limit switch is true
+        Angle_encoder.SetPosition(0); //set encoder to pos 0
+     }
     }
 }

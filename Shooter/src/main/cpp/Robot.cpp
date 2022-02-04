@@ -8,14 +8,14 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
-#include <Turret_Class.h>
-
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-  turret = new Turret();
-}
+  turret = new Turret(); 
+  turret->HomingRotation();
+  // turret->HomingAngle();
+ }
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -59,19 +59,15 @@ void Robot::AutonomousPeriodic() {
   }
 }
 
-void Robot::TeleopInit() 
-{
-  frc::SmartDashboard::PutNumber("Rotation Turret", 0);
-  frc::SmartDashboard::PutNumber("Angle Turret", 0);
-  turret->HomingAngle();
-  turret->HomingRotation();
-}
+void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() 
 {
+  frc::SmartDashboard::PutNumber("Rotation Turret", turret->SetRotation);
+  frc::SmartDashboard::PutNumber("Angle Turret",  turret->SetAngle);
   turret->SmartDashUpdate();
   turret->Rotation();
-  turret->Angle();
+  // turret->Angle();
 }
 
 void Robot::DisabledInit() {}

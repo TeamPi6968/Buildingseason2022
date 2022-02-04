@@ -17,21 +17,21 @@ class Turret
  void SmartDashUpdate();
  void HomingAngle();
  void HomingRotation();
-
- float SetRotation = 0;
- float SetAngle = 0;
+ 
+ double SetRotation;
+ double SetAngle;
 
  private:
 
  const int LimitSwitchPort_1 = 0;
- const int AngleSwitchPort_1 = 2;
+ const int AngleSwitchPort_1 = 3; //could be id 2, using 3 because of previous years
  frc::DigitalInput RotSwitch {LimitSwitchPort_1};
  frc::DigitalInput AngleSwitch {AngleSwitchPort_1};
  
- const int turret_master_CAN = 15;
- const int turret_slave_CAN = 16;
- const int rotation_motor_CAN = 17;
- const int angle_motor_CAN = 19;
+ const int turret_master_CAN = 19;
+ const int turret_slave_CAN = 18;
+ const int rotation_motor_CAN = 16;
+ const int angle_motor_CAN = 15;
 
  const int homing_speed = 0.2;
 
