@@ -1,8 +1,9 @@
 #include <Turret_Class.h>
 #include <iostream>
 
-Turret::Turret()
+Turret::Turret(frc::PS4Controller *controller)
 { 
+ turret_Joystick = controller;  
  Turret_slave.Follow(Turret_master);
  Turret_master.SetInverted(TalonFXInvertType::Clockwise);
  Turret_slave.SetInverted(TalonFXInvertType::CounterClockwise);
@@ -83,16 +84,13 @@ void Turret::Angle()
     }
 }
 
-// void Turret::Shoot()
-// {
-//     if(Set_Shot == true){
-//      Turret_HIGH.Set(ControlMode::PercentOutput, shootSpeed);
-//      Turret_master.Set(ControlMode::PercentOutput, shootSpeed);
-//      if(timer_Shooter.Get()>period_shooter){
-//         Set_Shot == false;
-//      }
-//     }
-// }
+void Turret::Shoot()
+{
+    if(turret_Joystick->GetCircleButton() == true)
+    {
+     Turret_master.Set(ControlMode::PercentOutput, shootSpeed);
+    }
+}
 
 void Turret::SmartDashUpdate()
 {
