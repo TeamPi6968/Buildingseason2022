@@ -13,7 +13,9 @@ void Robot::RobotInit() {
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   turret = new Turret(); 
-  turret->HomingRotation();
+  frc::SmartDashboard::PutNumber("Rotation Turret", turret->SetRotation);
+  frc::SmartDashboard::PutNumber("Angle Turret",  turret->SetAngle);
+  // turret->HomingRotation();
   // turret->HomingAngle();
  }
 
@@ -63,11 +65,9 @@ void Robot::TeleopInit() {}
 
 void Robot::TeleopPeriodic() 
 {
-  frc::SmartDashboard::PutNumber("Rotation Turret", turret->SetRotation);
-  frc::SmartDashboard::PutNumber("Angle Turret",  turret->SetAngle);
   turret->SmartDashUpdate();
   turret->Rotation();
-  // turret->Angle();
+  turret->Angle();
 }
 
 void Robot::DisabledInit() {}
