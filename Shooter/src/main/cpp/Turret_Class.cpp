@@ -8,25 +8,91 @@ Turret::Turret()
  Turret_slave.SetInverted(TalonFXInvertType::CounterClockwise);
 }
 
-void Turret::Rotation()
+void Turret::Configure_Turret_PID()
 {
- if (RotSwitch.Get() == true) {
-        Rotation_motor.Set(0);
+   // Rotation PID config
+   R_pidController.SetP(kP_R);
+   R_pidController.SetI(kI_R);
+   R_pidController.SetD(kD_R);
+   R_pidController.SetOutputRange(kMinOutput_R, kMaxOutput_R);
+ 
+   // Rotation PID config
+   A_pidController.SetP(kP_A);
+   A_pidController.SetI(kI_A);
+   A_pidController.SetD(kD_A);
+   A_pidController.SetOutputRange(kMinOutput_A, kMaxOutput_A);
+}
+
+// void Turret::Rotation()
+// {
+//  if (RotSwitch.Get() == true) {
+//         Rotation_motor.Set(0);
+//     }
+//     else {
+//         Rotation_motor.Set(SetRotation);
+//     }
+// }
+
+// void Turret::Angle()
+// {  
+//  if (AngleSwitch.Get() == true) {
+//         Angle_motor.Set(0);
+//     }
+//     else {
+//         Angle_motor.Set(SetAngle);
+//     }
+// }
+
+void Turret::Rotation()
+{  
+ if (RotSwitch.Get() == true)
+    {
+      Rotation_motor.Set(0);
     }
-    else {
-        Rotation_motor.Set(SetRotation);
+    else if(SetRotation > maxRotationEncoder)
+    {
+      Rotation_motor.Set(0);
+    }
+    else if(SetRotation < minRotationEncoder)
+    {
+      Rotation_motor.Set(0);
+    }
+    else 
+    {   
+    R_pidController.SetReference(SetRotation, rev::ControlType::kPosition); 
+    }
+}
+ 
+void Turret::Angle()
+{  
+ if (AngleSwitch.Get() == true)
+    {
+      Angle_motor.Set(0);
+    }
+    else if(SetAngle > maxAngleEncoder)
+    {
+      Angle_motor.Set(0);
+    }
+    else if(SetAngle < minAngleEncoder)
+    {
+      Angle_motor.Set(0);
+    }
+    else 
+    {   
+    A_pidController.SetReference(SetAngle, rev::ControlType::kPosition); 
     }
 }
 
-void Turret::Angle()
-{
- if (AngleSwitch.Get() == true) {
-        Angle_motor.Set(0);
-    }
-    else {
-        Angle_motor.Set(SetAngle);
-    }
-}
+// void Turret::Shoot()
+// {
+//     if(Set_Shot == true){
+//      Turret_HIGH.Set(ControlMode::PercentOutput, shootSpeed);
+//      Turret_master.Set(ControlMode::PercentOutput, shootSpeed);
+//      if(timer_Shooter.Get()>period_shooter){
+//         Set_Shot == false;
+//      }
+//     }
+// }
 
 void Turret::SmartDashUpdate()
 {

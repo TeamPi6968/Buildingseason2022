@@ -17,9 +17,12 @@ class Turret
  void SmartDashUpdate();
  void HomingAngle();
  void HomingRotation();
+ void Configure_Turret_PID();
  
  double SetRotation;
  double SetAngle;
+
+ double kP_R = 0.001, kI_R  = 1e-6, kD_R  = 2, kMaxOutput_R = 0.3, kMinOutput_R = -0.3;
 
  private:
 
@@ -35,11 +38,27 @@ class Turret
 
  const int homing_speed = 0.2;
 
+ int minAngleEncoder = -45;
+ int maxAngleEncoder = -3;
+
+ int minRotationEncoder = -40;
+ int maxRotationEncoder = 60;
+
+ //PID values of the Rotation
+ //double kP_R = 0.001, kI_R  = 1e-6, kD_R  = 2, kMaxOutput_R = 0.3, kMinOutput_R = -0.3;
+ //PID values of the Angle
+ double kP_A = 0.1, kI_A  = 1e-4, kD_A  = 1, kMaxOutput_A = 1, kMinOutput_A = -1;
+
+
  WPI_TalonFX Turret_master {turret_master_CAN};
  WPI_TalonFX Turret_slave {turret_slave_CAN};
  rev::CANSparkMax Rotation_motor{rotation_motor_CAN, rev::CANSparkMax::MotorType::kBrushless};
  rev::CANSparkMax Angle_motor{angle_motor_CAN, rev::CANSparkMax::MotorType::kBrushless};
 
+
+ //Encoder Config including PID config
  rev::SparkMaxRelativeEncoder Rotation_encoder = Rotation_motor.GetEncoder();
  rev::SparkMaxRelativeEncoder Angle_encoder = Angle_motor.GetEncoder();
+ rev::SparkMaxPIDController R_pidController = Rotation_motor.GetPIDController();
+ rev::SparkMaxPIDController A_pidController = Angle_motor.GetPIDController();
 };

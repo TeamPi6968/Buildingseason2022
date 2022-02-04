@@ -15,6 +15,12 @@ void Robot::RobotInit() {
   turret = new Turret(); 
   frc::SmartDashboard::PutNumber("Rotation Turret", turret->SetRotation);
   frc::SmartDashboard::PutNumber("Angle Turret",  turret->SetAngle);
+  turret->Configure_Turret_PID();
+  frc::SmartDashboard::PutNumber("P", turret->kP_R);
+  frc::SmartDashboard::PutNumber("I", turret->kI_R);
+  frc::SmartDashboard::PutNumber("D", turret->kD_R);
+  frc::SmartDashboard::PutNumber("Min", turret->kMinOutput_R);
+  frc::SmartDashboard::PutNumber("Max", turret->kMaxOutput_R);
   // turret->HomingRotation();
   // turret->HomingAngle();
  }
@@ -68,6 +74,13 @@ void Robot::TeleopPeriodic()
   turret->SmartDashUpdate();
   turret->Rotation();
   turret->Angle();
+  frc::SmartDashboard::PutNumber("Print to see current val", turret->SetRotation);
+  turret->kP_R = frc::SmartDashboard::GetNumber("P", 0);
+  turret->kI_R = frc::SmartDashboard::GetNumber("I", 0);
+  turret->kD_R = frc::SmartDashboard::GetNumber("D", 0);
+  turret->kMinOutput_R = frc::SmartDashboard::GetNumber("Min", 0);
+  turret->kMaxOutput_R = frc::SmartDashboard::GetNumber("Max", 0);
+  turret->Configure_Turret_PID();
 }
 
 void Robot::DisabledInit() {}
