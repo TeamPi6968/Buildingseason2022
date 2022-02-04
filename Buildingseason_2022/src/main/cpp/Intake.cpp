@@ -7,7 +7,7 @@ Intake::Intake(frc::PS4Controller *controller){
   intakeJoystick = controller;
 }
 
-void Intake::Toggle_cilinder_in_sensor(){
+void Intake::Toggle_cilinder_in_sensor(){//Temperarly
 bool cilinder_in_sensor = intakeJoystick->GetCircleButton(); //read cilinder out sensor
 frc::SmartDashboard::PutNumber("cilinder in sensor",toggle_sensor_in);
 //printf("&d",toggle_sensor_in);
@@ -26,7 +26,7 @@ frc::SmartDashboard::PutNumber("cilinder in sensor",toggle_sensor_in);
   }
 }
 
-void Intake::Toggle_cilinder_out_sensor(){
+void Intake::Toggle_cilinder_out_sensor(){//Temperarly
   bool cilinder_out_sensor = intakeJoystick->GetSquareButton(); //read cilinder out sensor
   frc::SmartDashboard::PutNumber("cilinder out sensor",toggle_sensor_out);
   if(cilinder_out_sensor == true){
@@ -41,7 +41,7 @@ void Intake::Toggle_cilinder_out_sensor(){
   }
 }
 
-void Intake::Toggle_cilinder_state(){
+void Intake::Toggle_cilinder_state(){//Used for cilinder out or in
   bool Cilinder_state = intakeJoystick->GetTriangleButton();//Set cilinder out
   frc::SmartDashboard::PutNumber("cilinder state",toggle_cilinder);
   if(Cilinder_state == true){
@@ -56,8 +56,8 @@ void Intake::Toggle_cilinder_state(){
   }
 }
 
-void Intake::Toggle_motor_low(){
-  bool Set_motor_intake_low = intakeJoystick->GetR1Button();//Set motor lower ground
+void Intake::Toggle_motor_low(){//Temperarly function
+  Set_motor_intake_low = intakeJoystick->GetR1Button();//Set motor lower ground
   frc::SmartDashboard::PutNumber("Motor low",toggle_motor_low);
   if(Set_motor_intake_low == true){
     if(waarde_toggle_motor_low == 0){
@@ -71,7 +71,7 @@ void Intake::Toggle_motor_low(){
   }
 }
 
-void Intake::Toggle_motor_high(){
+void Intake::Toggle_motor_high(){//could be removed
   bool Set_motor_intake_high = intakeJoystick->GetL1Button(); //Set motor for higher ground
   frc::SmartDashboard::PutNumber("Motor high",toggle_motor_high);
   if(Set_motor_intake_high == true){
@@ -86,7 +86,7 @@ void Intake::Toggle_motor_high(){
   }
 }
 
-void Intake::Toggle_motor_stop(){
+void Intake::Toggle_motor_stop(){//Temperarly function
   
   bool Stop_motor_intake = intakeJoystick->GetCrossButton();//stop the motor
   frc::SmartDashboard::PutNumber("stop motor",toggle_motor_stop);
@@ -103,8 +103,13 @@ void Intake::Toggle_motor_stop(){
   }
 }
 
-void Intake::mainloop(){
+void Intake::Stop_when_full(){
+  motor_intake = false;
+  pnuematic_cilinder = true;
+}
 
+void Intake::mainloop(){
+  
   Toggle_cilinder_in_sensor();
   Toggle_cilinder_out_sensor();
   Toggle_cilinder_state();
@@ -117,33 +122,12 @@ void Intake::mainloop(){
   if(toggle_cilinder == true){
     pnuematic_cilinder = true; //cilinder pressed out
     if(toggle_sensor_out == true){
+    
       if(toggle_motor_low == true){ 
         motor_intake = 1; //set motor right
-        if(toggle_motor_low == true){
-          if(waarde_toggle_motor_low == 0){
-            toggle_motor_low = !toggle_motor_low;
-            waarde_toggle_motor_low++;
-          }
-        }
-      }
-      else if(toggle_motor_high == true){
-        motor_intake = -1; //set motor left
-        if(toggle_motor_high == true ){
-          if(waarde_toggle_motor_high == 0){
-            toggle_motor_high = !toggle_motor_high;
-            waarde_toggle_motor_high++;
-          }
-        }
       }
       else if(toggle_motor_stop == true){
-        motor_intake = 0; //stop motor
-        if(toggle_motor_stop == true){
-          if(waarde_toggle_motor_stop == 0){
-            toggle_motor_stop = !toggle_motor_stop;
-            waarde_toggle_motor_stop++;
-    
-          }
-        }
+        motor_intake = 0; //stop motor   
       }
     }
   }
