@@ -23,6 +23,8 @@ class Turret
  void NoShoot();
  void Jetson();
  void Jetson_Config();
+ void ShootCalc(double X, double y, double depth);
+  
 
  Turret(frc::PS4Controller *controller);
 
@@ -39,6 +41,8 @@ class Turret
  double angle;
  double Depth;
  double shootSpeed;
+ double rotateSpeed;
+ double angleSpeed;
 
  //timer config
  units::second_t read_time_shooter;//read the current time

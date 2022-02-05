@@ -49,20 +49,21 @@ void Turret::Jetson()
  Depth = frc::SmartDashboard::GetNumber("Depth",0);
  shootSpeed = frc::SmartDashboard::GetNumber("shooting speed",0);
 
- 
- // Rotation calculations with X
 
- // Angle calculations with Y
+}
 
- // motor calculations with the Depth
+void Turret::ShootCalc(double X, double y, double depth)
+{
+rotation = X; // calculation for the rotation for the turret using the X value from the camera
+angle = Y; // calculation for the angle for the turret using the Y value from the camera
+shootSpeed = depth; // calculations for the shootingspeed for the the turret using the depth;
 }
 
 void Turret::Rotation(double rotation)
 {
+rotateSpeed = turret_Joystick->GetLeftX() * 0.2;
 
-R_pidController.SetReference(rotation, rev::ControlType::kPosition);
-
-if(RotSwitchL.Get() == true)
+ if(RotSwitchL.Get() == true)
 {
     if(X < X_Center)
     {
@@ -76,21 +77,29 @@ if(RotSwitchL.Get() == true)
 
 else if(RotSwitchR.Get() == true)
 {
-        if(X < 300)
+        if(X < X_Center)
     {
         Rotation_motor.Set(motorSpeedL);
     }
-          else if(X >= 300)
+          else if(X >= X_Center)
     {
         Rotation_motor.Set(0);
     }
+    else 
+    {
+        R_pidController.SetReference(rotation, rev::ControlType::kPosition);
+    }
+}
+
+else if(turret_Joystick->GetR1Button() == 1 && turret_Joystick->GetLeftX()) 
+{
+Rotation_motor.Set(rotateSpeed);
 }
 }
 
 void Turret::Angle(double angle)
 {
-A_pidController.SetReference(angle, rev::ControlType::kPosition);
-
+angleSpeed = turret_Joystick->GetLeftY() * 0.2;
 if(AngleSwitchD.Get() == true)
 {
     if(Y < Y_Center)
@@ -113,7 +122,18 @@ else if(AngleSwitchU.Get() == true)
     {
         Angle_motor.Set(0);
     }
+
+else if(turret_Joystick->GetR1Button() == 1 && turret_Joystick->GetLeftY()) 
+{
+        Angle_motor.Set(angleSpeed);
 }
+else 
+{
+A_pidController.SetReference(angle, rev::ControlType::kPosition);
+}
+}
+
+
 }
 
 void Turret::Shoot()
@@ -139,9 +159,9 @@ void Turret::HomingAngle()
 
 }
 
-void Turret::HomingRotation()
+void Turret::HomingRotation()                             
 {
-
+    
 }
 
 void Turret::turret_Teleop(double angle, double rotation)
