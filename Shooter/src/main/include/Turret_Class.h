@@ -22,30 +22,41 @@ class Turret
  void Configure_Turret_PID();
  void Shoot();
 
+ //value for Rotation from Jetson (imitation)
  double SetRotation;
+ //value for Angle from Jetson (imitation)
  double SetAngle;
-
+ 
+ //PID values for rotation, in public because we are fine tuning them
  double kP_R = 0.001, kI_R  = 1e-6, kD_R  = 2, kMaxOutput_R = 0.3, kMinOutput_R = -0.3;
 
+ //Shooting speed variable
  double shootSpeed;
-//  bool shoot = turret_Joystick.GetCrossButton();
 
  private:
 
  frc::PS4Controller *turret_Joystick;
 
+ //limit switch ports ID
  const int LimitSwitchPort_1 = 0;
  const int AngleSwitchPort_1 = 3; //could be id 2, using 3 because of previous years
  frc::DigitalInput RotSwitch {LimitSwitchPort_1};
  frc::DigitalInput AngleSwitch {AngleSwitchPort_1};
  
- const int turret_master_CAN = 19; //wrong ID
- const int turret_slave_CAN = 18; //wrong ID
+ //ID's for motors
+ //const int turret_master_CAN = 9; //could be wrong, using this ID from 2021 code
+ //const int turret_slave_CAN = 10; //could be wrong, using this ID from 2021 code
  const int rotation_motor_CAN = 16;
  const int angle_motor_CAN = 15;
 
+ const int turret_master_CAN = 19; //could be wrong, using this ID from 2021 code
+ const int turret_slave_CAN = 20; //could be wrong, using this ID from 2021 code
+
+
+ //homing speed
  const int homing_speed = 0.2;
 
+ //max and min angles for encoders
  int minAngleEncoder = -45;
  int maxAngleEncoder = -3;
 
@@ -58,8 +69,9 @@ class Turret
  double kP_A = 0.1, kI_A  = 1e-4, kD_A  = 1, kMaxOutput_A = 1, kMinOutput_A = -1;
 
 
- WPI_TalonFX Turret_master {turret_master_CAN};
- WPI_TalonFX Turret_slave {turret_slave_CAN};
+ // Motor Initialization for rotation, angle and TalonFX for shooting
+ WPI_TalonFX* Turret_master = new WPI_TalonFX{turret_master_CAN}; //changed brackets from {} to ()
+ WPI_TalonFX* Turret_slave = new WPI_TalonFX{turret_slave_CAN};
  rev::CANSparkMax Rotation_motor{rotation_motor_CAN, rev::CANSparkMax::MotorType::kBrushless};
  rev::CANSparkMax Angle_motor{angle_motor_CAN, rev::CANSparkMax::MotorType::kBrushless};
 

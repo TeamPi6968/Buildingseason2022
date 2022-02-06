@@ -4,9 +4,10 @@
 Turret::Turret(frc::PS4Controller *controller)
 { 
  turret_Joystick = controller;  
- Turret_slave.Follow(Turret_master);
- Turret_master.SetInverted(TalonFXInvertType::Clockwise);
- Turret_slave.SetInverted(TalonFXInvertType::CounterClockwise);
+ //Turret_slave.Follow(Turret_master);
+ //Turret_slave->Follow(Turret_master);
+ Turret_master->SetInverted(TalonFXInvertType::Clockwise);
+ Turret_slave->SetInverted(TalonFXInvertType::CounterClockwise);
 }
 
 void Turret::Configure_Turret_PID()
@@ -88,7 +89,8 @@ void Turret::Shoot()
 {
     if(turret_Joystick->GetCircleButton() == true)
     {
-     Turret_master.Set(ControlMode::PercentOutput, shootSpeed);
+     Turret_master->Set(ControlMode::PercentOutput, shootSpeed);
+     Turret_slave->Set(ControlMode::PercentOutput, shootSpeed);
     }
 }
 
