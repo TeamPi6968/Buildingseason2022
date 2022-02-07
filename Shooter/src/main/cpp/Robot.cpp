@@ -72,6 +72,7 @@ void Robot::TeleopPeriodic()
   // turret->Calibration();
   turret->Rotation();
   turret->Angle();
+  // turret->Calibration();
   frc::SmartDashboard::PutNumber("Print to see current val", turret->SetRotation);
   turret->kP_R = frc::SmartDashboard::GetNumber("P", 0);
   turret->kI_R = frc::SmartDashboard::GetNumber("I", 0);
