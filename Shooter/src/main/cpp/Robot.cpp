@@ -3,9 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #include "Robot.h"
-
 #include <fmt/core.h>
-
 #include <frc/smartdashboard/SmartDashboard.h>
 
 void Robot::RobotInit() {
@@ -13,7 +11,6 @@ void Robot::RobotInit() {
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   turret = new Turret(&Joystick_1); 
-  turret->Configure_Turret_PID();
   frc::SmartDashboard::PutNumber("Rotation Turret", turret->SetRotation);
   frc::SmartDashboard::PutNumber("Angle Turret",  turret->SetAngle);
   frc::SmartDashboard::PutNumber("P", turret->kP_R);
@@ -21,7 +18,7 @@ void Robot::RobotInit() {
   frc::SmartDashboard::PutNumber("D", turret->kD_R);
   frc::SmartDashboard::PutNumber("Min", turret->kMinOutput_R);
   frc::SmartDashboard::PutNumber("Max", turret->kMaxOutput_R);
-  frc::SmartDashboard::PutNumber("Shoot", turret->shootSpeed);
+  // frc::SmartDashboard::PutNumber("Shoot", turret->shootSpeed);
   // turret->HomingRotation();
   // turret->HomingAngle();
  }
@@ -68,22 +65,25 @@ void Robot::AutonomousPeriodic() {
   }
 }
 
-void Robot::TeleopInit() {}
+void Robot::TeleopInit() 
+{
+  turret->Calibration();
+}
 
 void Robot::TeleopPeriodic() 
 {
   turret->SmartDashUpdate();
+  turret->Configure_Turret_PID();
   turret->Rotation();
   turret->Angle();
-  turret->Shoot();
+  // turret->Shoot();
   frc::SmartDashboard::PutNumber("Print to see current val", turret->SetRotation);
   turret->kP_R = frc::SmartDashboard::GetNumber("P", 0);
   turret->kI_R = frc::SmartDashboard::GetNumber("I", 0);
   turret->kD_R = frc::SmartDashboard::GetNumber("D", 0);
   turret->kMinOutput_R = frc::SmartDashboard::GetNumber("Min", 0);
   turret->kMaxOutput_R = frc::SmartDashboard::GetNumber("Max", 0);
-  turret->shootSpeed = frc::SmartDashboard::GetNumber("Shoot", 0);
-  turret->Configure_Turret_PID();
+  // turret->shootSpeed = frc::SmartDashboard::GetNumber("Shoot", 0);
 }
 
 void Robot::DisabledInit() {}

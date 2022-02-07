@@ -1,5 +1,4 @@
 #include <Turret_Class.h>
-#include <iostream>
 
 Turret::Turret(frc::PS4Controller *controller)
 { 
@@ -25,28 +24,25 @@ void Turret::Configure_Turret_PID()
    A_pidController.SetOutputRange(kMinOutput_A, kMaxOutput_A);
 }
 
-// void Turret::Rotation()
-// {
-//  if (RotSwitch.Get() == true) {
-//         Rotation_motor.Set(0);
-//     }
-//     else {
-//         Rotation_motor.Set(SetRotation);
-//     }
-// }
+void Turret::Calibration()
+{
 
-// void Turret::Angle()
-// {  
-//  if (AngleSwitch.Get() == true) {
-//         Angle_motor.Set(0);
-//     }
-//     else {
-//         Angle_motor.Set(SetAngle);
-//     }
-// }
+ Reset();
+
+ if(!Calibrated)
+ {
+  CalibrationRotation();
+  CalibrationAngle();
+  if (AngleCalibrated && RotationCalibrated)
+  {
+   Calibrated = true;
+  }
+ }  
+}
+
 
 void Turret::Rotation()
-{  
+{   
  if (RotSwitch.Get() == true)
     {
       Rotation_motor.Set(0);
@@ -61,6 +57,7 @@ void Turret::Rotation()
     }
     else 
     {   
+    rev::CANSparkMax::EnableSoftLimit(rev::CANSparkMax::SoftLimitDirection::kForward, softlimenable);
     R_pidController.SetReference(SetRotation, rev::ControlType::kPosition); 
     }
 }
@@ -100,50 +97,89 @@ void Turret::SmartDashUpdate()
  SetAngle = frc::SmartDashboard::GetNumber("Angle Turret", 0);
 }
 
-// void Turret::HomingRotation()
+
+// void Turret::CalibrationRotation()
 // {
-//  if (RotSwitch.Get() == true)
-//     {
-//      while (RotSwitch.Get() == true)
-//         {
-//          Rotation_motor.Set(-0.1); //Go opposite direction of the limit switch
-//         }
-//      Rotation_motor.Set(0); //stop it after rot limit switch is false maybe unesseccary
-//     }
-//  else
-//     {
-//      while (RotSwitch.Get() == false)
-//      {
-//         Rotation_motor.Set(0.1);
-//      }
-//      if (RotSwitch.Get() == true)
-//      {
-//         Rotation_motor.Set(0); //stop motor after limit switch is true
-//         Rotation_encoder.SetPosition(0); //set encoder to pos 0
-//      }
-//     }
+//  if (RotationCalibrated == false)
+//  {
+//    if (RotSwitch.Get() == true)
+//    {
+//      Rotation_motor.Set(0);
+//      Rotation_encoder.SetPosition(0);
+//      RotationCalibrated = true;
+//    } 
+//    else
+//    {
+//       Rotation_motor.Set(rotation_speed);
+//    }
+//  }  
 // }
 
-// void Turret::HomingAngle()
+// void Turret::CalibrationAngle()
 // {
-//  if (AngleSwitch.Get() == true)
-//     {
-//      while (AngleSwitch.Get() == true)
-//         {
-//          Angle_motor.Set(-0.1); //Go opposite direction of the limit switch
-//         }
-//      Angle_motor.Set(0); //stop it after rot limit switch is false maybe unesseccary
-//     }
-//  else
-//     {
-//      while (AngleSwitch.Get() == false)
-//      {
-//         Angle_motor.Set(0.1);
-//      }
-//      if (AngleSwitch.Get() == true)
-//      {
-//         Angle_motor.Set(0); //stop motor after limit switch is true
-//         Angle_encoder.SetPosition(0); //set encoder to pos 0
-//      }
-//     }
+//  if (AngleCalibrated == false)
+//  {
+//    if (AngleSwitch.Get() == true)
+//    {
+//      Angle_motor.Set(0);
+//      Angle_encoder.SetPosition(0);
+//      AngleCalibrated = true;
+//    } 
+//    else
+//    {
+//       Angle_motor.Set(angle_speed);
+//    }
+//  }  
 // }
+
+
+void Turret::CalibrationAngle()
+{
+ if (AngleCalibrated == false)
+ {
+   switch (AngleSwitch.Get() == true) 
+   {
+   case true:
+     Angle_motor.Set(0);
+     Angle_encoder.SetPosition(0);
+     AngleCalibrated = true;
+     break;
+   case false:
+     Angle_motor.Set(angle_speed);
+     break;
+   }
+ }  
+}
+
+void Turret::CalibrationRotation()
+{
+ if (RotationCalibrated == false)
+ {
+   switch (RotSwitch.Get() == true) 
+   {
+   case true:
+     Rotation_motor.Set(0);
+     Rotation_encoder.SetPosition(0);
+     RotationCalibrated = true;
+     break;
+   case false:
+     Rotation_motor.Set(rotation_speed);
+     break;
+   }
+ }  
+}
+
+void Turret::Reset()
+{
+   Calibrated = false;
+   RotationCalibrated = false;
+   RotationLimitTouched = false;
+   HomingRotationSet = false;
+   AngleCalibrated = false;
+   AngleLimitTouched = false;
+   HomingAngleSet = false;
+}
+
+void Turret::RotationHome(){}
+
+void Turret::AngleHome(){}
