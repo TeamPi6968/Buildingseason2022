@@ -98,5 +98,4 @@ class Turret
  rev::SparkMaxRelativeEncoder Angle_encoder = Angle_motor.GetEncoder();
  rev::SparkMaxPIDController R_pidController = Rotation_motor.GetPIDController();
  rev::SparkMaxPIDController A_pidController = Angle_motor.GetPIDController();
- rev::CANSparkMax::EnableSoftLimit()
 };
