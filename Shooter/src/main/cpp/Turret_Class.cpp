@@ -57,7 +57,6 @@ void Turret::Rotation()
     }
     else 
     {   
-    rev::CANSparkMax::EnableSoftLimit(rev::CANSparkMax::SoftLimitDirection::kForward, softlimenable);
     R_pidController.SetReference(SetRotation, rev::ControlType::kPosition); 
     }
 }
