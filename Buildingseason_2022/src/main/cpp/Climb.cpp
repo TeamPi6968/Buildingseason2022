@@ -5,7 +5,7 @@ Climb::Climb(frc::PS4Controller *controller)
 {
     //Get reference
     Joystick = controller;
-
+    
     //Set motor settings
     LClimbMotor.ConfigFactoryDefault(); //Reset motors
     RClimbMotor.ConfigFactoryDefault();

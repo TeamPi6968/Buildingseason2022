@@ -44,19 +44,26 @@ void Turret::Jetson()
  
  rotation = frc::SmartDashboard::GetNumber("rotation",0);
  angle = frc::SmartDashboard::GetNumber("angle",0);
- X = frc::SmartDashboard::GetNumber("X",0);
+ X_camera = frc::SmartDashboard::GetNumber("X",0);
  Y = frc::SmartDashboard::GetNumber("Y",0);
- Depth = frc::SmartDashboard::GetNumber("Depth",0);
+ Depth_camera = frc::SmartDashboard::GetNumber("Depth",0);
  shootSpeed = frc::SmartDashboard::GetNumber("shooting speed",0);
 
 
 }
 
-void Turret::ShootCalc(double X, double y, double depth)
+void Turret::ShootCalc(int X, double depth)
 {
-rotation = X; // calculation for the rotation for the turret using the X value from the camera
-angle = Y; // calculation for the angle for the turret using the Y value from the camera
-shootSpeed = depth; // calculations for the shootingspeed for the the turret using the depth;
+X2 = sqrt((pow(depth,2))-(pow(Y3,2)));//x value of the depth
+X3 = X2+0.61;//x value of depth + radius of hub
+//formula ax^2+b*x+c is used
+a = ((Y2 - c)*X3-(Y3-c)*X2)/(pow(X2,2)*X3-pow(X3,2)*X2);//calculate a
+b = (Y2 - a*pow(X2,2)-c)/X2;//calculate b
+angle_shot = tan(b/1);//slope is always value b so angle can be calculated
+velocity = sqrt((9.81*pow(X2,2))/((X2*tan(angle_shot)-Y3 + Y1)*(2*pow(cos(angle_shot),2))));//velocity in m/s
+motorspeed_rpm = (60*velocity)/(2*M_PI*radius);
+
+
 }
 
 void Turret::Rotation(double rotation)
@@ -65,11 +72,11 @@ rotateSpeed = turret_Joystick->GetLeftX() * 0.2;
 
  if(RotSwitchL.Get() == true)
 {
-    if(X < X_Center)
+    if(X_camera < X_Center)
     {
         Rotation_motor.Set(0);
     }
-          else if(X >= X_Center)
+          else if(X_camera >= X_Center)
     {
         Rotation_motor.Set(motorSpeedR);
     }
@@ -77,11 +84,11 @@ rotateSpeed = turret_Joystick->GetLeftX() * 0.2;
 
 else if(RotSwitchR.Get() == true)
 {
-        if(X < X_Center)
+        if(X_camera < X_Center)
     {
         Rotation_motor.Set(motorSpeedL);
     }
-          else if(X >= X_Center)
+          else if(X_camera >= X_Center)
     {
         Rotation_motor.Set(0);
     }
@@ -106,7 +113,7 @@ if(AngleSwitchD.Get() == true)
     {
         Angle_motor.Set(0);
     }
-          else if(X >= Y_Center)
+          else if(X_camera >= Y_Center)
     {
         Angle_motor.Set(motorSpeedR);
     }
