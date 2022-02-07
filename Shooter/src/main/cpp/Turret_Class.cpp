@@ -27,10 +27,12 @@ void Turret::Configure_Turret_PID()
 void Turret::Calibration()
 {
  //  Reset();
- if(!Calibrated)
+ if(Calibrated == false)
  {
-  CalibrationRotation();
   CalibrationAngle();
+  CalibrationRotation();
+  frc::SmartDashboard::PutNumber("AngleCalibrated", AngleCalibrated);
+  frc::SmartDashboard::PutNumber("RotationCalibrated", RotationCalibrated);
   if (AngleCalibrated && RotationCalibrated)
   {
    Calibrated = true;
@@ -57,7 +59,8 @@ void Turret::Rotation()
       }
       else 
       {   
-       R_pidController.SetReference(SetRotation, rev::ControlType::kPosition); 
+       //R_pidController.SetReference(SetRotation, rev::ControlType::kPosition); 
+       R_pidController.SetReference(SetRotation, rev::CANSparkMax::ControlType::kPosition);
       }
    }
 }
@@ -80,7 +83,8 @@ void Turret::Angle()
       }
       else 
       {   
-       A_pidController.SetReference(SetAngle, rev::ControlType::kPosition); 
+       //A_pidController.SetReference(SetAngle, rev::ControlType::kPosition); 
+       A_pidController.SetReference(SetAngle, rev::CANSparkMax::ControlType::kPosition);
       }
    }
 }
@@ -118,41 +122,41 @@ void Turret::SmartDashUpdate()
 //  }  
 // }
 
-// void Turret::CalibrationAngle()
-// {
-//  if (AngleCalibrated == false)
-//  {
-//    if (AngleSwitch.Get() == true)
-//    {
-//      Angle_motor.Set(0);
-//      Angle_encoder.SetPosition(0);
-//      AngleCalibrated = true;
-//    } 
-//    else
-//    {
-//       Angle_motor.Set(angle_speed);
-//    }
-//  }  
-// }
-
-
 void Turret::CalibrationAngle()
 {
  if (AngleCalibrated == false)
  {
-   switch (AngleSwitch.Get() == true) 
+   if (AngleSwitch.Get() == true)
    {
-   case true:
-     Angle_motor.Set(0);
+     A_pidController.SetReference(0, rev::CANSparkMax::ControlType::kVelocity);
      Angle_encoder.SetPosition(0);
      AngleCalibrated = true;
-     break;
-   case false:
-     Angle_motor.Set(angle_speed);
-     break;
+   } 
+   else
+   {
+      A_pidController.SetReference(angle_speed, rev::CANSparkMax::ControlType::kVelocity);
    }
  }  
 }
+
+
+// void Turret::CalibrationAngle()
+// {
+//  if (AngleCalibrated == false)
+//  {
+//    switch (AngleSwitch.Get() == true) 
+//    {
+//    case true:
+//       Angle_motor.Set(0);
+//       Angle_encoder.SetPosition(0);
+//       AngleCalibrated = true;
+//      break;
+//    case false:
+//       Angle_motor.Set(angle_speed);
+//      break;
+//    }
+//  }  
+// }
 
 void Turret::CalibrationRotation()
 {

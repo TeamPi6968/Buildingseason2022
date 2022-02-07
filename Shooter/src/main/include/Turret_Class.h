@@ -68,7 +68,7 @@ class Turret
 
  //homing speed for rotation and angle
  const int rotation_speed = 0.1;
- const int angle_speed = 0.08;
+ const int angle_speed = 0.1;
 
  //max and min angles for encoders
  int minAngleEncoder = -45;
