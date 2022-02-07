@@ -26,9 +26,7 @@ void Turret::Configure_Turret_PID()
 
 void Turret::Calibration()
 {
-
- Reset();
-
+ //  Reset();
  if(!Calibrated)
  {
   CalibrationRotation();
@@ -43,42 +41,48 @@ void Turret::Calibration()
 
 void Turret::Rotation()
 {   
- if (RotSwitch.Get() == true)
-    {
-      Rotation_motor.Set(0);
-    }
-    else if(SetRotation > maxRotationEncoder)
-    {
-      Rotation_motor.Set(0);
-    }
-    else if(SetRotation < minRotationEncoder)
-    {
-      Rotation_motor.Set(0);
-    }
-    else 
-    {   
-    R_pidController.SetReference(SetRotation, rev::ControlType::kPosition); 
-    }
+   if (Calibrated)
+   {
+      if (RotSwitch.Get() == true)
+      {
+        Rotation_motor.Set(0);
+      }
+      else if(SetRotation > maxRotationEncoder)
+      {
+       Rotation_motor.Set(0);
+      }
+      else if(SetRotation < minRotationEncoder)
+      {
+       Rotation_motor.Set(0);
+      }
+      else 
+      {   
+       R_pidController.SetReference(SetRotation, rev::ControlType::kPosition); 
+      }
+   }
 }
  
 void Turret::Angle()
 {  
- if (AngleSwitch.Get() == true)
-    {
-      Angle_motor.Set(0);
-    }
-    else if(SetAngle > maxAngleEncoder)
-    {
-      Angle_motor.Set(0);
-    }
-    else if(SetAngle < minAngleEncoder)
-    {
-      Angle_motor.Set(0);
-    }
-    else 
-    {   
-    A_pidController.SetReference(SetAngle, rev::ControlType::kPosition); 
-    }
+   if (Calibrated)
+   {
+     if (AngleSwitch.Get() == true)
+      {
+       Angle_motor.Set(0);
+      }
+      else if(SetAngle > maxAngleEncoder)
+      {
+       Angle_motor.Set(0);
+      }
+      else if(SetAngle < minAngleEncoder)
+      {
+       Angle_motor.Set(0);
+      }
+      else 
+      {   
+       A_pidController.SetReference(SetAngle, rev::ControlType::kPosition); 
+      }
+   }
 }
 
 void Turret::Shoot()

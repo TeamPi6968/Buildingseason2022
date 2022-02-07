@@ -49,9 +49,6 @@ class Turret
  bool AngleLimitTouched;
  bool RotationLimitTouched;
 
- bool softlimenable = true;
- 
-
  private:
 
  frc::PS4Controller *turret_Joystick;
