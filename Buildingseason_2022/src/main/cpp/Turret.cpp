@@ -1,7 +1,5 @@
 #pragma once
-#include <Turret.h>
-
-
+#include "Turret.h"
 
 Turret::Turret(frc::PS4Controller *controller)
 { 
@@ -41,7 +39,6 @@ void Turret::Jetson()
 // imitating input from the Jetson
  double rotation = frc::SmartDashboard::GetNumber("rotation",0);
  double angle = frc::SmartDashboard::GetNumber("angle",0);
- 
  rotation = frc::SmartDashboard::GetNumber("rotation",0);
  angle = frc::SmartDashboard::GetNumber("angle",0);
  X_Camera = frc::SmartDashboard::GetNumber("X",0);
@@ -57,7 +54,6 @@ void Turret::ShootCalc(double depth)
 //One of the X2 calculations (testing from camera)
 X2 = sqrt((pow(depth,2))-(pow(Y3,2)));//x value of the depth
 X2 = depth;//depth is x value
-
 X3 = X2+0.61;//x value of depth + radius of hub
 //formula ax^2+b*x+c is used
 a = ((Y2 - c)*X3-(Y3-c)*X2)/(pow(X2,2)*X3-pow(X3,2)*X2);//calculate a
@@ -66,8 +62,6 @@ angle_shot = tan(b/1);//slope is always value b so angle can be calculated
 velocity = sqrt((9.81*pow(X2,2))/((X2*tan(angle_shot)-Y3 + Y1)*(2*pow(cos(angle_shot),2))));//velocity in m/s
 motorspeed_rpm = (60*velocity)/(2*M_PI*radius);
 motorspeed = motorspeed_rpm/max_motorspeed_rpm;
-
-
 }
 
 void Turret::Rotation(int X_Camera)

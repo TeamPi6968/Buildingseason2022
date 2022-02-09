@@ -13,7 +13,7 @@ class Turret
  public:
 // functions
  void Angle(double angle);
- void Rotation(double rotation);
+ void Rotation(int X_camera);
  void AngleUpdate();
  void HomingAngle();
  void HomingRotation();
@@ -23,7 +23,7 @@ class Turret
  void NoShoot();
  void Jetson();
  void Jetson_Config();
- void ShootCalc(double X, double y, double depth);
+ void ShootCalc(double depth);
   
 
  Turret(frc::PS4Controller *controller);
@@ -31,7 +31,7 @@ class Turret
  float SetRotation = 0;
  float SetAngle = 0;
  bool Set_Shot = false;
- int X = 0;
+ int X_Camera = 0;
  int X_Center = 300;
  int Y = 0;
  int Y_Center = 300;
@@ -39,18 +39,32 @@ class Turret
  double motorSpeedR = 0.2;
  double rotation;
  double angle;
- double Depth;
+ double Depth_camera;
  double shootSpeed;
  double rotateSpeed;
  double angleSpeed;
+ double max_steps;//value has to be made
 
  //timer config
  units::second_t read_time_shooter;//read the current time
  units::second_t period_shooter {10};//Delay time
  frc::Timer timer_Shooter{};
 
-
-
+  double X1 = 0;//start shooting at zero
+  double Y1 = 0.64;//intiial height ball
+  double X2;//x value of distance camera
+  double Y2 = 3.25;// hight hub + radius hub in height
+  double X3;;//measured distance + radius hub
+  double Y3 = 2.64;//Height of the hub
+  double a;
+  double b;
+  double c = Y1;
+  double angle_shot;//angle of shot
+  double velocity;//speed of shooting in m/s
+  double motorspeed_rpm;
+  double max_motorspeed_rpm = 6380;
+  double radius = 0.0254;//radius in meters (2inch wheel)
+  double motorspeed;
  
 
  private:
