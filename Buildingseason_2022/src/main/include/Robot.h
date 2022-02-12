@@ -8,6 +8,8 @@
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/PS4Controller.h>
+#include <frc/Compressor.h>
+#include <units/pressure.h>
 
 #include "Intake.h"
 #include "Swerve.h"
@@ -40,6 +42,11 @@ class Robot : public frc::TimedRobot {
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
   frc::PS4Controller Joystick_1{0};
+
+  frc::Compressor compressor{1, frc::PneumaticsModuleType::REVPH};
+  units::pressure::pounds_per_square_inch_t MinimumPressure = 95_psi;
+  units::pressure::pounds_per_square_inch_t MaximumPressure = 115_psi;
+  bool dissableCompressor = false;
 };
 
 
