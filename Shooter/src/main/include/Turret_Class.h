@@ -38,11 +38,15 @@ class Turret
  //Shooting speed variable
  double shootSpeed;
 
+ //Button variables
  bool TriangleBut;
  bool SquareBut;
+
+ //Variables needed for homing
  bool HomingRotationSet = false;
  bool HomingAngleSet = false;
 
+ //Variables for calibration
  bool AngleCalibrated = false;
  bool RotationCalibrated = false;
  bool Calibrated = false;
