@@ -11,22 +11,23 @@ Turret::Turret(frc::PS4Controller *controller)
 
 void Turret::Configure_Turret_PID()
 {
-   // Rotation PID config
+   // Rotation PID configuration
    R_pidController.SetP(kP_R);
    R_pidController.SetI(kI_R);
    R_pidController.SetD(kD_R);
    R_pidController.SetOutputRange(kMinOutput_R, kMaxOutput_R);
  
-   // Rotation PID config
+   // Angle PID configuration
    A_pidController.SetP(kP_A);
    A_pidController.SetI(kI_A);
    A_pidController.SetD(kD_A);
    A_pidController.SetOutputRange(kMinOutput_A, kMaxOutput_A);
 }
 
+//Calibration for angle and rotation
 void Turret::Calibration()
 {
- //  Reset();
+ Reset();
  if(Calibrated == false)
  {
   CalibrationAngle();
@@ -41,6 +42,7 @@ void Turret::Calibration()
 }
 
 
+//Rotation of turret
 void Turret::Rotation()
 {   
    if (Calibrated)
@@ -65,6 +67,7 @@ void Turret::Rotation()
    }
 }
  
+//Angle for turret 
 void Turret::Angle()
 {  
    if (Calibrated)
@@ -89,22 +92,25 @@ void Turret::Angle()
    }
 }
 
+//Shooting, just set motors to motorspeed when button has been pressed
 void Turret::Shoot()
 {
-    if(turret_Joystick->GetCircleButton() == true)
+    // if(turret_Joystick->GetCircleButton() == true)
+    if(turret_Joystick->GetCircleButtonPressed() == true)
     {
      Turret_master->Set(ControlMode::PercentOutput, shootSpeed);
      Turret_slave->Set(ControlMode::PercentOutput, shootSpeed);
     }
 }
 
+//Update of angle and rotation value, will be replaced with x and y from vision once it is finished
 void Turret::SmartDashUpdate()
 {
  SetRotation = frc::SmartDashboard::GetNumber("Rotation Turret", 0); 
  SetAngle = frc::SmartDashboard::GetNumber("Angle Turret", 0);
 }
 
-
+//Calibration Alternative way of coding, however same result as the one i am currently using
 // void Turret::CalibrationRotation()
 // {
 //  if (RotationCalibrated == false)
@@ -122,6 +128,7 @@ void Turret::SmartDashUpdate()
 //  }  
 // }
 
+//Calibration of Angle, only issue is that setposition doesn't work
 void Turret::CalibrationAngle()
 {
  if (AngleCalibrated == false)
@@ -139,7 +146,7 @@ void Turret::CalibrationAngle()
  }  
 }
 
-
+//Calibration alternative of coding however same result as the one im using now
 // void Turret::CalibrationAngle()
 // {
 //  if (AngleCalibrated == false)
@@ -158,6 +165,7 @@ void Turret::CalibrationAngle()
 //  }  
 // }
 
+//Calibration of Rotation, only issue is that setposition doesn't work
 void Turret::CalibrationRotation()
 {
  if (RotationCalibrated == false)
@@ -176,6 +184,7 @@ void Turret::CalibrationRotation()
  }  
 }
 
+//Resets all variables so you can re-calibrate
 void Turret::Reset()
 {
    Calibrated = false;
