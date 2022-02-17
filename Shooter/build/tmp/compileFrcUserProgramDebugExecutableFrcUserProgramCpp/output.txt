@@ -1,0 +1,6 @@
+See file:///C:/Users/joepv/Documents/GitHub/Buildingseason2022/Shooter/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramDebugExecutableFrcUserProgramCpp.
+compiling Turret_Class.cpp successful.
+
+compiling Robot.cpp successful.
+
+Finished compileFrcUserProgramDebugExecutableFrcUserProgramCpp, see full log file:///C:/Users/joepv/Documents/GitHub/Buildingseason2022/Shooter/build/tmp/compileFrcUserProgramDebugExecutableFrcUserProgramCpp/output.txt.
