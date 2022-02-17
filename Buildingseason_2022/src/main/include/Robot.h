@@ -2,27 +2,17 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+#pragma once
 
 #include <string>
 
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
-#include <frc/PS4Controller.h>
-
-#include "Intake.h"
-#include "Swerve.h"
-#include "Storage.h"
-#include "Climb.h"
-#include "Turret.h"
+#include "Turret_Class.h"
 
 class Robot : public frc::TimedRobot {
  public:
-  Intake *intake;
-  Swerve *swerve;
-  Storage *storage;
-  Climb *climb;
   Turret *turret;
-
   void RobotInit() override;
   void RobotPeriodic() override;
   void AutonomousInit() override;
@@ -33,7 +23,7 @@ class Robot : public frc::TimedRobot {
   void DisabledPeriodic() override;
   void TestInit() override;
   void TestPeriodic() override;
-  //ctre::phoenix::motorcontrol::can::TalonFX motor_1{0};
+
  private:
   frc::SendableChooser<std::string> m_chooser;
   const std::string kAutoNameDefault = "Default";
@@ -41,6 +31,3 @@ class Robot : public frc::TimedRobot {
   std::string m_autoSelected;
   frc::PS4Controller Joystick_1{0};
 };
-
-
-
