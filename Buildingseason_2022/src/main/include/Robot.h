@@ -24,6 +24,7 @@ class Robot : public frc::TimedRobot {
   Turret *turret;
 
   void RobotInit() override;
+  
   void RobotPeriodic() override;
   void AutonomousInit() override;
   void AutonomousPeriodic() override;

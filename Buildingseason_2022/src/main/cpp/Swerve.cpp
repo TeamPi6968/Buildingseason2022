@@ -16,6 +16,11 @@ void Swerve::Initialize_swerve(){
   motorFRR.SetSelectedSensorPosition(2.5*oneTurn);        
   motorRRR.SetSelectedSensorPosition(2.5*oneTurn);
   motorRLR.SetSelectedSensorPosition(2.5*oneTurn);
+
+  positionFR = 2.5*oneTurn;
+  positionFL = 2.5*oneTurn;
+  positionBR = 2.5*oneTurn;
+  positionBL = 2.5*oneTurn;
 }
 //Configure the PID values for the swerve
 void Swerve::Configure_PID(){ //poop
@@ -276,6 +281,7 @@ void Swerve::set_rotations_w4(){
 void Swerve::set_motor_position(){ //Rotate the module
 if(vector_straffe <= 0.1 && (vector_rotation <= 0.1 && vector_rotation >= -0.1 )) //Both movements active
 {
+ 
   positionFR = 2.5*oneTurn + (rotationCounter_w1*10*oneTurn); //90 degrees back to start position
   positionFL = 2.5*oneTurn + (rotationCounter_w2*10*oneTurn); //90 degrees
   positionBL = 2.5*oneTurn + (rotationCounter_w3*10*oneTurn); //90 degrees
@@ -283,10 +289,10 @@ if(vector_straffe <= 0.1 && (vector_rotation <= 0.1 && vector_rotation >= -0.1 )
 }
 else 
 {
-  positionFR =(10*oneTurn * (Total_angle_W1/360))+(rotationCounter_w1*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
-  positionFL =(10*oneTurn * (Total_angle_W2/360))+(rotationCounter_w2*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
-  positionBL =(10*oneTurn * (Total_angle_W3/360))+(rotationCounter_w3*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
-  positionBR =(10*oneTurn * (Total_angle_W4/360))+(rotationCounter_w4*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056       
+positionFR =(10*oneTurn * (Total_angle_W1/360))+(rotationCounter_w1*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
+positionFL =(10*oneTurn * (Total_angle_W2/360))+(rotationCounter_w2*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
+positionBL =(10*oneTurn * (Total_angle_W3/360))+(rotationCounter_w3*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
+positionBR =(10*oneTurn * (Total_angle_W4/360))+(rotationCounter_w4*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056     
 }
   motorFRR.Set(ControlMode::Position, positionFR);  
   motorFLR.Set(ControlMode::Position, positionFL);     
