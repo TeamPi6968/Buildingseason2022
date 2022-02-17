@@ -62,10 +62,14 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {
   turret->Jetson_Config();
+  turret->Configure_Turret_PID();
 }
 
 void Robot::TeleopPeriodic(){
-  turret->turret_Teleop(turret->angle, turret->rotation);
+  turret->SmartDashUpdate();
+  turret->Angle();
+  turret->Rotation();
+  turret->Shoot();
 }
 
 void Robot::DisabledInit() {}
