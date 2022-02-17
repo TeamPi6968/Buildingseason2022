@@ -12,15 +12,15 @@ class Turret
 {
  public:
 // functions
- void Angle(double angle);
- void Rotation(double rotation);
- void AngleUpdate();
- void HomingAngle();
- void HomingRotation();
- void Configure_Turret_PID();
+//  void Angle(double angle);
+//  void Rotation(double rotation);
+//  void AngleUpdate();
+//  void HomingAngle();
+//  void HomingRotation();
+//  void Configure_Turret_PID();
  void turret_Teleop(double angle, double rotation);
- void Shoot();
- void NoShoot();
+//  void Shoot();
+//  void NoShoot();
  void Jetson();
  void Jetson_Config();
 
