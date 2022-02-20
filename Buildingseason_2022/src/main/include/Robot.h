@@ -8,6 +8,7 @@
 #include <frc/TimedRobot.h>
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/PS4Controller.h>
+#include <frc/DigitalInput.h>
 
 
 #include "Swerve.h"
@@ -27,6 +28,7 @@ class Robot : public frc::TimedRobot {
   void DisabledPeriodic() override;
   void TestInit() override;
   void TestPeriodic() override;
+  frc::DigitalInput test_1 {4};
   //ctre::phoenix::motorcontrol::can::TalonFX motor_1{0};
  private:
   frc::SendableChooser<std::string> m_chooser;
@@ -34,7 +36,7 @@ class Robot : public frc::TimedRobot {
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
   frc::PS4Controller Joystick_1{0};
+  
+
+
 };
-
-
-

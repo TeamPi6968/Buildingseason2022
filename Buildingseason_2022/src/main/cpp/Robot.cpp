@@ -68,7 +68,71 @@ void Robot::TeleopInit() {
 }
 
 void Robot::TeleopPeriodic() {
-  swerve->Swerve_mainloop();
+frc::SmartDashboard::PutNumber("sensor",test_1.Get());
+
+ /* 
+bool Joystick_rotation = Joystick_1.GetSquareButton();
+if(Joystick_rotation == true){
+  swerve->motorFLR.Set(ControlMode::PercentOutput,0.1);
+}
+//else if(Joystick_rotation == false){
+//  swerve->motorFLR.Set(ControlMode::PercentOutput,0);
+//}
+bool Joystick_rotation_L = Joystick_1.GetTriangleButton();
+if(Joystick_rotation_L == true){
+  swerve->motorFLR.Set(ControlMode::PercentOutput,-0.1);
+}
+else if(Joystick_rotation_L == false&& Joystick_rotation == false){
+  swerve->motorFLR.Set(ControlMode::PercentOutput,0);
+}
+bool Joystick_speed = Joystick_1.GetCircleButton();
+if(Joystick_speed == true){
+  swerve->motorFLD.Set(ControlMode::PercentOutput,0.3);
+}
+
+bool Joystick_speed_L = Joystick_1.GetCrossButton();
+if(Joystick_speed_L == true){
+  swerve->motorFLD.Set(ControlMode::PercentOutput,-0.3);
+}
+else if(Joystick_speed == false && Joystick_speed_L == false){
+  swerve->motorFLD.Set(ControlMode::PercentOutput,0);
+}
+//else if(Joystick_speed_L == false){
+//  swerve->motorFLD.Set(ControlMode::PercentOutput,0);
+//}
+// <<<<<<< Updated upstream:Buildingseason_2022/src/main/cpp/Robot.cpp
+//   swerve->Swerve_mainloop();
+// =======
+//   //  //storage->mainloop();
+//   //   bool joystick_value_turret = Joystick_1.GetCircleButton();
+//   // //id 15
+//   // if(joystick_value_turret == true){
+//   //   frc::SmartDashboard::PutNumber("joystick value 1",joystick_value_turret);
+//   //   storage->motor_turret.Set(0.3);
+//   // }
+//   bool joystick_value_intake = Joystick_1.GetCircleButton();
+//   //id 10
+//   if(joystick_value_intake == true){
+//    // frc::SmartDashboard::PutNumber("joystick value 2",joystick_value_intake);
+//     storage->motor_2to1.Set(0.6);
+//    // storage->motor_turret.Set(0.5);
+//   }else if (joystick_value_intake == false)
+//   {
+//    storage->motor_2to1.Set(0);
+//   }
+//    bool joystick_value_Storage = Joystick_1.GetSquareButton();
+//   //id 10
+//   if(joystick_value_Storage == true){
+//     //frc::SmartDashboard::PutNumber("joystick value 2",joystick_value_intake);
+//     //storage->motor_2to1.Set(0.6);
+//     storage->motor_turret.Set(0.5);
+//   }
+//   else if (joystick_value_Storage == false)
+//   {
+//     storage->motor_turret.Set(0);
+//   }
+
+// >>>>>>> Stashed changes:Buildingseason_2022/src/main/cpp/Robot_storage.cpp*/
 }
 
 void Robot::DisabledInit() {}
@@ -77,7 +141,20 @@ void Robot::DisabledPeriodic() {}
 
 void Robot::TestInit() {}
 
-void Robot::TestPeriodic() {}
+void Robot::TestPeriodic() {
+  // bool joystick_value_turret = Joystick_1.GetCrossButton();
+  
+  // if(joystick_value_turret == true){
+  //   frc::SmartDashboard::PutNumber("joystick value 1",joystick_value_turret);
+  //   storage->motor_turret.Set(0.3);
+  // }
+  // bool joystick_value_intake = Joystick_1.GetSquareButton();
+  
+  // if(joystick_value_intake == true){
+  //   frc::SmartDashboard::PutNumber("joystick value 2",joystick_value_intake);
+  //   storage->motor_2to1.Set(0.3);
+  // }
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main() {
