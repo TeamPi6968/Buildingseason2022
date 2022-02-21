@@ -31,14 +31,14 @@ class Swerve{
   void Configure_PID();
   void Swerve_mainloop();
 
-  TalonFX motorFLD = {1}; //Front Left Drive       
-  TalonFX motorFLR = {2}; //Front Left Rotation
-  TalonFX motorFRD = {3}; //Front Rear Drive       
-  TalonFX motorFRR = {4}; //Front Rear Rotation
-  TalonFX motorRLD = {5}; //Back Left Drive
-  TalonFX motorRLR = {6}; //Back Left Rotation
-  TalonFX motorRRD = {7}; //Back Rear Drive
-  TalonFX motorRRR = {8}; //Back Rear Rotation  
+  TalonFX motorFLD = {2}; //Front Left Drive       
+  TalonFX motorFLR = {3}; //Front Left Rotation
+  TalonFX motorFRD = {1}; //Front Rear Drive       
+  TalonFX motorFRR = {20}; //Front Rear Rotation
+  TalonFX motorRLD = {17}; //Back Left Drive
+  TalonFX motorRLR = {16}; //Back Left Rotation
+  TalonFX motorRRD = {18}; //Back Rear Drive
+  TalonFX motorRRR = {19}; //Back Rear Rotation  
   
 
   // Variables swervedrive
@@ -51,14 +51,14 @@ class Swerve{
   int positionBR = 2.5*oneTurn;
 
   //PID values of the front wheels
-  double kp = 0.4;
-  double ki = 0.0001;
-  double kd = 0.45;
+  double kp = 0.4;//Old robot
+  double ki = 0.0001;//Old robot
+  double kd = 0.45;//Old robot
 
   //PID values of the back wheels
-  double kp2 = 0.51;
-  double ki2 = 0.0008;
-  double kd2 = 0.51;
+  double kp2 = 0.51;//Old robot
+  double ki2 = 0.0008;//Old robot
+  double kd2 = 0.51;//Old robot
 
   //Keep track of where the wheels are for smooth transition
   bool w1_wasIn4 = false; 
@@ -77,7 +77,7 @@ class Swerve{
   double rotationCounter_w4 = 0;
 
   //Speed limitation of the swervedrive (0.5 is the lower limit)
-  double speedmode = 1;
+  double speedmode = 2;
 
   //Variables of the wheels X,Y,Vector and Angle
   double Total_XW1 = 0;
