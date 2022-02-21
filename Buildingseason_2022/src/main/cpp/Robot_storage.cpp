@@ -2,7 +2,11 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+//<<<<<<< Updated upstream:Buildingseason_2022/src/main/cpp/Robot_storage.cpp
 #include "Robot_storage.h"
+//=======
+//#include "Robot_climb.h"
+//>>>>>>> Stashed changes:Buildingseason_2022/src/main/cpp/Robot_climb.cpp
 
 #include <fmt/core.h>
 
@@ -66,7 +70,19 @@ void Robot::TeleopInit() {
 }
 
 void Robot::TeleopPeriodic() {
+//<<<<<<< Updated upstream:Buildingseason_2022/src/main/cpp/Robot_storage.cpp
    storage->mainloop();
+//=======
+//  climb->Teleop();
+//  bool Joystick_0 = Joystick_1.GetCircleButton();
+//  if(Joystick_0 == true){
+//   climb->LClimbServo.SetAngle(0);
+ // }
+ // else if(Joystick_0 == false){
+ //   climb->LClimbServo.SetAngle(180);
+ // }
+  
+//>>>>>>> Stashed changes:Buildingseason_2022/src/main/cpp/Robot_climb.cpp
 }
 
 void Robot::DisabledInit() {}
