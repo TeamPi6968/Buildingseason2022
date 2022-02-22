@@ -15,7 +15,7 @@ void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-  turret = new Turret(&Joystick_1);
+  //turret = new Turret(&Joystick_1);
 }
 
 /**
@@ -61,15 +61,17 @@ void Robot::AutonomousPeriodic() {
 }
 
 void Robot::TeleopInit() {
-  turret->Jetson_Config();
-  turret->Configure_Turret_PID();
+ // turret->Jetson_Config();
+ // turret->Configure_Turret_PID();
 }
 
 void Robot::TeleopPeriodic(){
-  turret->SmartDashUpdate();
-  turret->Angle();
-  turret->Rotation();
-  turret->Shoot();
+  frc::SmartDashboard::PutNumber("encoder",turret->Rotation_encoder);
+  turret->Rotation_motor.Set(0.5);
+  //turret->SmartDashUpdate();
+  //turret->Angle();
+  //turret->Rotation();
+  //turret->Shoot();
 }
 
 void Robot::DisabledInit() {}

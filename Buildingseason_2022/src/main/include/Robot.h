@@ -12,7 +12,7 @@
 
 class Robot : public frc::TimedRobot {
  public:
-  Turret *turret;
+  //Turret *turret;
   void RobotInit() override;
   void RobotPeriodic() override;
   void AutonomousInit() override;
@@ -29,5 +29,6 @@ class Robot : public frc::TimedRobot {
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
-  frc::PS4Controller Joystick_1{0};
+  
+  //frc::PS4Controller Joystick_1{0};
 };

@@ -1,4 +1,4 @@
-#pragma once
+//#pragma once
 
 #include <frc/DigitalInput.h>
 #include <ctre/Phoenix.h>
@@ -70,6 +70,7 @@ class Turret
  bool Calibrated = false;
  bool AngleLimitTouched;
  bool RotationLimitTouched;
+ rev::SparkMaxRelativeEncoder Rotation_encoder = Rotation_motor.GetEncoder();
 
  private:
  frc::PS4Controller *turret_Joystick;
@@ -77,14 +78,14 @@ class Turret
  //ID's for motors
  const int turret_master_CAN = 9; //could be wrong, using this ID from 2021 code
  const int turret_slave_CAN = 10; //could be wrong, using this ID from 2021 code
- const int rotation_motor_CAN = 16;
+ const int rotation_motor_CAN = 1;
  const int angle_motor_CAN = 15;
 
  //limitswitch ports
  const int LimitSwitchPort_1 = 0;
  const int AngleSwitchPort_1 = 3; //could be id 2, using 3 because of previous years
- frc::DigitalInput RotSwitch {LimitSwitchPort_1};
- frc::DigitalInput AngleSwitch {AngleSwitchPort_1};
+ //frc::DigitalInput RotSwitch {LimitSwitchPort_1};
+ //frc::DigitalInput AngleSwitch {AngleSwitchPort_1};
 
 
  //homing speed for rotation and angle
@@ -112,7 +113,7 @@ class Turret
 
 
  //Encoder Config and PID config
- rev::SparkMaxRelativeEncoder Rotation_encoder = Rotation_motor.GetEncoder();
+ 
  rev::SparkMaxRelativeEncoder Angle_encoder = Angle_motor.GetEncoder();
  rev::SparkMaxPIDController R_pidController = Rotation_motor.GetPIDController();
  rev::SparkMaxPIDController A_pidController = Angle_motor.GetPIDController();

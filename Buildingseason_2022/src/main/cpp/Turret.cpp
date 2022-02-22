@@ -1,6 +1,6 @@
-#pragma once
-#include <Turret.h>
-
+//#pragma once
+//#include <Turret.h>
+/*
 Turret::Turret(frc::PS4Controller *controller)
 { 
  turret_Joystick = controller;  
@@ -323,3 +323,4 @@ void Turret::Reset()
 // {
 
 // }
+*/
