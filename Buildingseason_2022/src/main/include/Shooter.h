@@ -17,6 +17,7 @@ private:
     TalonFX TopSpinner = {15};
 
     rev::CANSparkMax TurretRotation{9,rev::CANSparkMax::MotorType::kBrushless};
+    rev::CANSparkMax TurretAngle{8,rev::CANSparkMax::MotorType::kBrushless};
     float rotationSpeed = 0.3; //Rotation speed -1 to 1
 
     //storage motors

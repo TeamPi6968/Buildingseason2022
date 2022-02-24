@@ -45,10 +45,7 @@ void Shooter::TeleOp()
         StorageShooter.Set(ControlMode::PercentOutput, ShootPercentage);
     }
 
-    if(Joystick->GetR1Button())
-    TurretRotation.Set(rotationSpeed);
-    else if(Joystick->GetL1Button())
-    TurretRotation.Set(-rotationSpeed);
-    else
-    TurretRotation.Set(0);
+    
+    TurretRotation.Set(Joystick->GetLeftX());
+    TurretAngle.Set(Joystick->GetRightY());
 }

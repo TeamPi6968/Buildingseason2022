@@ -10,19 +10,19 @@
 #include <frc/PS4Controller.h>
 #include <frc/Compressor.h>
 
-// #include "Intake.h"
+#include "Intake.h"
 // #include "Swerve.h"
 // #include "Storage.h"
 #include "Climb.h"
-// #include "Turret.h"
+#include "Shooter.h"
 
 class Robot : public frc::TimedRobot {
  public:
-  // Intake *intake;
+  Intake *intake;
   // Swerve *swerve;
   // Storage *storage;
   Climb *climb;
-  // Turret *turret;
+  Shooter *shooter;
 
   void RobotInit() override;
   void RobotPeriodic() override;
@@ -41,6 +41,7 @@ class Robot : public frc::TimedRobot {
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
   frc::PS4Controller Joystick_1{0};
+  frc::PS4Controller Joystick_2{1};
   frc::Compressor compressor{1, frc::PneumaticsModuleType::REVPH};
 };
 

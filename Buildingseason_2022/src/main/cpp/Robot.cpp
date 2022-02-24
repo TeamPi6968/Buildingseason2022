@@ -8,21 +8,19 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
-
-void Robot::RobotInit() {
+void Robot::RobotInit()
+{
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
-  //Set Compressor 
-  compressor.EnableAnalog	(	95_psi,115_psi);
-  
-  // intake = new Intake(&Joystick_1);
-  // swerve = new Swerve(&Joystick_1);
-  // storage = new Storage(&Joystick_1);
-  climb = new Climb(&Joystick_1);
-  // turret = new Turret(&Joystick_1);
+  // Set Compressor
+  compressor.EnableAnalog(95_psi, 115_psi);
 
+  intake = new Intake(&Joystick_2);
+  // swerve = new Swerve(&Joystick_1);
+  climb = new Climb(&Joystick_2);
+  shooter = new Shooter(&Joystick_2);
 }
 
 /**
@@ -46,62 +44,45 @@ void Robot::RobotPeriodic() {}
  * if-else structure below with additional strings. If using the SendableChooser
  * make sure to add them to the chooser code above as well.
  */
-void Robot::AutonomousInit() {
+void Robot::AutonomousInit()
+{
   m_autoSelected = m_chooser.GetSelected();
   // m_autoSelected = SmartDashboard::GetString("Auto Selector",
   //     kAutoNameDefault);
   fmt::print("Auto selected: {}\n", m_autoSelected);
 
-  if (m_autoSelected == kAutoNameCustom) {
+  if (m_autoSelected == kAutoNameCustom)
+  {
     // Custom Auto goes here
-  } else {
+  }
+  else
+  {
     // Default Auto goes here
   }
 }
 
-void Robot::AutonomousPeriodic() {
-  if (m_autoSelected == kAutoNameCustom) {
+void Robot::AutonomousPeriodic()
+{
+  if (m_autoSelected == kAutoNameCustom)
+  {
     // Custom Auto goes here
-  } else {
+  }
+  else
+  {
     // Default Auto goes here
   }
 }
 
-
-void Robot::TeleopInit() {
-  // swerve->Initialize_swerve();
-  // swerve->Configure_PID();
-  // turret->Jetson_Config();
+void Robot::TeleopInit()
+{
 }
 
-void Robot::TeleopPeriodic() {
-  ////////Communication between Intake and storage////////
-  // if(intake->Set_motor_intake_low == true){//Motor from storage turn when in intake motors turn (only when storage isnt full)
-  //   storage->Turn_when_intake_true();
-  // }
-  // if(storage->available_balls == 2){
-  //   //storage is full so to not take any more balls motor from intake stops
-  //   //The Pnuematic arm should alway go out so balls doesnt crush when 2 are stored
-  //   intake->Stop_when_full();
-  // }
+void Robot::TeleopPeriodic()
+{
 
-  ///////Communication between storage and turret////////
-  // bool shoot = Joystick_1.GetCircleButton();
-  // if(shoot == true){
-  //   turret->Set_Shot = true;
-  //   turret->timer_Shooter.Reset();
-  //   turret->timer_Shooter.Start();
-  //   storage->Turret_activated(); 
-  // }
-  // if(storage->color_sensor_1_state == false){
-  //   //Turret can't shoot
-  //   turret->NoShoot();
-  // }
-  
-  // intake->mainloop();
-  // storage->mainloop();
+  intake->TeleOp();
   // swerve->Swerve_mainloop();
-  // turret->turret_Teleop(turret->angle, turret->rotation);
+  shooter->TeleOp();
   climb->Teleop();
 }
 
@@ -114,7 +95,8 @@ void Robot::TestInit() {}
 void Robot::TestPeriodic() {}
 
 #ifndef RUNNING_FRC_TESTS
-int main() {
+int main()
+{
   return frc::StartRobot<Robot>();
 }
 #endif
