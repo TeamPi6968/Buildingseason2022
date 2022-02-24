@@ -13,7 +13,7 @@ private:
     frc::PS4Controller *Joystick; // Link controller
 
     VictorSPX IntakeMotor = {9};
-    VictorSPX StorageIntake = {7};
+    VictorSPX StorageIntake = {8};
 
     frc::DoubleSolenoid BigSolenoids{frc::PneumaticsModuleType::REVPH, 4, 0};
     frc::DoubleSolenoid SmallSolenoids{frc::PneumaticsModuleType::REVPH, 6, 2};
@@ -27,5 +27,5 @@ public:
     // TeleOp control
     void TeleOp();
 
-    float IntakePercentage = 20;
+    float IntakePercentage = 1;
 };

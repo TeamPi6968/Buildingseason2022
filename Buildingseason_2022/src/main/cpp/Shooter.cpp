@@ -13,10 +13,10 @@ Shooter::Shooter(frc::PS4Controller *controller)
     StorageShooter.ConfigFactoryDefault();
 
     // Set direction
-    BottomR.SetInverted(false);
-    BottomL.SetInverted(true);
-    TopSpinner.SetInverted(false);
-    StorageShooter.SetInverted(false);
+    BottomR.SetInverted(true);
+    BottomL.SetInverted(false);
+    TopSpinner.SetInverted(true);
+    StorageShooter.SetInverted(true);
 
     //Set followers
     BottomR.Follow(BottomL);
@@ -31,6 +31,7 @@ void Shooter::TeleOp()
     if (Joystick->GetCrossButton())
     {
         BottomL.Set(ControlMode::PercentOutput, ShootPercentage);
+         StorageShooter.Set(ControlMode::PercentOutput, ShootPercentage);
         timer->Start();
     }
 

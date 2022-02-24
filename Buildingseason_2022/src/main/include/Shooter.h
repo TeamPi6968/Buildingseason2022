@@ -18,14 +18,14 @@ private:
 
     rev::CANSparkMax TurretRotation{9,rev::CANSparkMax::MotorType::kBrushless};
     rev::CANSparkMax TurretAngle{8,rev::CANSparkMax::MotorType::kBrushless};
-    float rotationSpeed = 0.3; //Rotation speed -1 to 1
+    float rotationSpeed = 0.75; //Rotation speed -1 to 1
 
     //storage motors
-    VictorSPX StorageShooter = {8};
+    VictorSPX StorageShooter = {7};
 
     //Timer for the shooter delay
     frc::Timer* timer;
-    units::time::second_t ShooterDelay = 5_s; //seconds
+    units::time::second_t ShooterDelay = 2_s; //seconds
     
 
 public:
@@ -35,5 +35,5 @@ public:
     //TeleOp control
     void TeleOp();
 
-    float ShootPercentage = 20;
+    float ShootPercentage = 1;
 };

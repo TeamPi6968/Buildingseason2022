@@ -42,7 +42,8 @@ class Robot : public frc::TimedRobot {
   std::string m_autoSelected;
   frc::PS4Controller Joystick_1{0};
   frc::PS4Controller Joystick_2{1};
-  frc::Compressor compressor{1, frc::PneumaticsModuleType::REVPH};
+  frc::Compressor compressor{60, frc::PneumaticsModuleType::REVPH};
+  const bool DisableCompressor = true;
 };
 
 
