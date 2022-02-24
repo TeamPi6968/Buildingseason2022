@@ -12,17 +12,17 @@ private:
     const float controllerspeed = 100; 
 
     //Climb motors
-    TalonFX LClimbMotor = {12}; //Master motor, Set Can ID, left
-    TalonFX RClimbMotor = {7}; //Slave motor,  Set Can ID, right
+    TalonFX LClimbMotor = {11}; //Master motor, Set Can ID, left
+    TalonFX RClimbMotor = {12}; //Slave motor,  Set Can ID, right
 
     //This methode is not working now 2-2-2022
     //Servo rachet modes
-    frc::Servo LClimbServo{1}; //Set PWM Port
-    frc::Servo RClimbServo{2}; //Set PWM Port
+    frc::Servo LClimbServo{0}; //Set PWM Port
+    frc::Servo RClimbServo{1}; //Set PWM Port
 
     //Servo angles
-    const float LServoOpenAngle = 0;
-    const float LServoClosedAngle = 90;
+    const float LServoOpenAngle = 90;
+    const float LServoClosedAngle = 180;
 
     const float RServoOpenAngle = 90;
     const float RServoClosedAngle = 0;

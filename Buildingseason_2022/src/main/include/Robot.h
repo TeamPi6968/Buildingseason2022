@@ -9,19 +9,19 @@
 #include <frc/smartdashboard/SendableChooser.h>
 #include <frc/PS4Controller.h>
 
-#include "Intake.h"
-#include "Swerve.h"
-#include "Storage.h"
+// #include "Intake.h"
+// #include "Swerve.h"
+// #include "Storage.h"
 #include "Climb.h"
-#include "Turret.h"
+// #include "Turret.h"
 
 class Robot : public frc::TimedRobot {
  public:
-  Intake *intake;
-  Swerve *swerve;
-  Storage *storage;
+  // Intake *intake;
+  // Swerve *swerve;
+  // Storage *storage;
   Climb *climb;
-  Turret *turret;
+  // Turret *turret;
 
   void RobotInit() override;
   void RobotPeriodic() override;

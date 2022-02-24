@@ -27,16 +27,16 @@ void Climb::Teleop(){
 
     SetPositionController(Joystick->GetRawAxis(1)*-1*controllerspeed);  //Get the climbing speed
 
-    if(Joystick->GetRawButton(1)) //Close rachets
+    if(Joystick->GetSquareButton()) //Close rachets
     Rachets(true);
     
-    if(Joystick->GetRawButton(2)) //Open rachets
+    if(Joystick->GetCrossButton()) //Open rachets
     Rachets(false);
 
-    if(Joystick->GetRawButton(3)) //Prepare for climbing
+    if(Joystick->GetCircleButton()) //Prepare for climbing
     SetClimbPosition();
 
-    if(Joystick->GetRawButton(4)) //Start climbing procedure
+    if(Joystick->GetTriangleButton()) //Start climbing procedure
     ClimbNow();
 
 }

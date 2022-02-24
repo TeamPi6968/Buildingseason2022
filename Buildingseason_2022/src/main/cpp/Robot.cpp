@@ -13,11 +13,11 @@ void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-  intake = new Intake(&Joystick_1);
-  swerve = new Swerve(&Joystick_1);
-  storage = new Storage(&Joystick_1);
+  // intake = new Intake(&Joystick_1);
+  // swerve = new Swerve(&Joystick_1);
+  // storage = new Storage(&Joystick_1);
   climb = new Climb(&Joystick_1);
-  turret = new Turret(&Joystick_1);
+  // turret = new Turret(&Joystick_1);
 
 }
 
@@ -65,39 +65,39 @@ void Robot::AutonomousPeriodic() {
 
 
 void Robot::TeleopInit() {
-  swerve->Initialize_swerve();
-  swerve->Configure_PID();
-  turret->Jetson_Config();
+  // swerve->Initialize_swerve();
+  // swerve->Configure_PID();
+  // turret->Jetson_Config();
 }
 
 void Robot::TeleopPeriodic() {
   ////////Communication between Intake and storage////////
-  if(intake->Set_motor_intake_low == true){//Motor from storage turn when in intake motors turn (only when storage isnt full)
-    storage->Turn_when_intake_true();
-  }
-  if(storage->available_balls == 2){
-    //storage is full so to not take any more balls motor from intake stops
-    //The Pnuematic arm should alway go out so balls doesnt crush when 2 are stored
-    intake->Stop_when_full();
-  }
+  // if(intake->Set_motor_intake_low == true){//Motor from storage turn when in intake motors turn (only when storage isnt full)
+  //   storage->Turn_when_intake_true();
+  // }
+  // if(storage->available_balls == 2){
+  //   //storage is full so to not take any more balls motor from intake stops
+  //   //The Pnuematic arm should alway go out so balls doesnt crush when 2 are stored
+  //   intake->Stop_when_full();
+  // }
 
   ///////Communication between storage and turret////////
-  bool shoot = Joystick_1.GetCircleButton();
-  if(shoot == true){
-    turret->Set_Shot = true;
-    turret->timer_Shooter.Reset();
-    turret->timer_Shooter.Start();
-    storage->Turret_activated(); 
-  }
-  if(storage->color_sensor_1_state == false){
-    //Turret can't shoot
-    turret->NoShoot();
-  }
+  // bool shoot = Joystick_1.GetCircleButton();
+  // if(shoot == true){
+  //   turret->Set_Shot = true;
+  //   turret->timer_Shooter.Reset();
+  //   turret->timer_Shooter.Start();
+  //   storage->Turret_activated(); 
+  // }
+  // if(storage->color_sensor_1_state == false){
+  //   //Turret can't shoot
+  //   turret->NoShoot();
+  // }
   
-  intake->mainloop();
-  storage->mainloop();
-  swerve->Swerve_mainloop();
-  turret->turret_Teleop(turret->angle, turret->rotation);
+  // intake->mainloop();
+  // storage->mainloop();
+  // swerve->Swerve_mainloop();
+  // turret->turret_Teleop(turret->angle, turret->rotation);
   climb->Teleop();
 }
 
