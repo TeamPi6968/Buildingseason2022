@@ -25,7 +25,9 @@ Climb::Climb(frc::PS4Controller *controller)
 
 void Climb::Teleop(){
 
-    SetPositionController(Joystick->GetRawAxis(1)*-1*controllerspeed);  //Get the climbing speed
+    SetPositionController(Joystick->GetRawAxis(1)*controllerspeed);  //Get the climbing speed
+    MovePosition(Joystick->GetRawAxis(3)); //Set percentage output controller
+
 
     if(Joystick->GetSquareButton()) //Close rachets
     Rachets(true);
@@ -38,6 +40,8 @@ void Climb::Teleop(){
 
     if(Joystick->GetTriangleButton()) //Start climbing procedure
     ClimbNow();
+
+
 
 }
 
@@ -72,6 +76,10 @@ void Climb::SetPosition(float position)
 {
     frc::SmartDashboard::PutNumber("ClimbHeight",position);
     LClimbMotor.Set(ControlMode::Position, position);
+}
+
+void Climb::MovePosition(float controllerAxis){
+     LClimbMotor.Set(ControlMode::PercentOutput, controllerAxis);
 }
 
 void Climb::Rachets(bool open)

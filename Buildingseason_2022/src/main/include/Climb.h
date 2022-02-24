@@ -35,6 +35,7 @@ private:
     void Rachets(bool open);
     void SetPosition(float position);
     void SetPositionController(float axis);
+    void MovePosition(float controllerAxis);
 
 public:
 
