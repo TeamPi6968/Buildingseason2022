@@ -13,6 +13,10 @@ void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+
+  //Set Compressor 
+  compressor.EnableAnalog	(	95_psi,115_psi);
+  
   // intake = new Intake(&Joystick_1);
   // swerve = new Swerve(&Joystick_1);
   // storage = new Storage(&Joystick_1);
