@@ -9,7 +9,7 @@ class Climb
 {
 private:
     frc::PS4Controller *Joystick; //Link controller
-    const float controllerspeed = 100; 
+    const float controllerspeed = 0.3; 
 
     //Climb motors
     TalonFX LClimbMotor = {11}; //Master motor, Set Can ID, left
