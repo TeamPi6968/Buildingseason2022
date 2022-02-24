@@ -62,8 +62,8 @@ void Robot::AutonomousPeriodic() {
 
 
 void Robot::TeleopInit() {
-  swerve->Initialize_swerve();
-  swerve->Configure_PID();
+swerve->Initialize_swerve();
+swerve->Configure_PID();
   
 }
 
@@ -71,49 +71,23 @@ void Robot::TeleopPeriodic() {
 frc::SmartDashboard::PutNumber("sensor",test_1.Get());
 swerve->Swerve_mainloop();
 /*
-bool Joystick_rotation = Joystick_1.GetSquareButton();
-if(Joystick_rotation == true){
-  swerve->motorFLD.Set(ControlMode::PercentOutput,0.3);
-  swerve->motorFRD.Set(ControlMode::PercentOutput,-0.3);
-  swerve->motorRLD.Set(ControlMode::PercentOutput,0.3);
-  swerve->motorRRD.Set(ControlMode::PercentOutput,-0.3);
-  swerve->motorFRR.Set(ControlMode::Position, 0*swerve->oneTurn);  
-  swerve->motorFLR.Set(ControlMode::Position, 0*swerve->oneTurn);     
-  swerve->motorRLR.Set(ControlMode::Position, 0*swerve->oneTurn);     
-  swerve->motorRRR.Set(ControlMode::Position, 0*swerve->oneTurn);
+bool Joystick_speed_2 = Joystick_1.GetSquareButton();
+if(Joystick_speed_2 == true){
+  swerve->motorFLR.Set(ControlMode::PercentOutput,-0.3);
+  swerve->motorFRR.Set(ControlMode::PercentOutput,0.3);
+  swerve->motorRLR.Set(ControlMode::PercentOutput,-0.3);
+  swerve->motorRRR.Set(ControlMode::PercentOutput,0.3);
+  
 }
-else if(Joystick_rotation == false){
-  swerve->motorFLD.Set(ControlMode::PercentOutput,0);
-  swerve->motorFRD.Set(ControlMode::PercentOutput,0);
-  swerve->motorRLD.Set(ControlMode::PercentOutput,0);
-  swerve->motorRRD.Set(ControlMode::PercentOutput,0);
-  swerve->motorFRR.Set(ControlMode::Position, 0*swerve->oneTurn);  
-  swerve->motorFLR.Set(ControlMode::Position, 0*swerve->oneTurn);     
-  swerve->motorRLR.Set(ControlMode::Position, 0*swerve->oneTurn);     
-  swerve->motorRRR.Set(ControlMode::Position, 0*swerve->oneTurn);
-}
-bool Joystick_rotation_L = Joystick_1.GetTriangleButton();
-if(Joystick_rotation_L == true){
-  swerve->motorFLD.Set(ControlMode::PercentOutput,-0.3);
-  swerve->motorFRD.Set(ControlMode::PercentOutput,0.3);
-  swerve->motorRLD.Set(ControlMode::PercentOutput,-0.3);
-  swerve->motorRRD.Set(ControlMode::PercentOutput,0.3);
-  swerve->motorFRR.Set(ControlMode::Position, 0*swerve->oneTurn);  
-  swerve->motorFLR.Set(ControlMode::Position, 0*swerve->oneTurn);     
-  swerve->motorRLR.Set(ControlMode::Position, 0*swerve->oneTurn);     
-  swerve->motorRRR.Set(ControlMode::Position, 0*swerve->oneTurn);
-
-}
-else if(Joystick_rotation_L == false&& Joystick_rotation == false){
+else if(Joystick_speed_2 == false){
   swerve->motorFLR.Set(ControlMode::PercentOutput,0);
   swerve->motorFRR.Set(ControlMode::PercentOutput,0);
   swerve->motorRLR.Set(ControlMode::PercentOutput,0);
   swerve->motorRRR.Set(ControlMode::PercentOutput,0);
-  swerve->motorFRR.Set(ControlMode::Position, 0*swerve->oneTurn); 
-  swerve->motorFLR.Set(ControlMode::Position, 0*swerve->oneTurn);     
-  swerve->motorRLR.Set(ControlMode::Position, 0*swerve->oneTurn);     
-  swerve->motorRRR.Set(ControlMode::Position, 0*swerve->oneTurn); 
+ 
 }
+
+
 bool Joystick_speed = Joystick_1.GetCircleButton();
 if(Joystick_speed == true){
   swerve->motorFLD.Set(ControlMode::PercentOutput,-0.3);
@@ -130,33 +104,12 @@ else if(Joystick_speed == false){
   swerve->motorFRD.Set(ControlMode::PercentOutput,0);
   swerve->motorRLD.Set(ControlMode::PercentOutput,0);
   swerve->motorRRD.Set(ControlMode::PercentOutput,0);
-  swerve->motorFRR.Set(ControlMode::Position, 2.5*swerve->oneTurn); 
-  swerve->motorFLR.Set(ControlMode::Position, 2.5*swerve->oneTurn);     
+ swerve->motorFRR.Set(ControlMode::Position, 2.5*swerve->oneTurn); 
+swerve->motorFLR.Set(ControlMode::Position, 2.5*swerve->oneTurn);     
   swerve->motorRLR.Set(ControlMode::Position, 2.5*swerve->oneTurn);     
   swerve->motorRRR.Set(ControlMode::Position, 2.5*swerve->oneTurn); 
 }
-bool Joystick_speed_L = Joystick_1.GetCrossButton();
-if(Joystick_speed_L == true){
-  swerve->motorFLD.Set(ControlMode::PercentOutput,0.3);
-  swerve->motorFRD.Set(ControlMode::PercentOutput,-0.3);
-  swerve->motorRLD.Set(ControlMode::PercentOutput,0.3);
-  swerve->motorRRD.Set(ControlMode::PercentOutput,-0.3);
-  swerve->motorFRR.Set(ControlMode::Position, 2.5*swerve->oneTurn);  
-  swerve->motorFLR.Set(ControlMode::Position, 2.5*swerve->oneTurn);     
-  swerve->motorRLR.Set(ControlMode::Position, 2.5*swerve->oneTurn);     
-  swerve->motorRRR.Set(ControlMode::Position, 2.5*swerve->oneTurn);
-}
-else if(Joystick_speed == false && Joystick_speed_L == false){
-  swerve->motorFLD.Set(ControlMode::PercentOutput,0);
-  swerve->motorFRD.Set(ControlMode::PercentOutput,0);
-  swerve->motorRLD.Set(ControlMode::PercentOutput,0);
-  swerve->motorRRD.Set(ControlMode::PercentOutput,0);
-  swerve->motorFRR.Set(ControlMode::Position, 2.5*swerve->oneTurn);  
-  swerve->motorFLR.Set(ControlMode::Position, 2.5*swerve->oneTurn);     
-  swerve->motorRLR.Set(ControlMode::Position, 2.5*swerve->oneTurn);     
-  swerve->motorRRR.Set(ControlMode::Position, 2.5*swerve->oneTurn);
-}
-/*
+*/
 //else if(Joystick_speed_L == false){
 //  swerve->motorFLD.Set(ControlMode::PercentOutput,0);
 //}

@@ -45,20 +45,20 @@ class Swerve{
   const int oneTurn = 4096; //Encoder pulses for one rotation Falcon fx
 
   //Oriantation is 90 degrees rotated so every wheel needs to correct that error
-  int positionFL = 2.5*oneTurn;  
-  int positionFR = 2.5*oneTurn;
-  int positionBL = 2.5*oneTurn;
-  int positionBR = 2.5*oneTurn;
+  int positionFL = 6.75*oneTurn;  
+  int positionFR = 6.75*oneTurn;
+  int positionBL = 6.75*oneTurn;
+  int positionBR = 6.75*oneTurn;
 
   //PID values of the front wheels
   double kp = 0.4;//Old robot
-  double ki = 0.0001;//Old robot
-  double kd = 0.45;//Old robot
+  double ki = 0.00019;//Old robot
+  double kd = 0.5;//Old robot
 
   //PID values of the back wheels
-  double kp2 = 0.51;//Old robot
-  double ki2 = 0.0008;//Old robot
-  double kd2 = 0.51;//Old robot
+  double kp2 = 0.7;//Old robot
+  double ki2 = 0.0019;//Old robot
+  double kd2 = 0.65;//Old robot
 
   //Keep track of where the wheels are for smooth transition
   bool w1_wasIn4 = false; 
@@ -77,12 +77,13 @@ class Swerve{
   double rotationCounter_w4 = 0;
 
   //Speed limitation of the swervedrive (0.5 is the lower limit)
-  double speedmode = 2;
+  double speedmode = 3;
 
   //Variables of the wheels X,Y,Vector and Angle
   double Total_XW1 = 0;
   double Total_YW1 = 0;
   double Total_Vector_W1 = 0;
+  double velocity_max = 0.5;
   double Total_angle_W1 = 0;
   double Total_XW2 = 0;
   double Total_YW2 = 0;

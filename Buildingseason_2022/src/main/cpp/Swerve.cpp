@@ -11,11 +11,15 @@ void Swerve::Initialize_swerve(){
   frc::SmartDashboard::PutNumber("Cont X value", 0);
   frc::SmartDashboard::PutNumber("Cont Y value", 0);
   frc::SmartDashboard::PutNumber("X", vector_rotation);
+  double rotationCounter_w1 = 0;
+  double rotationCounter_w2 = 0;
+  double rotationCounter_w3 = 0;
+  double rotationCounter_w4 = 0;
 
-  motorFLR.SetSelectedSensorPosition(2.5*oneTurn);
-  motorFRR.SetSelectedSensorPosition(2.5*oneTurn);        
-  motorRRR.SetSelectedSensorPosition(2.5*oneTurn);
-  motorRLR.SetSelectedSensorPosition(2.5*oneTurn);
+  motorFLR.SetSelectedSensorPosition(6.75*oneTurn);
+  motorFRR.SetSelectedSensorPosition(6.75*oneTurn);        
+  motorRRR.SetSelectedSensorPosition(6.75*oneTurn);
+  motorRLR.SetSelectedSensorPosition(6.75*oneTurn);
 }
 //Configure the PID values for the swerve
 void Swerve::Configure_PID(){ //poop
@@ -24,13 +28,13 @@ void Swerve::Configure_PID(){ //poop
   motorFLR.Config_kI(0, ki);
   motorFLR.Config_kD(0, kd);
   //PID values of Front Right Rotation
-  motorFRR.Config_kP(0, kp);
-  motorFRR.Config_kI(0, ki);
-  motorFRR.Config_kD(0, kd);
+  motorFRR.Config_kP(0, kp2);
+  motorFRR.Config_kI(0, ki2);
+  motorFRR.Config_kD(0, kd2);
   //PID values of Rear Right Rotation
-  motorRRR.Config_kP(0, kp2);
-  motorRRR.Config_kI(0, ki2);
-  motorRRR.Config_kD(0, kd2);
+  motorRRR.Config_kP(0, kp);
+  motorRRR.Config_kI(0, ki);
+  motorRRR.Config_kD(0, kd);
   //PID values of Rear Left Rotation
   motorRLR.Config_kP(0, kp2);
   motorRLR.Config_kI(0, ki2);
@@ -276,17 +280,30 @@ void Swerve::set_rotations_w4(){
 void Swerve::set_motor_position(){ //Rotate the module
 if(vector_straffe <= 0.1 && (vector_rotation <= 0.1 && vector_rotation >= -0.1 )) //Both movements active
 {
-  positionFR = 2.5*oneTurn + (rotationCounter_w1*10*oneTurn); //90 degrees back to start position
-  positionFL = 2.5*oneTurn + (rotationCounter_w2*10*oneTurn); //90 degrees
-  positionBL = 2.5*oneTurn + (rotationCounter_w3*10*oneTurn); //90 degrees
-  positionBR = 2.5*oneTurn + (rotationCounter_w4*10*oneTurn); //90 degrees
+  positionFR = 6.75*oneTurn + (rotationCounter_w1*27*oneTurn); //90 degrees back to start position
+  positionFL = 6.75*oneTurn + (rotationCounter_w2*27*oneTurn); //90 degrees
+  positionBL = 6.75*oneTurn + (rotationCounter_w3*27*oneTurn); //90 degrees
+  positionBR = 6.75*oneTurn + (rotationCounter_w4*27*oneTurn); //90 degrees
+
+}else if(vector_straffe < 0.1 && (vector_rotation > 0.1 || vector_rotation < -0.1)){
+  positionFR = 3.375*oneTurn + (rotationCounter_w1*27*oneTurn); //90 degrees back to start position
+  positionFL = 10.125*oneTurn + (rotationCounter_w2*27*oneTurn); //90 degrees
+  positionBL = 16.875*oneTurn + (rotationCounter_w3*27*oneTurn); //90 degrees
+  positionBR = 23.625*oneTurn + (rotationCounter_w4*27*oneTurn); //90 degrees
 }
 else 
 {
-  positionFR =(10*oneTurn * (Total_angle_W1/360))+(rotationCounter_w1*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
-  positionFL =(10*oneTurn * (Total_angle_W2/360))+(rotationCounter_w2*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
-  positionBL =(10*oneTurn * (Total_angle_W3/360))+(rotationCounter_w3*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
-  positionBR =(10*oneTurn * (Total_angle_W4/360))+(rotationCounter_w4*10*oneTurn); //(45056 * (angle/360)) + rot_count*45056       
+  // gear ratio is  1 by 27
+  positionFR =(27*oneTurn * (Total_angle_W1/360))+(rotationCounter_w1*27*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
+  positionFL =(27*oneTurn * (Total_angle_W2/360))+(rotationCounter_w2*27*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
+  positionBL =(27*oneTurn * (Total_angle_W3/360))+(rotationCounter_w3*27*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
+  positionBR =(27*oneTurn * (Total_angle_W4/360))+(rotationCounter_w4*27*oneTurn); //(45056 * (angle/360)) + rot_count*45056   
+  //test
+  
+  frc::SmartDashboard::PutNumber("positionFR",positionFR); 
+  frc::SmartDashboard::PutNumber("positionFL",positionFL);  
+  frc::SmartDashboard::PutNumber("positionBL",positionBL);  
+  frc::SmartDashboard::PutNumber("positionBR",positionBR);     
 }
   motorFRR.Set(ControlMode::Position, positionFR);  
   motorFLR.Set(ControlMode::Position, positionFL);     
@@ -295,10 +312,18 @@ else
 }
 
 void Swerve::set_motor_speed(){ //Drive the motors
+  //double percentage_w1 = Total_Vector_W1/speedmode;
+  //motorFRD.Set(ControlMode::Velocity,velocity_max*percentage_w1);
   motorFRD.Set(ControlMode::PercentOutput, Total_Vector_W1/speedmode);
+  //double percentage_w2 = -Total_Vector_W2/speedmode;
+  //motorFLD.Set(ControlMode::Velocity,velocity_max*percentage_w2);
   motorFLD.Set(ControlMode::PercentOutput, -Total_Vector_W2/speedmode);
-  motorRRD.Set(ControlMode::PercentOutput, Total_Vector_W3/speedmode);
-  motorRLD.Set(ControlMode::PercentOutput, -Total_Vector_W4/speedmode);
+  //double percentage_w3 = Total_Vector_W3/speedmode;
+ // motorRLD.Set(ControlMode::Velocity,velocity_max*percentage_w3);
+  motorRLD.Set(ControlMode::PercentOutput, -Total_Vector_W3/speedmode);
+  //double percentage_w4 = -Total_Vector_W4/speedmode;
+  //motorRRD.Set(ControlMode::Velocity,velocity_max*percentage_w4);
+  motorRRD.Set(ControlMode::PercentOutput, Total_Vector_W4/speedmode);
 }
 
 void Swerve::Swerve_mainloop(){ //Mainloop of the drivetrain
@@ -309,6 +334,10 @@ void Swerve::Swerve_mainloop(){ //Mainloop of the drivetrain
     Total_angle_W2 = calculate_total_angle_of_wheel(Total_XW2, Total_YW2);
     Total_angle_W3 = calculate_total_angle_of_wheel(Total_XW3, Total_YW3);
     Total_angle_W4 = calculate_total_angle_of_wheel(Total_XW4, Total_YW4);
+    frc::SmartDashboard::PutNumber("angle w1",Total_angle_W1);
+    frc::SmartDashboard::PutNumber("angle w2",Total_angle_W2);
+    frc::SmartDashboard::PutNumber("angle w3",Total_angle_W3);
+    frc::SmartDashboard::PutNumber("angle w4",Total_angle_W4);
     set_rotations_w1();
     set_rotations_w2();
     set_rotations_w3();
