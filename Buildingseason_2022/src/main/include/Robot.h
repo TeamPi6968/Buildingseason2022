@@ -11,7 +11,7 @@
 #include <frc/Compressor.h>
 
 #include "Intake.h"
-// #include "Swerve.h"
+#include "Swerve.h"
 // #include "Storage.h"
 #include "Climb.h"
 #include "Shooter.h"
@@ -19,7 +19,7 @@
 class Robot : public frc::TimedRobot {
  public:
   Intake *intake;
-  // Swerve *swerve;
+  Swerve *swerve;
   // Storage *storage;
   Climb *climb;
   Shooter *shooter;
