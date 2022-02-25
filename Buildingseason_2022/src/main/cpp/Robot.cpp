@@ -62,13 +62,15 @@ void Robot::AutonomousPeriodic() {
 
 
 void Robot::TeleopInit() {
-swerve->Initialize_swerve();
-swerve->Configure_PID();
+//swerve->Initialize_swerve();
+//swerve->Configure_PID();
+swerve->steps = 0;
 }
 
 void Robot::TeleopPeriodic() {
 frc::SmartDashboard::PutNumber("sensor",test_1.Get());
-swerve->Swerve_mainloop();
+swerve->Allign_wheels();
+//swerve->Swerve_mainloop();
 /*
 bool Joystick_speed_2 = Joystick_1.GetSquareButton();
 if(Joystick_speed_2 == true){
@@ -151,7 +153,9 @@ void Robot::DisabledInit() {}
 
 void Robot::DisabledPeriodic() {}
 
-void Robot::TestInit() {}
+void Robot::TestInit() {
+  swerve->Configure_PID();
+}
 
 void Robot::TestPeriodic() {
   swerve->Allign_wheels();

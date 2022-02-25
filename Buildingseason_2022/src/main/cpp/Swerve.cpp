@@ -8,40 +8,243 @@ Swerve::Swerve(frc::PS4Controller *controller){
 }
 
 void Swerve::Allign_wheels(){
-  
+  frc::SmartDashboard::PutNumber("steps",steps);
   switch(steps){
     case 0:
-    if(swerveJoystick->GetCircleButton() == true){
-      motorFRR.Set(ControlMode::PercentOutput,0.2);
+    if(swerveJoystick->GetCircleButton() == true){//Square
+      motorFRR.Set(ControlMode::PercentOutput,0.15);
     }
-    if(swerveJoystick->GetCrossButton() == true){
+    else if (swerveJoystick->GetCircleButton() == false){
+    motorFRR.Set(ControlMode::PercentOutput,0);
+    }
+    if(swerveJoystick->GetCrossButton() == true){//Circle
       motorFRR.Set(ControlMode::PercentOutput,0);
       steps = 1;
     }
+
     break;
     case 1:
-    if(swerveJoystick->GetCircleButton() == true){
-      motorFLR.Set(ControlMode::PercentOutput,0.2);
+    if(swerveJoystick->GetCircleButton() == true){//
+      motorFLR.Set(ControlMode::PercentOutput,0.3);
     }
-    if(swerveJoystick->GetCrossButton() == true){
+    else if(swerveJoystick->GetCircleButton() == false){
+      motorFLR.Set(ControlMode::PercentOutput,0);
+    }
+    if(swerveJoystick->GetSquareButton() == true){
       motorFLR.Set(ControlMode::PercentOutput,0);
       steps = 2;
     }
     break;
     case 2:
-    if(swerveJoystick->GetCircleButton() == true){
-      motorRLR.Set(ControlMode::PercentOutput,0.2);
+    if(swerveJoystick->GetCircleButton() == true){//Square
+      motorRLR.Set(ControlMode::PercentOutput,0.15);
     }
-    if(swerveJoystick->GetCrossButton() == true){
+    else if(swerveJoystick->GetCircleButton() == false){
+      motorRLR.Set(ControlMode::PercentOutput,0);
+    }
+    if(swerveJoystick->GetCrossButton() == true){//Circle
       motorRLR.Set(ControlMode::PercentOutput,0);
       steps = 3;
     }
     break;
     case 3:
     if(swerveJoystick->GetCircleButton() == true){
-      motorRRR.Set(ControlMode::PercentOutput,0.2);
+      motorRRR.Set(ControlMode::PercentOutput,0.3);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
     }
-    if(swerveJoystick->GetCrossButton() == true){
+    else if(swerveJoystick->GetCircleButton() == false){
+      motorRRR.Set(ControlMode::PercentOutput,0);
+    }
+    if(swerveJoystick->GetSquareButton() == true){
       motorRRR.Set(ControlMode::PercentOutput,0);
       steps = 4;
     }
