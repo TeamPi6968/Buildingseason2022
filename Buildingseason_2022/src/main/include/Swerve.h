@@ -27,9 +27,12 @@ class Swerve{
   public:
   Swerve(frc::PS4Controller *controller);
 
+  void Allign_wheels();
   void Initialize_swerve();
   void Configure_PID();
   void Swerve_mainloop();
+  
+  
 
   TalonFX motorFLD = {2}; //Front Left Drive       
   TalonFX motorFLR = {3}; //Front Left Rotation
@@ -103,6 +106,7 @@ class Swerve{
   double yVal_straffe = 0;
   double vector_straffe = 0;
   double vector_rotation = 0;
+  int steps = 0;
 
 };
 

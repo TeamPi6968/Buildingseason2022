@@ -64,7 +64,6 @@ void Robot::AutonomousPeriodic() {
 void Robot::TeleopInit() {
 swerve->Initialize_swerve();
 swerve->Configure_PID();
-  
 }
 
 void Robot::TeleopPeriodic() {
@@ -155,18 +154,7 @@ void Robot::DisabledPeriodic() {}
 void Robot::TestInit() {}
 
 void Robot::TestPeriodic() {
-  // bool joystick_value_turret = Joystick_1.GetCrossButton();
-  
-  // if(joystick_value_turret == true){
-  //   frc::SmartDashboard::PutNumber("joystick value 1",joystick_value_turret);
-  //   storage->motor_turret.Set(0.3);
-  // }
-  // bool joystick_value_intake = Joystick_1.GetSquareButton();
-  
-  // if(joystick_value_intake == true){
-  //   frc::SmartDashboard::PutNumber("joystick value 2",joystick_value_intake);
-  //   storage->motor_2to1.Set(0.3);
-  // }
+  swerve->Allign_wheels();
 }
 
 #ifndef RUNNING_FRC_TESTS

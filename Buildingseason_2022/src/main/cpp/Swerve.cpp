@@ -6,8 +6,58 @@
 Swerve::Swerve(frc::PS4Controller *controller){
   swerveJoystick = controller; //Assing the joystick
 }
+
+void Swerve::Allign_wheels(){
+  
+  switch(steps){
+    case 0:
+    if(swerveJoystick->GetCircleButton() == true){
+      motorFRR.Set(ControlMode::PercentOutput,0.2);
+    }
+    if(swerveJoystick->GetCrossButton() == true){
+      motorFRR.Set(ControlMode::PercentOutput,0);
+      steps = 1;
+    }
+    break;
+    case 1:
+    if(swerveJoystick->GetCircleButton() == true){
+      motorFLR.Set(ControlMode::PercentOutput,0.2);
+    }
+    if(swerveJoystick->GetCrossButton() == true){
+      motorFLR.Set(ControlMode::PercentOutput,0);
+      steps = 2;
+    }
+    break;
+    case 2:
+    if(swerveJoystick->GetCircleButton() == true){
+      motorRLR.Set(ControlMode::PercentOutput,0.2);
+    }
+    if(swerveJoystick->GetCrossButton() == true){
+      motorRLR.Set(ControlMode::PercentOutput,0);
+      steps = 3;
+    }
+    break;
+    case 3:
+    if(swerveJoystick->GetCircleButton() == true){
+      motorRRR.Set(ControlMode::PercentOutput,0.2);
+    }
+    if(swerveJoystick->GetCrossButton() == true){
+      motorRRR.Set(ControlMode::PercentOutput,0);
+      steps = 4;
+    }
+    break;
+    default:
+      steps = 5;
+    break;
+    
+ 
+
+  }
+}
+
 //Give the wheels the rotaion of 90 degrees as thay are alliant right now
-void Swerve::Initialize_swerve(){ 
+void Swerve::Initialize_swerve(){
+  
   frc::SmartDashboard::PutNumber("Cont X value", 0);
   frc::SmartDashboard::PutNumber("Cont Y value", 0);
   frc::SmartDashboard::PutNumber("X", vector_rotation);
@@ -20,6 +70,7 @@ void Swerve::Initialize_swerve(){
   motorFRR.SetSelectedSensorPosition(6.75*oneTurn);        
   motorRRR.SetSelectedSensorPosition(6.75*oneTurn);
   motorRLR.SetSelectedSensorPosition(6.75*oneTurn);
+  
 }
 //Configure the PID values for the swerve
 void Swerve::Configure_PID(){ //poop
@@ -327,21 +378,22 @@ void Swerve::set_motor_speed(){ //Drive the motors
 }
 
 void Swerve::Swerve_mainloop(){ //Mainloop of the drivetrain
-    calculate_vector_straffe();
-    calculate_vector_rotation();
-    calculate_total_vector();
-    Total_angle_W1 = calculate_total_angle_of_wheel(Total_XW1, Total_YW1);
-    Total_angle_W2 = calculate_total_angle_of_wheel(Total_XW2, Total_YW2);
-    Total_angle_W3 = calculate_total_angle_of_wheel(Total_XW3, Total_YW3);
-    Total_angle_W4 = calculate_total_angle_of_wheel(Total_XW4, Total_YW4);
-    frc::SmartDashboard::PutNumber("angle w1",Total_angle_W1);
-    frc::SmartDashboard::PutNumber("angle w2",Total_angle_W2);
-    frc::SmartDashboard::PutNumber("angle w3",Total_angle_W3);
-    frc::SmartDashboard::PutNumber("angle w4",Total_angle_W4);
-    set_rotations_w1();
-    set_rotations_w2();
-    set_rotations_w3();
-    set_rotations_w4();
-    set_motor_position();
-    set_motor_speed();
+  calculate_vector_straffe();
+  calculate_vector_rotation();
+  calculate_total_vector();
+  Total_angle_W1 = calculate_total_angle_of_wheel(Total_XW1, Total_YW1);
+  Total_angle_W2 = calculate_total_angle_of_wheel(Total_XW2, Total_YW2);
+  Total_angle_W3 = calculate_total_angle_of_wheel(Total_XW3, Total_YW3);
+  Total_angle_W4 = calculate_total_angle_of_wheel(Total_XW4, Total_YW4);
+  frc::SmartDashboard::PutNumber("angle w1",Total_angle_W1);
+  frc::SmartDashboard::PutNumber("angle w2",Total_angle_W2);
+  frc::SmartDashboard::PutNumber("angle w3",Total_angle_W3);
+  frc::SmartDashboard::PutNumber("angle w4",Total_angle_W4);
+  set_rotations_w1();
+  set_rotations_w2();
+  set_rotations_w3();
+  set_rotations_w4();
+  set_motor_position();
+  set_motor_speed();
+  
 }
