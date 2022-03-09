@@ -87,11 +87,11 @@ void Robot::TeleopPeriodic()
   intake->TeleOp();
   //swerve->Swerve_mainloop();
   shooter->TeleOp();
-<<<<<<< HEAD
+
   //climb->Teleop();
-=======
+
   // climb->Teleop();
->>>>>>> cdcf9c70f2935eca5e7cf1792775ddc867161492
+
 }
 
 void Robot::DisabledInit() {}

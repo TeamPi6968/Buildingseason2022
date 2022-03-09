@@ -43,10 +43,10 @@ class Robot : public frc::TimedRobot {
   frc::PS4Controller Joystick_1{0};
   frc::PS4Controller Joystick_2{1};
   frc::Compressor compressor{60, frc::PneumaticsModuleType::REVPH};
-<<<<<<< HEAD
-=======
+
+
   const bool DisableCompressor = true;
->>>>>>> cdcf9c70f2935eca5e7cf1792775ddc867161492
+
 };
 
 
