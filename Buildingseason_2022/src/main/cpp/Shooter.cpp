@@ -21,12 +21,11 @@ Shooter::Shooter(frc::PS4Controller *controller)
 
     StorageShooter.SetInverted(true);
 
-
-    //Set followers
+    // Set followers
     BottomR.Follow(BottomL);
-    TopSpinner.Follow(BottomL); 
+    TopSpinner.Follow(BottomL);
 
-    //create Timer
+    // create Timer
     timer = new frc::Timer();
 }
 
@@ -38,7 +37,7 @@ void Shooter::TeleOp()
         StorageShooter.Set(ControlMode::PercentOutput, 1);
 
         BottomL.Set(ControlMode::PercentOutput, ShootPercentage);
-         StorageShooter.Set(ControlMode::PercentOutput, ShootPercentage);
+        StorageShooter.Set(ControlMode::PercentOutput, ShootPercentage);
 
         timer->Start();
     }
@@ -50,12 +49,68 @@ void Shooter::TeleOp()
         timer->Reset();
     }
 
-    if(timer->Get() > ShooterDelay){
-        //StorageShooter.Set(ControlMode::PercentOutput, ShootPercentage);
+    if (timer->Get() > ShooterDelay)
+    {
+        std::cout << "Shooter delay started" << '\n';
+        // StorageShooter.Set(ControlMode::PercentOutput, ShootPercentage);
     }
 
-    
-    TurretRotation.Set(Joystick->GetLeftX());
-    frc::SmartDashboard::PutNumber("joystick rotation",Joystick->GetLeftX());
-    TurretAngle.Set(Joystick->GetRightY());
+   
+    //Turret Rotation Limit
+    float turretROtationPosition = TurretRotation.GetEncoder().GetPosition();
+
+    if (turretROtationPosition < RightShooterLimit)
+    {
+        if (turretROtationPosition > LeftShooterLimit)
+        {
+            // The shooter is in between the the limits
+            TurretRotation.Set(Joystick->GetLeftX());
+        }
+        else
+        {
+            // over the left limit
+            if (Joystick->GetLeftX() > 0)
+                // move only back
+                TurretRotation.Set(Joystick->GetLeftX());
+        }
+    }
+    else
+    {
+        // over right limit
+        std::cout << "over right limit" << '\n';
+        if (Joystick->GetLeftX() < 0)
+            // move only back
+            TurretRotation.Set(Joystick->GetLeftX());
+    }
+
+
+
+    //Turret Angle limits
+    float turretAnglePosition = TurretAngle.GetEncoder().GetPosition();
+
+    if (turretAnglePosition < BottomAngelLimit)
+    {
+        if (turretAnglePosition > TopAngelLimit)
+        {
+            // The shooter is in between the the limits
+            TurretAngle.Set(Joystick->GetRightY());
+        }
+        else
+        {
+            // over the left limit
+            if (Joystick->GetRightY() > 0)
+                // move only back
+                TurretAngle.Set(Joystick->GetRightY());
+        }
+    }
+    else
+    {
+        // over right limit
+        std::cout << "over right limit" << '\n';
+        if (Joystick->GetRightY() < 0)
+            // move only back
+            TurretAngle.Set(Joystick->GetRightY());
+    }
+
+    frc::SmartDashboard::PutNumber("joystick rotation", Joystick->GetLeftX());
 }
