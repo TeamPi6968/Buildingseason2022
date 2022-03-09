@@ -299,6 +299,13 @@ else
   positionBL =(27*oneTurn * (Total_angle_W3/360))+(rotationCounter_w3*27*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
   positionBR =(27*oneTurn * (Total_angle_W4/360))+(rotationCounter_w4*27*oneTurn); //(45056 * (angle/360)) + rot_count*45056   
   //test
+
+//   //test because controller 2 circles
+//   positionFR = positionFR/2;
+//   positionFL = positionFL/2;
+//   positionBL = positionBL/2;
+//   positionBR = positionBR/2;
+
   
   frc::SmartDashboard::PutNumber("positionFR",positionFR); 
   frc::SmartDashboard::PutNumber("positionFL",positionFL);  

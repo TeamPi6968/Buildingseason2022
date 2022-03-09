@@ -16,16 +16,22 @@ private:
     TalonFX BottomR = {13}; //Slave motor,  Set Can ID, right
     TalonFX TopSpinner = {15};
 
+<<<<<<< HEAD
     rev::CANSparkMax TurretRotation{6,rev::CANSparkMax::MotorType::kBrushless};
     rev::CANSparkMax TurretAngle{5,rev::CANSparkMax::MotorType::kBrushless};
     float rotationSpeed = 0.3; //Rotation speed -1 to 1
+=======
+    rev::CANSparkMax TurretRotation{9,rev::CANSparkMax::MotorType::kBrushless};
+    rev::CANSparkMax TurretAngle{8,rev::CANSparkMax::MotorType::kBrushless};
+    float rotationSpeed = 0.75; //Rotation speed -1 to 1
+>>>>>>> cdcf9c70f2935eca5e7cf1792775ddc867161492
 
     //storage motors
     VictorSPX StorageShooter = {7};
 
     //Timer for the shooter delay
     frc::Timer* timer;
-    units::time::second_t ShooterDelay = 5_s; //seconds
+    units::time::second_t ShooterDelay = 2_s; //seconds
     
 
 public:
@@ -35,5 +41,5 @@ public:
     //TeleOp control
     void TeleOp();
 
-    float ShootPercentage = 20;
+    float ShootPercentage = 1;
 };

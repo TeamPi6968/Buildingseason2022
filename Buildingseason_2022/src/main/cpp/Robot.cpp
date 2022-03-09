@@ -16,6 +16,8 @@ void Robot::RobotInit()
 
   // Set Compressor
   compressor.EnableAnalog(95_psi, 115_psi);
+  if(DisableCompressor)
+  compressor.Disable();
 
   intake = new Intake(&Joystick_2);
   swerve = new Swerve(&Joystick_1);
@@ -85,7 +87,11 @@ void Robot::TeleopPeriodic()
   intake->TeleOp();
   //swerve->Swerve_mainloop();
   shooter->TeleOp();
+<<<<<<< HEAD
   //climb->Teleop();
+=======
+  // climb->Teleop();
+>>>>>>> cdcf9c70f2935eca5e7cf1792775ddc867161492
 }
 
 void Robot::DisabledInit() {}

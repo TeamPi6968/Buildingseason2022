@@ -27,5 +27,5 @@ public:
     // TeleOp control
     void TeleOp();
 
-    float IntakePercentage = 20;
+    float IntakePercentage = 1;
 };

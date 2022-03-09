@@ -77,7 +77,7 @@ class Swerve{
   double rotationCounter_w4 = 0;
 
   //Speed limitation of the swervedrive (0.5 is the lower limit)
-  double speedmode = 3;
+  double speedmode = 2;
 
   //Variables of the wheels X,Y,Vector and Angle
   double Total_XW1 = 0;

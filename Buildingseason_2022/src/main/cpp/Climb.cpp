@@ -14,10 +14,10 @@ Climb::Climb(frc::PS4Controller *controller)
     RClimbMotor.Follow(LClimbMotor);
 
     // Reset encoder
-    LClimbMotor.SetSelectedSensorPosition(0);
-    LClimbMotor.Config_kP(0, 0.45, 10);
-    LClimbMotor.Config_kI(0, 0.000001, 10);
-    LClimbMotor.Config_kD(0, 0.2, 10);
+    // LClimbMotor.SetSelectedSensorPosition(0);
+    // LClimbMotor.Config_kP(0, 0.45, 10);
+    // LClimbMotor.Config_kI(0, 0.000001, 10);
+    // LClimbMotor.Config_kD(0, 0.2, 10);
 
     // Set motors in starting position
     Rachets(false); // Make sure climber not opens
