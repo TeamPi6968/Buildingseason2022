@@ -49,10 +49,13 @@ void Turret::Jetson()
 
 }
 
-void Turret::ShootCalc(double depth)
+void Turret::ShootCalc()
 {
 //One of the X2 calculations (testing from camera)
-X2 = sqrt((pow(depth,2))-(pow(Y3,2)));//x value of the depth
+//std::shared_ptr<Networktables> table = nt::NetworkTableInstance::GetDefault().GetTable("datatable");
+//Depth_camera = table->GetNumber("Y",0.0);
+
+X2 = sqrt((pow(Depth_camera,2))-(pow(Y3,2)));//x value of the depth
 X3 = X2+0.61;//x value of depth + radius of hub
 //formula ax^2+b*x+c is used
 a = ((Y2 - c)*X3-(Y3-c)*X2)/(pow(X2,2)*X3-pow(X3,2)*X2);//calculate a
