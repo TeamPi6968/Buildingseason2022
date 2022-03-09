@@ -13,11 +13,11 @@ Climb::Climb(frc::PS4Controller *controller)
     // The right motor wil mirror the left motor
     RClimbMotor.Follow(LClimbMotor);
 
-    // Reset encoder
-    // LClimbMotor.SetSelectedSensorPosition(0);
-    // LClimbMotor.Config_kP(0, 0.45, 10);
-    // LClimbMotor.Config_kI(0, 0.000001, 10);
-    // LClimbMotor.Config_kD(0, 0.2, 10);
+    //Reset encoder
+     LClimbMotor.SetSelectedSensorPosition(0);
+     LClimbMotor.Config_kP(0, 0.45, 10);
+     LClimbMotor.Config_kI(0, 0.000001, 10);
+     LClimbMotor.Config_kD(0, 0.2, 10);
 
     // Set motors in starting position
     Rachets(false); // Make sure climber not opens
@@ -28,14 +28,14 @@ void Climb::Teleop()
 
     // SetPositionController(Joystick->GetRawAxis(1)*controllerspeed);  //Get the climbing speed
 
-    if (Joystick->GetPOV(0))
+    if (Joystick->GetPOV(0)==0)
     {
-        MovePosition(controllerspeed); // Set percentage output controller
+        MovePosition(-controllerspeed); // Set percentage output controller
         Rachets(false);
     }
-    else if (Joystick->GetPOV(180))
+    else if (Joystick->GetPOV(0)==180)
     {
-        MovePosition(controllerspeed); // Set percentage output controller
+        MovePosition(-controllerspeed); // Set percentage output controller
         Rachets(false);
     }
     else

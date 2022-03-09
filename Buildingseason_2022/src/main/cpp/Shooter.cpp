@@ -1,6 +1,6 @@
 #include "Shooter.h"
 #include <iostream>
- /* 
+ /*
 Shooter::Shooter(frc::PS4Controller *controller)
 {
   // Get reference
@@ -58,5 +58,5 @@ void Shooter::TeleOp()
     TurretRotation.Set(Joystick->GetLeftX());
     frc::SmartDashboard::PutNumber("joystick rotation",Joystick->GetLeftX());
     TurretAngle.Set(Joystick->GetRightY());
-    */
-//}
+    
+}*/

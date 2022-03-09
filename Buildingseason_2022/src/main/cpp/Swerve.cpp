@@ -1,4 +1,3 @@
-#pragma once
 
 #include "Swerve.h"
 
@@ -7,6 +6,60 @@ Swerve::Swerve(frc::PS4Controller *controller){
   swerveJoystick = controller; //Assing the joystick
 }
 //Give the wheels the rotaion of 90 degrees as thay are alliant right now
+void Swerve::allign_wheels(){
+  switch(allign_steps){
+    case 0:
+    if (swerveJoystick->GetSquareButton() == true){//cross button
+        motorFRR.Set(ControlMode::PercentOutput, 0.3);
+    }
+    else if (swerveJoystick->GetSquareButton() == false){//cross
+      motorFRR.Set(ControlMode::PercentOutput, 0);
+    }
+    if (swerveJoystick->GetCrossButton() == true){//circle
+    allign_steps = 1;
+    }
+    break;
+
+    case 1:
+    if (swerveJoystick->GetSquareButton() == true){//cross button
+      motorFLR.Set(ControlMode::PercentOutput, 0.3);
+    }
+    else if (swerveJoystick->GetSquareButton() == false){
+      motorFLR.Set(ControlMode::PercentOutput, 0);
+    }
+
+    if (swerveJoystick->GetCircleButton() == true){//square
+    allign_steps = 2;
+    }
+    break;
+
+    case 2:
+    if (swerveJoystick->GetSquareButton() == true){//cross button
+      motorRLR.Set(ControlMode::PercentOutput, 0.3);
+    }
+    else if (swerveJoystick->GetSquareButton() == false){
+      motorRLR.Set(ControlMode::PercentOutput, 0);
+    }
+    if (swerveJoystick->GetCrossButton() == true){//square
+    allign_steps = 3;
+    }
+    break;
+
+    case 3:
+    if (swerveJoystick->GetSquareButton() == true){//cross button
+    motorRRR.Set(ControlMode::PercentOutput, 0.3);
+    }
+    else if (swerveJoystick->GetSquareButton() == false){
+    motorRRR.Set(ControlMode::PercentOutput, 0);
+    }
+    if (swerveJoystick->GetCrossButton() == true){//square
+    allign_steps = 4;
+    }
+    break;
+ 
+
+  };
+}
 void Swerve::Initialize_swerve(){ 
   frc::SmartDashboard::PutNumber("Cont X value", 0);
   frc::SmartDashboard::PutNumber("Cont Y value", 0);

@@ -22,7 +22,7 @@ class Robot : public frc::TimedRobot {
   Swerve *swerve;
   // Storage *storage;
   Climb *climb;
-  Shooter *shooter;
+  //Shooter *shooter;
 
   void RobotInit() override;
   void RobotPeriodic() override;
@@ -45,7 +45,7 @@ class Robot : public frc::TimedRobot {
   frc::Compressor compressor{60, frc::PneumaticsModuleType::REVPH};
 
 
-  const bool DisableCompressor = true;
+  const bool DisableCompressor = false;
 
 };
 

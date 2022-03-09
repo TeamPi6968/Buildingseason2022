@@ -15,7 +15,7 @@ void Robot::RobotInit()
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
   // Set Compressor
-  compressor.EnableAnalog(95_psi, 115_psi);
+  compressor.EnableAnalog(80_psi, 90_psi);
   if(DisableCompressor)
   compressor.Disable();
 
@@ -85,6 +85,7 @@ void Robot::TeleopPeriodic()
 {
 
   intake->TeleOp();
+  
   swerve->Swerve_mainloop();
   //shooter->TeleOp();
   
@@ -98,9 +99,14 @@ void Robot::DisabledInit() {}
 
 void Robot::DisabledPeriodic() {}
 
-void Robot::TestInit() {}
+void Robot::TestInit() {
+  swerve->Initialize_swerve();
+  swerve->Configure_PID();
+}
 
-void Robot::TestPeriodic() {}
+void Robot::TestPeriodic() {
+  swerve->allign_wheels();
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main()
