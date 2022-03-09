@@ -1,9 +1,9 @@
 #include "Shooter.h"
 #include <iostream>
-
+ /*
 Shooter::Shooter(frc::PS4Controller *controller)
 {
-    // Get reference
+  // Get reference
     Joystick = controller;
 
     // Set motor settings
@@ -112,5 +112,9 @@ void Shooter::TeleOp()
             TurretAngle.Set(Joystick->GetRightY());
     }
 
-    frc::SmartDashboard::PutNumber("joystick rotation", Joystick->GetLeftX());
-}
+    
+    TurretRotation.Set(Joystick->GetLeftX());
+    frc::SmartDashboard::PutNumber("joystick rotation",Joystick->GetLeftX());
+    TurretAngle.Set(Joystick->GetRightY());
+    
+}*/

@@ -3,41 +3,45 @@
 
 Intake::Intake(frc::PS4Controller *controller)
 {
-    //Get reference
-    Joystick = controller;
-    
-    //Set motor settings
-    IntakeMotor.ConfigFactoryDefault(); //Reset motors
-    StorageIntake.ConfigFactoryDefault();
+  // Get reference
+  Joystick = controller;
 
-    //Set direction
-    IntakeMotor.SetInverted(false);
-    StorageIntake.SetInverted(true);
+  // Set motor settings
+  IntakeMotor.ConfigFactoryDefault(); // Reset motors
+  StorageIntake.ConfigFactoryDefault();
 
-    //Set followers
-    StorageIntake.Follow(IntakeMotor);
+  // Set direction
+  IntakeMotor.SetInverted(false);
+  StorageIntake.SetInverted(true);
+
+  // Set followers
+  StorageIntake.Follow(IntakeMotor);
 }
 
-void Intake::TeleOp(){
+void Intake::TeleOp()
+{
 
-    if(Joystick->GetCircleButton() == true){
-
-    if(Joystick->GetSquareButton())
+  if (Joystick->GetSquareButton() == true)
+  {
 
     IntakeMotor.Set(ControlMode::PercentOutput, IntakePercentage);
-    //StorageIntake.Set(ControlMode::PercentOutput,-0.7);
-    }
-    else if(Joystick->GetCircleButton() == false){
+    // StorageIntake.Set(ControlMode::PercentOutput,-0.7);
+  }
+  else if (Joystick->GetCircleButton() == false)
+  {
     IntakeMotor.Set(ControlMode::PercentOutput, 0);
-    }
+  }
 
-    if (Joystick->GetTriangleButton() == true) { //POV buttons are in angles
-      BigSolenoids.Set(frc::DoubleSolenoid::kForward);
-      SmallSolenoids.Set(frc::DoubleSolenoid::kForward);
-    } 
-    else if(Joystick->GetR1Button() == true) {
-      BigSolenoids.Set(frc::DoubleSolenoid::kReverse);
-      SmallSolenoids.Set(frc::DoubleSolenoid::kReverse);
-    } 
+  if (Joystick->GetTriangleButton() == true)
+  { // POV buttons are in angles
+    std::cout<<"tRIANGLE BUTTON"<<"\n";
+    BigSolenoids.Set(frc::DoubleSolenoid::Value::kForward);
+    SmallSolenoids.Set(frc::DoubleSolenoid::Value::kForward);
+    //BigSolenoids.Set(frc::DoubleSolenoid::
+  }
+  if (Joystick->GetR1Button() == true)
+  {
+    BigSolenoids.Set(frc::DoubleSolenoid::Value::kReverse);
+    SmallSolenoids.Set(frc::DoubleSolenoid::Value::kReverse);
+  }
 }
-

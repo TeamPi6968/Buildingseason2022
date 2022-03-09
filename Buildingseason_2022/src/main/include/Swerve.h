@@ -10,6 +10,7 @@ class Swerve{
 
   frc::PS4Controller *swerveJoystick; //Pointer to controller
   //Functions for the swerve drive
+  
   void calculate_vector_straffe();
   void calculate_vector_rotation();
   void calculate_total_vector();
@@ -30,6 +31,7 @@ class Swerve{
   void Initialize_swerve();
   void Configure_PID();
   void Swerve_mainloop();
+  void allign_wheels();
 
   TalonFX motorFLD = {2}; //Front Left Drive       
   TalonFX motorFLR = {3}; //Front Left Rotation
@@ -70,6 +72,7 @@ class Swerve{
   bool w4_wasIn4 = false; 
   bool w4_wasIn1 = false;
 
+  int allign_steps = 0;
   //Rotation counter of the wheels
   double rotationCounter_w1 = 0;
   double rotationCounter_w2 = 0;
