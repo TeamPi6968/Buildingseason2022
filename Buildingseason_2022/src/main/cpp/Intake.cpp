@@ -19,11 +19,11 @@ Intake::Intake(frc::PS4Controller *controller)
 }
 
 void Intake::TeleOp(){
-<<<<<<< HEAD
+
     if(Joystick->GetCircleButton() == true){
-=======
+
     if(Joystick->GetSquareButton())
->>>>>>> cdcf9c70f2935eca5e7cf1792775ddc867161492
+
     IntakeMotor.Set(ControlMode::PercentOutput, IntakePercentage);
     //StorageIntake.Set(ControlMode::PercentOutput,-0.7);
     }
