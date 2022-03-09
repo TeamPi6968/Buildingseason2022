@@ -19,16 +19,19 @@ Intake::Intake(frc::PS4Controller *controller)
 }
 
 void Intake::TeleOp(){
-    if(Joystick->GetShareButton())
+    if(Joystick->GetCircleButton() == true){
     IntakeMotor.Set(ControlMode::PercentOutput, IntakePercentage);
-    else
+    //StorageIntake.Set(ControlMode::PercentOutput,-0.7);
+    }
+    else if(Joystick->GetCircleButton() == false){
     IntakeMotor.Set(ControlMode::PercentOutput, 0);
+    }
 
-    if (Joystick->GetPOV(90*3)) { //POV buttons are in angles
+    if (Joystick->GetTriangleButton() == true) { //POV buttons are in angles
       BigSolenoids.Set(frc::DoubleSolenoid::kForward);
       SmallSolenoids.Set(frc::DoubleSolenoid::kForward);
     } 
-    if(Joystick->GetPOV(90)) {
+    else if(Joystick->GetR1Button() == true) {
       BigSolenoids.Set(frc::DoubleSolenoid::kReverse);
       SmallSolenoids.Set(frc::DoubleSolenoid::kReverse);
     } 
