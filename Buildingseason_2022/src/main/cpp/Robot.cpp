@@ -89,9 +89,9 @@ void Robot::TeleopPeriodic()
   swerve->Swerve_mainloop();
   shooter->TeleOp();
   
-  //climb->Teleop();
+  climb->Teleop();
 
-  // climb->Teleop();
+  
 
 }
 

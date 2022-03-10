@@ -45,6 +45,6 @@ public:
 
    // TeleOp control
     void TeleOp();
-
+    void shot_calculation();
     float ShootPercentage = 1;
 };
