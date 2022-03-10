@@ -54,8 +54,8 @@ private:
     double radius = 0.0254;//radius in meters (2inch wheel)
     double motorspeed;
     double Depth_camera;
+    
 public:
-
     Shooter(frc::PS4Controller *controller); //Create object
 
    // TeleOp control

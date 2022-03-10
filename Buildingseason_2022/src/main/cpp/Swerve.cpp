@@ -59,7 +59,7 @@ void Swerve::calculate_vector_straffe(){
 
 void Swerve::calculate_vector_rotation(){
   //Get values of controller
-  vector_rotation = swerveJoystick->GetRightX();
+  vector_rotation = swerveJoystick->GetL2Axis();
   //Set values to zero when the vector is smaller than 0.1 due the misreadings when you don't touch the joystick
   if(vector_rotation<=0.1 && vector_rotation >= -0.1)
   {
