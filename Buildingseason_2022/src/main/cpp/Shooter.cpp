@@ -28,6 +28,18 @@ Shooter::Shooter(frc::PS4Controller *controller)
     // create Timer
     timer = new frc::Timer();
 }
+void Shooter::shot_calculation(){
+ X2 = sqrt((pow(Depth_camera,2))-(pow(Y3,2)));//x value of the depth
+ X3 = X2+0.61;//x value of depth + radius of hub
+ //formula ax^2+b*x+c is used
+ a = ((Y2 - c)*X3-(Y3-c)*X2)/(pow(X2,2)*X3-pow(X3,2)*X2);//calculate a
+ b = (Y2 - a*pow(X2,2)-c)/X2;//calculate b
+ angle_shot = tan(b/1);//slope is always value b so angle can be calculated
+ velocity = sqrt((9.81*pow(X2,2))/((X2*tan(angle_shot)-Y3 + Y1)*(2*pow(cos(angle_shot),2))));//velocity in m/s
+ motorspeed_rpm = (60*velocity)/(2*M_PI*radius);
+ motorspeed = motorspeed_rpm/max_motorspeed_rpm;
+}
+
 
 void Shooter::TeleOp()
 {
