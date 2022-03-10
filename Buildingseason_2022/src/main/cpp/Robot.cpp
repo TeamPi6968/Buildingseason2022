@@ -87,7 +87,7 @@ void Robot::TeleopPeriodic()
   intake->TeleOp();
   
   swerve->Swerve_mainloop();
-  //shooter->TeleOp();
+  shooter->TeleOp();
   
   //climb->Teleop();
 
@@ -105,6 +105,7 @@ void Robot::TestInit() {
 }
 
 void Robot::TestPeriodic() {
+
   swerve->allign_wheels();
 }
 

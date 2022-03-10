@@ -11,17 +11,11 @@ class Swerve{
   frc::PS4Controller *swerveJoystick; //Pointer to controller
   //Functions for the swerve drive
   
-  void calculate_vector_straffe();
-  void calculate_vector_rotation();
-  void calculate_total_vector();
-  double calculate_total_angle_of_wheel(double X, double Y);
+
   // void calculate_total_angle_w2();
   // void calculate_total_angle_w3();
   // void calculate_total_angle_w4();
-  void set_rotations_w1();
-  void set_rotations_w2();
-  void set_rotations_w3();
-  void set_rotations_w4();
+
   void set_motor_position();
   void set_motor_speed();
 
@@ -32,6 +26,15 @@ class Swerve{
   void Configure_PID();
   void Swerve_mainloop();
   void allign_wheels();
+  void set_rotations_w1();
+  void set_rotations_w2();
+  void set_rotations_w3();
+  void set_rotations_w4();
+  void calculate_vector_straffe();
+  void calculate_vector_rotation();
+  void calculate_total_vector();
+  double calculate_total_angle_of_wheel(double X, double Y);
+  void test_angle();
 
   TalonFX motorFLD = {2}; //Front Left Drive       
   TalonFX motorFLR = {3}; //Front Left Rotation

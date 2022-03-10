@@ -1,6 +1,6 @@
 #include "Shooter.h"
 #include <iostream>
- /*
+ 
 Shooter::Shooter(frc::PS4Controller *controller)
 {
   // Get reference
@@ -50,13 +50,13 @@ void Shooter::TeleOp()
         timer->Reset();
     }
 
-    if(timer->Get() > ShooterDelay){
+    //if(timer->Get() > ShooterDelay){
         //StorageShooter.Set(ControlMode::PercentOutput, ShootPercentage);
-    }
+    //}
 
     
     TurretRotation.Set(Joystick->GetLeftX());
     frc::SmartDashboard::PutNumber("joystick rotation",Joystick->GetLeftX());
     TurretAngle.Set(Joystick->GetRightY());
     
-}*/
+}

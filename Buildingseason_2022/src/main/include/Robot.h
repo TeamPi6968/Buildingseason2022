@@ -22,7 +22,7 @@ class Robot : public frc::TimedRobot {
   Swerve *swerve;
   // Storage *storage;
   Climb *climb;
-  //Shooter *shooter;
+  Shooter *shooter;
 
   void RobotInit() override;
   void RobotPeriodic() override;
@@ -35,6 +35,8 @@ class Robot : public frc::TimedRobot {
   void TestInit() override;
   void TestPeriodic() override;
   //ctre::phoenix::motorcontrol::can::TalonFX motor_1{0};
+
+
  private:
   frc::SendableChooser<std::string> m_chooser;
   const std::string kAutoNameDefault = "Default";

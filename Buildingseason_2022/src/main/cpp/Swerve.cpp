@@ -6,60 +6,7 @@ Swerve::Swerve(frc::PS4Controller *controller){
   swerveJoystick = controller; //Assing the joystick
 }
 //Give the wheels the rotaion of 90 degrees as thay are alliant right now
-void Swerve::allign_wheels(){
-  switch(allign_steps){
-    case 0:
-    if (swerveJoystick->GetSquareButton() == true){//cross button
-        motorFRR.Set(ControlMode::PercentOutput, 0.3);
-    }
-    else if (swerveJoystick->GetSquareButton() == false){//cross
-      motorFRR.Set(ControlMode::PercentOutput, 0);
-    }
-    if (swerveJoystick->GetCrossButton() == true){//circle
-    allign_steps = 1;
-    }
-    break;
 
-    case 1:
-    if (swerveJoystick->GetSquareButton() == true){//cross button
-      motorFLR.Set(ControlMode::PercentOutput, 0.3);
-    }
-    else if (swerveJoystick->GetSquareButton() == false){
-      motorFLR.Set(ControlMode::PercentOutput, 0);
-    }
-
-    if (swerveJoystick->GetCircleButton() == true){//square
-    allign_steps = 2;
-    }
-    break;
-
-    case 2:
-    if (swerveJoystick->GetSquareButton() == true){//cross button
-      motorRLR.Set(ControlMode::PercentOutput, 0.3);
-    }
-    else if (swerveJoystick->GetSquareButton() == false){
-      motorRLR.Set(ControlMode::PercentOutput, 0);
-    }
-    if (swerveJoystick->GetCrossButton() == true){//square
-    allign_steps = 3;
-    }
-    break;
-
-    case 3:
-    if (swerveJoystick->GetSquareButton() == true){//cross button
-    motorRRR.Set(ControlMode::PercentOutput, 0.3);
-    }
-    else if (swerveJoystick->GetSquareButton() == false){
-    motorRRR.Set(ControlMode::PercentOutput, 0);
-    }
-    if (swerveJoystick->GetCrossButton() == true){//square
-    allign_steps = 4;
-    }
-    break;
- 
-
-  };
-}
 void Swerve::Initialize_swerve(){ 
   frc::SmartDashboard::PutNumber("Cont X value", 0);
   frc::SmartDashboard::PutNumber("Cont Y value", 0);
@@ -338,12 +285,13 @@ if(vector_straffe <= 0.1 && (vector_rotation <= 0.1 && vector_rotation >= -0.1 )
   positionBL = 6.75*oneTurn + (rotationCounter_w3*27*oneTurn); //90 degrees
   positionBR = 6.75*oneTurn + (rotationCounter_w4*27*oneTurn); //90 degrees
 
-}else if(vector_straffe < 0.1 && (vector_rotation > 0.1 || vector_rotation < -0.1)){
-  positionFR = 3.375*oneTurn + (rotationCounter_w1*27*oneTurn); //90 degrees back to start position
-  positionFL = 10.125*oneTurn + (rotationCounter_w2*27*oneTurn); //90 degrees
-  positionBL = 16.875*oneTurn + (rotationCounter_w3*27*oneTurn); //90 degrees
-  positionBR = 23.625*oneTurn + (rotationCounter_w4*27*oneTurn); //90 degrees
 }
+//else if(vector_straffe < 0.1 && (vector_rotation > 0.1 || vector_rotation < -0.1)){
+//  positionFR = 3.375*oneTurn + (rotationCounter_w1*27*oneTurn); //90 degrees back to start position
+//  positionFL = 10.125*oneTurn + (rotationCounter_w2*27*oneTurn); //90 degrees
+//  positionBL = 16.875*oneTurn + (rotationCounter_w3*27*oneTurn); //90 degrees
+//  positionBR = 23.625*oneTurn + (rotationCounter_w4*27*oneTurn); //90 degrees
+//}
 else 
 {
   // gear ratio is  1 by 27
@@ -370,7 +318,42 @@ else
   motorRLR.Set(ControlMode::Position, positionBL);     
   motorRRR.Set(ControlMode::Position, positionBR);
 }
+void Swerve::allign_wheels(){
+  switch(allign_steps){
+    case 0:
+    
+    motorFRR.Set(ControlMode::PercentOutput,swerveJoystick->GetLeftX()); 
+    
+    if (swerveJoystick->GetCrossButton() == true){//circle
+    allign_steps = 1;
+    }
+    break;
 
+    case 1:
+    motorFLR.Set(ControlMode::PercentOutput,swerveJoystick->GetLeftX());
+
+    if (swerveJoystick->GetCircleButton() == true){//square
+    allign_steps = 2;
+    }
+    break;
+
+    case 2:
+    motorRLR.Set(ControlMode::PercentOutput,swerveJoystick->GetLeftX());
+    if (swerveJoystick->GetCrossButton() == true){//square
+    allign_steps = 3;
+    }
+    break;
+
+    case 3:
+    motorRRR.Set(ControlMode::PercentOutput,swerveJoystick->GetLeftX());
+    if (swerveJoystick->GetCircleButton() == true){//square
+    allign_steps = 4;
+    }
+    break;
+ 
+
+  };
+}
 void Swerve::set_motor_speed(){ //Drive the motors
   //double percentage_w1 = Total_Vector_W1/speedmode;
   //motorFRD.Set(ControlMode::Velocity,velocity_max*percentage_w1);
@@ -393,7 +376,7 @@ void Swerve::Swerve_mainloop(){ //Mainloop of the drivetrain
     Total_angle_W1 = calculate_total_angle_of_wheel(Total_XW1, Total_YW1);
     Total_angle_W2 = calculate_total_angle_of_wheel(Total_XW2, Total_YW2);
     Total_angle_W3 = calculate_total_angle_of_wheel(Total_XW3, Total_YW3);
-    Total_angle_W4 = calculate_total_angle_of_wheel(Total_XW4, Total_YW4);
+    Total_angle_W4 = calculate_total_angle_of_wheel(Total_XW4, Total_YW4); 
     frc::SmartDashboard::PutNumber("angle w1",Total_angle_W1);
     frc::SmartDashboard::PutNumber("angle w2",Total_angle_W2);
     frc::SmartDashboard::PutNumber("angle w3",Total_angle_W3);
