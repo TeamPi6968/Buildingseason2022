@@ -23,7 +23,7 @@ class Turret
  void NoShoot();
  void Jetson();
  void Jetson_Config();
- void ShootCalc(double depth);
+ void ShootCalc();
   
 
  Turret(frc::PS4Controller *controller);
