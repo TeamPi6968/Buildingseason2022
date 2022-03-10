@@ -31,6 +31,12 @@ private:
    // Timer for the shooter delay
     frc::Timer* timer;
     units::time::second_t ShooterDelay = 2_s; //seconds
+
+    float RightShooterLimit = 200;
+    float LeftShooterLimit = -200;
+
+    float BottomAngelLimit = 0;
+    float TopAngelLimit = 200;
     
 
 public:
