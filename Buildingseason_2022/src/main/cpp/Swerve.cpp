@@ -278,22 +278,22 @@ void Swerve::set_rotations_w4(){
 }
 
 void Swerve::set_motor_position(){ //Rotate the module
-if(vector_straffe <= 0.1 && (vector_rotation <= 0.1 && vector_rotation >= -0.1 )) //Both movements active
-{
-  positionFR = (rotatieverhouding/4)*oneTurn + (rotationCounter_w1*rotatieverhouding*oneTurn); //90 degrees back to start position
-  positionFL = (rotatieverhouding/4)*oneTurn + (rotationCounter_w2*rotatieverhouding*oneTurn); //90 degrees
-  positionBL = (rotatieverhouding/4)*oneTurn + (rotationCounter_w3*rotatieverhouding*oneTurn); //90 degrees
-  positionBR = (rotatieverhouding/4)*oneTurn + (rotationCounter_w4*rotatieverhouding*oneTurn); //90 degrees
+//if(vector_straffe <= 0.1 && (vector_rotation <= 0.1 && vector_rotation >= -0.1 )) //Both movements active
+//{
+//  positionFR = (rotatieverhouding/4)*oneTurn + (rotationCounter_w1*rotatieverhouding*oneTurn); //90 degrees back to start position
+//  positionFL = (rotatieverhouding/4)*oneTurn + (rotationCounter_w2*rotatieverhouding*oneTurn); //90 degrees
+//  positionBL = (rotatieverhouding/4)*oneTurn + (rotationCounter_w3*rotatieverhouding*oneTurn); //90 degrees
+//  positionBR = (rotatieverhouding/4)*oneTurn + (rotationCounter_w4*rotatieverhouding*oneTurn); //90 degrees
 
-}
+//}
 //else if(vector_straffe < 0.1 && (vector_rotation > 0.1 || vector_rotation < -0.1)){
 //  positionFR = 3.375*oneTurn + (rotationCounter_w1*27*oneTurn); //90 degrees back to start position
 //  positionFL = 10.125*oneTurn + (rotationCounter_w2*27*oneTurn); //90 degrees
 //  positionBL = 16.875*oneTurn + (rotationCounter_w3*27*oneTurn); //90 degrees
 //  positionBR = 23.625*oneTurn + (rotationCounter_w4*27*oneTurn); //90 degrees
 //}
-else 
-{
+//else 
+//{
   // gear ratio is  1 by 27
   positionFR =(rotatieverhouding*oneTurn * (Total_angle_W1/360))+(rotationCounter_w1*rotatieverhouding*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
   positionFL =(rotatieverhouding*oneTurn * (Total_angle_W2/360))+(rotationCounter_w2*rotatieverhouding*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
@@ -312,7 +312,7 @@ else
   frc::SmartDashboard::PutNumber("positionFL",positionFL);  
   frc::SmartDashboard::PutNumber("positionBL",positionBL);  
   frc::SmartDashboard::PutNumber("positionBR",positionBR);     
-}
+//}
   motorFRR.Set(ControlMode::Position, positionFR);  
   motorFLR.Set(ControlMode::Position, positionFL);     
   motorRLR.Set(ControlMode::Position, positionBL);     
@@ -356,7 +356,7 @@ void Swerve::allign_wheels(){
 }
 void Swerve::set_motor_speed(){ //Drive the motors
   
-  motorFRD.Set(ControlMode::PercentOutput, Total_Vector_W1/speedmode);
+ //motorFRD.Set(ControlMode::PercentOutput, Total_Vector_W1/speedmode);
   
   motorFLD.Set(ControlMode::PercentOutput, -Total_Vector_W2/speedmode);
  

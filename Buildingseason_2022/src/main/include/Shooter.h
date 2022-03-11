@@ -33,6 +33,7 @@ private:
     frc::Timer* AutoTimer;
 
     units::time::second_t ShooterDelay = 2_s; //seconds
+    units::time::second_t AutonomousDelay = 5_s; //seconds
 
     float RightShooterLimit = 200;
     float LeftShooterLimit = -200;
