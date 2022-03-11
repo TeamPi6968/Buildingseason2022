@@ -15,7 +15,7 @@ private:
     VictorSPX IntakeMotor = {9};
     VictorSPX StorageIntake = {8};
 
-    frc::DoubleSolenoid BigSolenoids{60, frc::PneumaticsModuleType::REVPH, 4, 0};
+    frc::DoubleSolenoid BigSolenoids{60, frc::PneumaticsModuleType::REVPH, 0, 4};
     frc::DoubleSolenoid SmallSolenoids{60, frc::PneumaticsModuleType::REVPH, 6, 2};
     // static constexpr int kSolenoidButton = 1;
     // static constexpr int kDoubleSolenoidForward = 2;

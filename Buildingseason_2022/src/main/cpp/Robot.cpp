@@ -83,18 +83,18 @@ void Robot::AutonomousPeriodic()
 
 void Robot::TeleopInit()
 {
-  swerve->Initialize_swerve();
-  swerve->Configure_PID();
-  intake->intakeInit();
+ // swerve->Initialize_swerve();
+ // swerve->Configure_PID();
+  //intake->intakeInit();
 }
 
 void Robot::TeleopPeriodic()
 {
 
-  intake->TeleOp();
+  //intake->TeleOp();
   
-  swerve->Swerve_mainloop();
-  shooter->TeleOp();
+ // swerve->Swerve_mainloop();
+  //shooter->TeleOp();
   
   //climb->Teleop();
 
@@ -107,8 +107,8 @@ void Robot::DisabledInit() {}
 void Robot::DisabledPeriodic() {}
 
 void Robot::TestInit() {
-  swerve->Initialize_swerve();
-  swerve->Configure_PID();
+ // swerve->Initialize_swerve();
+  //swerve->Configure_PID();
 }
 
 void Robot::TestPeriodic() {

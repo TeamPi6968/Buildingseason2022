@@ -308,10 +308,10 @@ void Swerve::set_motor_position(){ //Rotate the module
 //   positionBR = positionBR/2;
 
   
-  frc::SmartDashboard::PutNumber("positionFR",positionFR); 
-  frc::SmartDashboard::PutNumber("positionFL",positionFL);  
-  frc::SmartDashboard::PutNumber("positionBL",positionBL);  
-  frc::SmartDashboard::PutNumber("positionBR",positionBR);     
+  frc::SmartDashboard::PutNumber("steps positionFR",positionFR); 
+  frc::SmartDashboard::PutNumber("steps positionFL",positionFL);  
+  frc::SmartDashboard::PutNumber("steps positionBL",positionBL);  
+  frc::SmartDashboard::PutNumber("steps positionBR",positionBR);     
 //}
   motorFRR.Set(ControlMode::Position, positionFR);  
   motorFLR.Set(ControlMode::Position, positionFL);     
@@ -356,7 +356,7 @@ void Swerve::allign_wheels(){
 }
 void Swerve::set_motor_speed(){ //Drive the motors
   
- //motorFRD.Set(ControlMode::PercentOutput, Total_Vector_W1/speedmode);
+  motorFRD.Set(ControlMode::PercentOutput, Total_Vector_W1/speedmode);
   
   motorFLD.Set(ControlMode::PercentOutput, -Total_Vector_W2/speedmode);
  

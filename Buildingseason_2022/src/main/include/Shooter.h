@@ -66,5 +66,5 @@ public:
     void AutoInit();
     void AutoLoop();
     void shot_calculation();
-    float ShootPercentage = 1;
+    float ShootPercentage = 0.6; // 0.4 for lower hub, maybe 0.65 for higher hub (higher hub hasn't been tested properly)
 };
