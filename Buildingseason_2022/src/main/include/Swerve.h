@@ -48,6 +48,7 @@ class Swerve{
 
   // Variables swervedrive
   const int oneTurn = 4096; //Encoder pulses for one rotation Falcon fx
+  double rotatieverhouding = (52/12)*(88/14);
 
   //Oriantation is 90 degrees rotated so every wheel needs to correct that error
   int positionFL = 6.75*oneTurn;  
