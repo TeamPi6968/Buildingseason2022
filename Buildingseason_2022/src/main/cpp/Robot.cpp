@@ -22,7 +22,7 @@ void Robot::RobotInit()
   intake = new Intake(&Joystick_2);
   swerve = new Swerve(&Joystick_1);
   //climb = new Climb(&Joystick_2);
-  //shooter = new Shooter(&Joystick_2);
+  shooter = new Shooter(&Joystick_2);
 
   intake->intakeInit();
 }
@@ -90,7 +90,7 @@ void Robot::TeleopPeriodic()
   intake->TeleOp();
   
   swerve->Swerve_mainloop();
-  //shooter->TeleOp();
+  shooter->TeleOp();
   
   //climb->Teleop();
 
