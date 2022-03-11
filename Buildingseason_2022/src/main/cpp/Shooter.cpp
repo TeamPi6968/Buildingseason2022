@@ -17,16 +17,16 @@ Shooter::Shooter(frc::PS4Controller *controller)
     BottomL.SetInverted(false);
     TopSpinner.SetInverted(true);
 
-    StorageShooter.SetInverted(false);
+    StorageShooter.SetInverted(true); 
 
-    StorageShooter.SetInverted(true);
+    StorageShooter.SetInverted(false);
 
     // Set followers
     BottomR.Follow(BottomL);
     TopSpinner.Follow(BottomL);
 
     // create Timer
-    timer = new frc::Timer();
+    // timer = new frc::Timer();
 }
 void Shooter::shot_calculation(){
  X2 = sqrt((pow(Depth_camera,2))-(pow(Y3,2)));//x value of the depth
@@ -45,88 +45,90 @@ void Shooter::TeleOp()
 {
     if (Joystick->GetCrossButton() == true)
     {
-        BottomL.Set(ControlMode::PercentOutput, 0.3);
-        StorageShooter.Set(ControlMode::PercentOutput, 1);
+        std::cout<<"Shoot button pressed"<<"\n";
+        // BottomL.Set(ControlMode::PercentOutput, 0.3);
+        // StorageShooter.Set(ControlMode::PercentOutput, 1);
 
         BottomL.Set(ControlMode::PercentOutput, ShootPercentage);
         StorageShooter.Set(ControlMode::PercentOutput, ShootPercentage);
 
-        timer->Start();
+        // timer->Start();
     }
 
     else
     {
         BottomL.Set(ControlMode::PercentOutput, 0);
         StorageShooter.Set(ControlMode::PercentOutput, 0);
-        timer->Reset();
+        // timer->Reset();
     }
 
-    if (timer->Get() > ShooterDelay)
-    {
-        std::cout << "Shooter delay started" << '\n';
-        // StorageShooter.Set(ControlMode::PercentOutput, ShootPercentage);
-    }
+    // if (timer->Get() > ShooterDelay)
+    // {
+    //     std::cout << "Shooter delay started" << '\n';
+    //     StorageShooter.Set(ControlMode::PercentOutput, ShootPercentage);
+    // }
 
    
-    //Turret Rotation Limit
-    float turretROtationPosition = TurretRotation.GetEncoder().GetPosition();
+    //removed turret rotation
+    // //Turret Rotation Limit
+    // float turretROtationPosition = TurretRotation.GetEncoder().GetPosition();
 
-    if (turretROtationPosition < RightShooterLimit)
-    {
-        if (turretROtationPosition > LeftShooterLimit)
-        {
-            // The shooter is in between the the limits
-            TurretRotation.Set(Joystick->GetLeftX());
-        }
-        else
-        {
-            // over the left limit
-            if (Joystick->GetLeftX() > 0)
-                // move only back
-                TurretRotation.Set(Joystick->GetLeftX());
-        }
-    }
-    else
-    {
-        // over right limit
-        std::cout << "over right limit" << '\n';
-        if (Joystick->GetLeftX() < 0)
-            // move only back
-            TurretRotation.Set(Joystick->GetLeftX());
-    }
+    // if (turretROtationPosition < RightShooterLimit)
+    // {
+    //     if (turretROtationPosition > LeftShooterLimit)
+    //     {
+    //         // The shooter is in between the the limits
+    //         TurretRotation.Set(Joystick->GetLeftX());
+    //     }
+    //     else
+    //     {
+    //         // over the left limit
+    //         if (Joystick->GetLeftX() > 0)
+    //             // move only back
+    //             TurretRotation.Set(Joystick->GetLeftX());
+    //     }
+    // }
+    // else
+    // {
+    //     // over right limit
+    //     std::cout << "over right limit" << '\n';
+    //     if (Joystick->GetLeftX() < 0)
+    //         // move only back
+    //         TurretRotation.Set(Joystick->GetLeftX());
+    // }
 
 
 
-    //Turret Angle limits
-    float turretAnglePosition = TurretAngle.GetEncoder().GetPosition();
+    // //Turret Angle limits
+    // float turretAnglePosition = TurretAngle.GetEncoder().GetPosition();
 
-    if (turretAnglePosition < BottomAngelLimit)
-    {
-        if (turretAnglePosition > TopAngelLimit)
-        {
-            // The shooter is in between the the limits
-            TurretAngle.Set(Joystick->GetRightY());
-        }
-        else
-        {
-            // over the left limit
-            if (Joystick->GetRightY() > 0)
-                // move only back
-                TurretAngle.Set(Joystick->GetRightY());
-        }
-    }
-    else
-    {
-        // over right limit
-        std::cout << "over right limit" << '\n';
-        if (Joystick->GetRightY() < 0)
-            // move only back
-            TurretAngle.Set(Joystick->GetRightY());
-    }
+    // if (turretAnglePosition < BottomAngelLimit)
+    // {
+    //     if (turretAnglePosition > TopAngelLimit)
+    //     {
+    //         // The shooter is in between the the limits
+    //         TurretAngle.Set(Joystick->GetRightY());
+    //     }
+    //     else
+    //     {
+    //         // over the left limit
+    //         if (Joystick->GetRightY() > 0)
+    //             // move only back
+    //             TurretAngle.Set(Joystick->GetRightY());
+    //     }
+    // }
+    // else
+    // {
+    //     // over right limit
+    //     std::cout << "over right limit" << '\n';
+    //     if (Joystick->GetRightY() < 0)
+    //         // move only back
+    //         TurretAngle.Set(Joystick->GetRightY());
+    // }
 
     
-    TurretRotation.Set(Joystick->GetLeftX());
-    frc::SmartDashboard::PutNumber("joystick rotation",Joystick->GetLeftX());
-    TurretAngle.Set(Joystick->GetRightY());
+    // TurretRotation.Set(Joystick->GetLeftX());
+    // frc::SmartDashboard::PutNumber("joystick rotation",Joystick->GetLeftX());
+    // TurretAngle.Set(Joystick->GetRightY());
     
 }
