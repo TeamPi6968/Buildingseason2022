@@ -64,6 +64,7 @@ void Robot::AutonomousInit()
   //   // Default Auto goes here
   // }
   shooter->AutoInit();
+  intake->intakeInit();
 }
 
 void Robot::AutonomousPeriodic()

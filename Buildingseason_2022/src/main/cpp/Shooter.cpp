@@ -134,13 +134,14 @@ void Shooter::TeleOp()
 }
 
 void Shooter::AutoInit(){
-    AutoTimer->Reset();
-    AutoTimer->Start();
-    BottomL.Set(ControlMode::PercentOutput, ShootPercentage);
+    AutoTimer.Reset();
+    AutoTimer.Start();
+    BottomL.Set(ControlMode::PercentOutput, ShootPercentage); //Bottom R and top follows
     StorageShooter.Set(ControlMode::PercentOutput, ShootPercentage);   
 }
+
 void Shooter::AutoLoop(){
-    if(AutoTimer->Get() > AutonomousDelay){
+    if(AutoTimer.Get() > AutonomousDelay){
         BottomL.Set(ControlMode::PercentOutput, 0);
         StorageShooter.Set(ControlMode::PercentOutput, 0);
     }

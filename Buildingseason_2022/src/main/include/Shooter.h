@@ -30,7 +30,7 @@ private:
 
    // Timer for the shooter delay
     frc::Timer* timer;
-    frc::Timer* AutoTimer;
+    frc::Timer AutoTimer{};
 
     units::time::second_t ShooterDelay = 2_s; //seconds
     units::time::second_t AutonomousDelay = 5_s; //seconds
