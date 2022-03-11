@@ -11,15 +11,15 @@ void Swerve::Initialize_swerve(){
   frc::SmartDashboard::PutNumber("Cont X value", 0);
   frc::SmartDashboard::PutNumber("Cont Y value", 0);
   frc::SmartDashboard::PutNumber("X", vector_rotation);
-  double rotationCounter_w1 = 0;
-  double rotationCounter_w2 = 0;
-  double rotationCounter_w3 = 0;
-  double rotationCounter_w4 = 0;
+  rotationCounter_w1 = 0;
+  rotationCounter_w2 = 0;
+  rotationCounter_w3 = 0;
+  rotationCounter_w4 = 0;
 
-  motorFLR.SetSelectedSensorPosition(6.75*oneTurn);
-  motorFRR.SetSelectedSensorPosition(6.75*oneTurn);        
-  motorRRR.SetSelectedSensorPosition(6.75*oneTurn);
-  motorRLR.SetSelectedSensorPosition(6.75*oneTurn);
+  motorFLR.SetSelectedSensorPosition((rotatieverhouding/4)*oneTurn);
+  motorFRR.SetSelectedSensorPosition((rotatieverhouding/4)*oneTurn);        
+  motorRRR.SetSelectedSensorPosition((rotatieverhouding/4)*oneTurn);
+  motorRLR.SetSelectedSensorPosition((rotatieverhouding/4)*oneTurn);
 }
 //Configure the PID values for the swerve
 void Swerve::Configure_PID(){ //poop
@@ -280,10 +280,10 @@ void Swerve::set_rotations_w4(){
 void Swerve::set_motor_position(){ //Rotate the module
 if(vector_straffe <= 0.1 && (vector_rotation <= 0.1 && vector_rotation >= -0.1 )) //Both movements active
 {
-  positionFR = 6.75*oneTurn + (rotationCounter_w1*27*oneTurn); //90 degrees back to start position
-  positionFL = 6.75*oneTurn + (rotationCounter_w2*27*oneTurn); //90 degrees
-  positionBL = 6.75*oneTurn + (rotationCounter_w3*27*oneTurn); //90 degrees
-  positionBR = 6.75*oneTurn + (rotationCounter_w4*27*oneTurn); //90 degrees
+  positionFR = (rotatieverhouding/4)*oneTurn + (rotationCounter_w1*rotatieverhouding*oneTurn); //90 degrees back to start position
+  positionFL = (rotatieverhouding/4)*oneTurn + (rotationCounter_w2*rotatieverhouding*oneTurn); //90 degrees
+  positionBL = (rotatieverhouding/4)*oneTurn + (rotationCounter_w3*rotatieverhouding*oneTurn); //90 degrees
+  positionBR = (rotatieverhouding/4)*oneTurn + (rotationCounter_w4*rotatieverhouding*oneTurn); //90 degrees
 
 }
 //else if(vector_straffe < 0.1 && (vector_rotation > 0.1 || vector_rotation < -0.1)){
@@ -295,10 +295,10 @@ if(vector_straffe <= 0.1 && (vector_rotation <= 0.1 && vector_rotation >= -0.1 )
 else 
 {
   // gear ratio is  1 by 27
-  positionFR =(27*oneTurn * (Total_angle_W1/360))+(rotationCounter_w1*27*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
-  positionFL =(27*oneTurn * (Total_angle_W2/360))+(rotationCounter_w2*27*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
-  positionBL =(27*oneTurn * (Total_angle_W3/360))+(rotationCounter_w3*27*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
-  positionBR =(27*oneTurn * (Total_angle_W4/360))+(rotationCounter_w4*27*oneTurn); //(45056 * (angle/360)) + rot_count*45056   
+  positionFR =(rotatieverhouding*oneTurn * (Total_angle_W1/360))+(rotationCounter_w1*rotatieverhouding*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
+  positionFL =(rotatieverhouding*oneTurn * (Total_angle_W2/360))+(rotationCounter_w2*rotatieverhouding*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
+  positionBL =(rotatieverhouding*oneTurn * (Total_angle_W3/360))+(rotationCounter_w3*rotatieverhouding*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
+  positionBR =(rotatieverhouding*oneTurn * (Total_angle_W4/360))+(rotationCounter_w4*rotatieverhouding*oneTurn); //(45056 * (angle/360)) + rot_count*45056   
   //test
 
 //   //test because controller 2 circles
@@ -339,7 +339,7 @@ void Swerve::allign_wheels(){
 
     case 2:
     motorRLR.Set(ControlMode::PercentOutput,swerveJoystick->GetLeftX());
-    if (swerveJoystick->GetCrossButton() == true){//square
+    if (swerveJoystick->GetCrossButton() == true){//Circle
     allign_steps = 3;
     }
     break;
