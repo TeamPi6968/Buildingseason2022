@@ -15,14 +15,16 @@ void Robot::RobotInit()
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
   // Set Compressor
-  compressor.EnableAnalog(80_psi, 90_psi);
+  compressor.EnableAnalog(90_psi, 100_psi);
   if(DisableCompressor)
   compressor.Disable();
 
   intake = new Intake(&Joystick_2);
   swerve = new Swerve(&Joystick_1);
-  climb = new Climb(&Joystick_2);
+  //climb = new Climb(&Joystick_2);
   //shooter = new Shooter(&Joystick_2);
+
+  intake->intakeInit();
 }
 
 /**
@@ -79,6 +81,7 @@ void Robot::TeleopInit()
 {
   swerve->Initialize_swerve();
   swerve->Configure_PID();
+  intake->intakeInit();
 }
 
 void Robot::TeleopPeriodic()

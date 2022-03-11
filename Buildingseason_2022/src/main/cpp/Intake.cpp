@@ -45,3 +45,8 @@ void Intake::TeleOp()
     SmallSolenoids.Set(frc::DoubleSolenoid::Value::kReverse);
   }
 }
+
+void Intake::intakeInit(){
+    BigSolenoids.Set(frc::DoubleSolenoid::Value::kReverse);
+    SmallSolenoids.Set(frc::DoubleSolenoid::Value::kReverse);
+}

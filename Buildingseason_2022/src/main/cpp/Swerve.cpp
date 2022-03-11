@@ -322,7 +322,7 @@ void Swerve::allign_wheels(){
   switch(allign_steps){
     case 0:
     
-    motorFRR.Set(ControlMode::PercentOutput,swerveJoystick->GetLeftX()); 
+    motorFRR.Set(ControlMode::PercentOutput,swerveJoystick->GetLeftX()/4); 
     
     if (swerveJoystick->GetCrossButton() == true){//circle
     allign_steps = 1;
@@ -330,7 +330,7 @@ void Swerve::allign_wheels(){
     break;
 
     case 1:
-    motorFLR.Set(ControlMode::PercentOutput,swerveJoystick->GetLeftX());
+    motorFLR.Set(ControlMode::PercentOutput,swerveJoystick->GetLeftX()/4);
 
     if (swerveJoystick->GetCircleButton() == true){//square
     allign_steps = 2;
@@ -338,14 +338,14 @@ void Swerve::allign_wheels(){
     break;
 
     case 2:
-    motorRLR.Set(ControlMode::PercentOutput,swerveJoystick->GetLeftX());
+    motorRLR.Set(ControlMode::PercentOutput,swerveJoystick->GetLeftX()/4);
     if (swerveJoystick->GetCrossButton() == true){//Circle
     allign_steps = 3;
     }
     break;
 
     case 3:
-    motorRRR.Set(ControlMode::PercentOutput,swerveJoystick->GetLeftX());
+    motorRRR.Set(ControlMode::PercentOutput,swerveJoystick->GetLeftX()/4);
     if (swerveJoystick->GetCircleButton() == true){//square
     allign_steps = 4;
     }
