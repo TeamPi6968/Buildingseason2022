@@ -59,7 +59,7 @@ void Climb::Teleop()
 
 void Climb::ManualTeleop()
 {
-    if (Joystick->GetL2Button)
+    if (Joystick->GetRightX() == 1)
     {
         if (Joystick->GetPOV(0) == 0)
         {
@@ -70,7 +70,10 @@ void Climb::ManualTeleop()
             LClimbMotor.Set(ControlMode::PercentOutput, controllerspeed);
         }
     }
-    if (Joystick->GetR2Button)
+    else{
+        LClimbMotor.Set(ControlMode::PercentOutput, 0);
+    }
+    if (Joystick->GetL2Axis() == 1)
     {
         if (Joystick->GetPOV(0) == 0)
         {
@@ -81,6 +84,10 @@ void Climb::ManualTeleop()
             RClimbMotor.Set(ControlMode::PercentOutput, controllerspeed);
         }
     }
+    else{
+        RClimbMotor.Set(ControlMode::PercentOutput, 0);
+    }
+    
 
     // if (Joystick->GetPOV(0) == 0)
     // {
@@ -98,59 +105,60 @@ void Climb::ManualTeleop()
     {
         Rachets(false);
     }
+}
 
-    bool Climb::SetClimbPosition()
-    {
-        // Open rachets
-        Rachets(true);
-        SetPosition(ClimbHeight);
-        // Calculate difference between actual hight and setpiont
-        float difference = ClimbHeight - LClimbMotor.GetSelectedSensorPosition();
-        // Determen if the selected and is reached
-        bool EndReached = (difference < ClimbError) & (difference > -ClimbError);
-        return EndReached;
-    }
+bool Climb::SetClimbPosition()
+{
+    // Open rachets
+    Rachets(true);
+    SetPosition(ClimbHeight);
+    // Calculate difference between actual hight and setpiont
+    float difference = ClimbHeight - LClimbMotor.GetSelectedSensorPosition();
+    // Determen if the selected and is reached
+    bool EndReached = (difference < ClimbError) & (difference > -ClimbError);
+    return EndReached;
+}
 
-    bool Climb::ClimbNow()
-    {
-        // Release rachets
-        Rachets(false);
-        SetPosition(ClimbHeight);
-        // Calculate difference between actual hight and setpiont
-        float difference = ClimbHeight - LClimbMotor.GetSelectedSensorPosition();
-        // Determen if the selected and is reached
-        bool EndReached = (difference < ClimbError) & (difference > -ClimbError);
-        return EndReached;
-    }
+bool Climb::ClimbNow()
+{
+    // Release rachets
+    Rachets(false);
+    SetPosition(ClimbHeight);
+    // Calculate difference between actual hight and setpiont
+    float difference = ClimbHeight - LClimbMotor.GetSelectedSensorPosition();
+    // Determen if the selected and is reached
+    bool EndReached = (difference < ClimbError) & (difference > -ClimbError);
+    return EndReached;
+}
 
-    void Climb::SetPositionController(float axis)
-    {
-        float NewPosition = LClimbMotor.GetSelectedSensorPosition() + axis;
-        SetPosition(NewPosition);
-    }
+void Climb::SetPositionController(float axis)
+{
+    float NewPosition = LClimbMotor.GetSelectedSensorPosition() + axis;
+    SetPosition(NewPosition);
+}
 
-    void Climb::SetPosition(float position)
-    {
-        frc::SmartDashboard::PutNumber("ClimbHeight", position);
-        LClimbMotor.Set(ControlMode::Position, position);
-    }
+void Climb::SetPosition(float position)
+{
+    frc::SmartDashboard::PutNumber("ClimbHeight", position);
+    LClimbMotor.Set(ControlMode::Position, position);
+}
 
-    void Climb::MovePosition(float controllerAxis)
-    {
-        LClimbMotor.Set(ControlMode::PercentOutput, controllerAxis);
-    }
+void Climb::MovePosition(float controllerAxis)
+{
+    LClimbMotor.Set(ControlMode::PercentOutput, controllerAxis);
+}
 
-    void Climb::Rachets(bool open)
+void Climb::Rachets(bool open)
+{
+    if (open)
     {
-        if (open)
-        {
-            LClimbServo.SetAngle(LServoOpenAngle);
-            RClimbServo.SetAngle(RServoOpenAngle);
-        }
-        else
-        {
-            LClimbServo.SetAngle(LServoClosedAngle);
-            RClimbServo.SetAngle(RServoClosedAngle);
-        }
-        frc::SmartDashboard::PutBoolean("Rachet open", open);
+        LClimbServo.SetAngle(LServoOpenAngle);
+        RClimbServo.SetAngle(RServoOpenAngle);
     }
+    else
+    {
+        LClimbServo.SetAngle(LServoClosedAngle);
+        RClimbServo.SetAngle(RServoClosedAngle);
+    }
+    frc::SmartDashboard::PutBoolean("Rachet open", open);
+}

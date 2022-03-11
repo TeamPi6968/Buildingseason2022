@@ -43,7 +43,7 @@ public:
 
     //TeleOp control
     void Teleop();
-    void ManualTeleop() //Have full control over rachets and motor percentage
+    void ManualTeleop(); //Have full control over rachets and motor percentage
 
     //First set climb position (returns if it reached it)
     bool SetClimbPosition();
