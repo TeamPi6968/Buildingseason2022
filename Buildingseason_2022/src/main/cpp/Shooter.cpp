@@ -132,3 +132,15 @@ void Shooter::TeleOp()
     // TurretAngle.Set(Joystick->GetRightY());
     
 }
+
+void Shooter::AutoInit(){
+    AutoTimer->Start();
+    BottomL.Set(ControlMode::PercentOutput, ShootPercentage);
+    StorageShooter.Set(ControlMode::PercentOutput, ShootPercentage);   
+}
+void Shooter::AutoLoop(){
+    if(AutoTimer > 5){
+        BottomL.Set(ControlMode::PercentOutput, 0);
+        StorageShooter.Set(ControlMode::PercentOutput, 0);
+    }
+}

@@ -30,6 +30,8 @@ private:
 
    // Timer for the shooter delay
     frc::Timer* timer;
+    frc::Timer* AutoTimer;
+
     units::time::second_t ShooterDelay = 2_s; //seconds
 
     float RightShooterLimit = 200;
@@ -60,6 +62,8 @@ public:
 
    // TeleOp control
     void TeleOp();
+    void AutoInit();
+    void AutoLoop();
     void shot_calculation();
     float ShootPercentage = 1;
 };

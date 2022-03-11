@@ -50,31 +50,34 @@ void Robot::RobotPeriodic() {}
  */
 void Robot::AutonomousInit()
 {
-  m_autoSelected = m_chooser.GetSelected();
+  // m_autoSelected = m_chooser.GetSelected();
   // m_autoSelected = SmartDashboard::GetString("Auto Selector",
   //     kAutoNameDefault);
-  fmt::print("Auto selected: {}\n", m_autoSelected);
+  // fmt::print("Auto selected: {}\n", m_autoSelected);
 
-  if (m_autoSelected == kAutoNameCustom)
-  {
-    // Custom Auto goes here
-  }
-  else
-  {
-    // Default Auto goes here
-  }
+  // if (m_autoSelected == kAutoNameCustom)
+  // {
+  //   // Custom Auto goes here
+  // }
+  // else
+  // {
+  //   // Default Auto goes here
+  // }
+  shooter->AutoInit();
 }
 
 void Robot::AutonomousPeriodic()
 {
-  if (m_autoSelected == kAutoNameCustom)
-  {
-    // Custom Auto goes here
-  }
-  else
-  {
-    // Default Auto goes here
-  }
+  // if (m_autoSelected == kAutoNameCustom)
+  // {
+  //   // Custom Auto goes here
+  // }
+  // else
+  // {
+  //   // Default Auto goes here
+  // }
+
+  shooter->AutoLoop();
 }
 
 void Robot::TeleopInit()
