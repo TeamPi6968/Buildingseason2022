@@ -42,7 +42,7 @@ private:
     double Y1 = 0.64;//intiial height ball
     double X2;//x value of distance camera
     double Y2 = 3.25;// hight hub + radius hub in height
-    double X3;;//measured distance + radius hub
+    double X3;//measured distance + radius hub
     double Y3 = 2.64;//Height of the hub
     double a;
     double b;

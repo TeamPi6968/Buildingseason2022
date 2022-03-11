@@ -25,6 +25,7 @@ public:
     Intake(frc::PS4Controller *controller); // Create object
 
     // TeleOp control
+    void intakeInit();
     void TeleOp();
 
     float IntakePercentage = 1;

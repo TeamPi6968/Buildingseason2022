@@ -23,6 +23,8 @@ void Robot::RobotInit()
   swerve = new Swerve(&Joystick_1);
   climb = new Climb(&Joystick_2);
   //shooter = new Shooter(&Joystick_2);
+
+  intake->intakeInit();
 }
 
 /**
