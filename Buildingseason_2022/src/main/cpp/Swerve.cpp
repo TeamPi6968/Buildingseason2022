@@ -355,17 +355,13 @@ void Swerve::allign_wheels(){
   };
 }
 void Swerve::set_motor_speed(){ //Drive the motors
-  //double percentage_w1 = Total_Vector_W1/speedmode;
-  //motorFRD.Set(ControlMode::Velocity,velocity_max*percentage_w1);
+  
   motorFRD.Set(ControlMode::PercentOutput, Total_Vector_W1/speedmode);
-  //double percentage_w2 = -Total_Vector_W2/speedmode;
-  //motorFLD.Set(ControlMode::Velocity,velocity_max*percentage_w2);
+  
   motorFLD.Set(ControlMode::PercentOutput, -Total_Vector_W2/speedmode);
-  //double percentage_w3 = Total_Vector_W3/speedmode;
- // motorRLD.Set(ControlMode::Velocity,velocity_max*percentage_w3);
+ 
   motorRLD.Set(ControlMode::PercentOutput, -Total_Vector_W3/speedmode);
-  //double percentage_w4 = -Total_Vector_W4/speedmode;
-  //motorRRD.Set(ControlMode::Velocity,velocity_max*percentage_w4);
+  
   motorRRD.Set(ControlMode::PercentOutput, Total_Vector_W4/speedmode);
 }
 
