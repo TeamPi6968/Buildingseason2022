@@ -10,6 +10,9 @@ Climb::Climb(frc::PS4Controller *controller)
     LClimbMotor.ConfigFactoryDefault(); // Reset motors
     RClimbMotor.ConfigFactoryDefault();
 
+    LClimbMotor.setNeutralMode(NeutralMode.Brake);
+    RClimbMotor.SetNeutralMode(NeutralMode.Brake)
+
     // The right motor wil mirror the left motor
     // RClimbMotor.Follow(LClimbMotor);
 
@@ -97,6 +100,8 @@ void Climb::ManualTeleop()
     // {
     //     MovePosition(-controllerspeed); // Set percentage output controller
     // }
+
+    
     if (Joystick->GetPOV(0) == 90)
     {
         Rachets(true);
