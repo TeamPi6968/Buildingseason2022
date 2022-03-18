@@ -136,7 +136,7 @@ void Shooter::TeleOp()
 void Shooter::AutoInit(){
     AutoTimer.Reset();
     AutoTimer.Start();
-    BottomL.Set(ControlMode::PercentOutput, 0.65); //Bottom R and top follows
+    BottomL.Set(ControlMode::PercentOutput, 0.63); //Bottom R and top follows
     //StorageShooter.Set(ControlMode::PercentOutput, 1); // should be 1   
     std::cout << "init";
 }
@@ -150,7 +150,7 @@ void Shooter::AutoLoop(){
         StorageShooter.Set(ControlMode::PercentOutput, 1);
         //BottomL.Set(ControlMode::PercentOutput, ShootPercentage);
     }
-    if (AutoTimer.Get() > 8_s){ // 8_s should be "AutonomousDelay"
+    if (AutoTimer.Get() > 8_s){
         BottomL.Set(ControlMode::PercentOutput, 0);
         StorageShooter.Set(ControlMode::PercentOutput, 0);
     }

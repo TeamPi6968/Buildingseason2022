@@ -10,8 +10,8 @@ Climb::Climb(frc::PS4Controller *controller)
     LClimbMotor.ConfigFactoryDefault(); // Reset motors
     RClimbMotor.ConfigFactoryDefault();
 
-    LClimbMotor.setNeutralMode(NeutralMode.Brake);
-    RClimbMotor.SetNeutralMode(NeutralMode.Brake)
+    LClimbMotor.SetNeutralMode(NeutralMode::Brake);
+    RClimbMotor.SetNeutralMode(NeutralMode::Brake);
 
     // The right motor wil mirror the left motor
     // RClimbMotor.Follow(LClimbMotor);
