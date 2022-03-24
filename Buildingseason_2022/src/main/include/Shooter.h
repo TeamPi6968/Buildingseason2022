@@ -35,8 +35,8 @@ private:
     units::time::second_t ShooterDelay = 2_s; //2 seconds delay variable
     units::time::second_t AutonomousDelay = 5_s; //5 seconds delay variable
 
-    float RightShooterLimit = 200; // Right shooter limit
-    float LeftShooterLimit = -200; // Left shooter limit
+    float RightShooterLimit = 200; // Right rotation shooter limit
+    float LeftShooterLimit = -200; // Left rotation shooter limit
 
     float BottomAngelLimit = 0; //bottom angle limit
     float TopAngelLimit = 200; //top angle limit
