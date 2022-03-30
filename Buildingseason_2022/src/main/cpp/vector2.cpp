@@ -1,73 +1,69 @@
-#include <iostream>
-#define _USE_MATH_DEFINES
-#include <math.h>
-#include <string>
+#include "Vector2.h"
 #include <sstream>
+#include <iostream>
 
-namespace patch
-{
-    template < typename T > std::string to_string( const T& n )
+namespace patch {
+    template <typename T>
+    std::string to_string(const T &n)
     {
-        std::ostringstream stm ;
-        stm << n ;
-        return stm.str() ;
+        std::ostringstream stm;
+        stm << n;
+        return stm.str();
     }
 }
 
-class Vector2 {
-    public: 
-        long double x;
-        long double y;
-    
-        Vector2(long double x_input, long double y_input, std::string type = "cartesian") { // type should be "cartesian" or "polar"
-            if (type == "cartesian") {
-                x = x_input;
-                y = y_input;
-            } else { // when vector type is not cartesian, type is assumed to be polar
-                x = x_input * cos(y_input * M_PI / 180); // x_input is r and y_input is theta
-                y = x_input * sin(y_input * M_PI / 180);
-            }
-        }
+Vector2::Vector2(long double x_input, long double y_input, std::string type = "cartesian") { // type should be "cartesian" or "polar"
+    if (type == "cartesian")
+    {
+        x = x_input;
+        y = y_input;
+    }
+    else
+    {                                            // when vector type is not cartesian, type is assumed to be polar
+        x = x_input * cos(y_input * M_PI / 180); // x_input is r and y_input is theta, in DEGREES (not radians)
+        y = x_input * sin(y_input * M_PI / 180);
+    }
+}
 
-        long double angle() {
-            long double angle_180 = atan2(y,x) * 180 / M_PI;
-            // std::cout << angle_180 << " " << atan2(y,x) << "\n";
-            if (angle_180 < 0) {
-                return 360 + angle_180;
-            }
-            return angle_180;
-        }
-        
-        long double length() {
-            return sqrt(y*y+x*x);
-        }
+long double Vector2::angle() {
+    long double angle_180 = atan2(y, x) * 180 / M_PI;
+    // std::cout << angle_180 << " " << atan2(y,x) << "\n";
+    if (angle_180 < 0)
+    {
+        return 360 + angle_180;
+    }
+    return angle_180;
+}
 
-        friend Vector2 operator-(const Vector2 vector_1) {
-            return Vector2(-vector_1.x, -vector_1.y);
-        }
+long double Vector2::length() {
+    return sqrt(y * y + x * x);
+}
 
-        friend Vector2 operator+(const Vector2 vector_1, const Vector2 vector_2) {
-            return Vector2(vector_1.x + vector_2.x, vector_1.y + vector_2.y);
-        }
+Vector2 operator-(const Vector2 vector_1) {
+    return Vector2(-vector_1.x, -vector_1.y);
+}
 
-        friend Vector2 operator-(const Vector2 vector_1, const Vector2 vector_2) {
-            return Vector2(vector_1.x - vector_2.x, vector_1.y - vector_2.y);
-        }
+Vector2 operator+(const Vector2 vector_1, const Vector2 vector_2) {
+    return Vector2(vector_1.x + vector_2.x, vector_1.y + vector_2.y);
+}
 
-        friend Vector2 operator*(const Vector2 vector_to_multiply, long double scalar) {
-            return Vector2(scalar * vector_to_multiply.x, scalar * vector_to_multiply.y);
-        }
+Vector2 operator-(const Vector2 vector_1, const Vector2 vector_2) {
+    return Vector2(vector_1.x - vector_2.x, vector_1.y - vector_2.y);
+}
 
-        friend Vector2 operator*(long double scalar, const Vector2 vector_to_multiply) {
-            return Vector2(scalar * vector_to_multiply.x, scalar * vector_to_multiply.y);
-        }
+Vector2 operator*(const Vector2 vector_to_multiply, long double scalar) {
+    return Vector2(scalar * vector_to_multiply.x, scalar * vector_to_multiply.y);
+}
 
-        std::string values() {
-            return "x: " + patch::to_string(this->x) + ", y: " + patch::to_string(this->y) + ", length: " + patch::to_string(this->length()) + ", angle: " + patch::to_string(this->angle());
-        }
-};
+Vector2 operator*(long double scalar, const Vector2 vector_to_multiply) {
+    return Vector2(scalar * vector_to_multiply.x, scalar * vector_to_multiply.y);
+}
 
-int main() {
+std::string Vector2::values() {
+    return "x: " + patch::to_string(this->x) + ", y: " + patch::to_string(this->y) + ", length: " + patch::to_string(this->length()) + ", angle: " + patch::to_string(this->angle());
+}
+
+int main() {   
     Vector2 wheel1(1, 2);
     Vector2 wheel2(-5, 1);
     Vector2 wheel3 = wheel1 + wheel2;

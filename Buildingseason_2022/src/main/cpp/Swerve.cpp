@@ -1,5 +1,5 @@
-
 #include "Swerve.h"
+#include "Vector2.h"
 
 //Create a swerve module
 Swerve::Swerve(frc::PS4Controller *controller){
