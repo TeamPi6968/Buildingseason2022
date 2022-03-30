@@ -2,15 +2,31 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <string>
+#include <sstream>
+
+namespace patch
+{
+    template < typename T > std::string to_string( const T& n )
+    {
+        std::ostringstream stm ;
+        stm << n ;
+        return stm.str() ;
+    }
+}
 
 class Vector2 {
     public: 
         long double x;
         long double y;
     
-        Vector2(long double x_input, long double y_input) {
-            x = x_input;
-            y = y_input;
+        Vector2(long double x_input, long double y_input, std::string type = "cartesian") { // type should be "cartesian" or "polar"
+            if (type == "cartesian") {
+                x = x_input;
+                y = y_input;
+            } else { // when vector type is not cartesian, type is assumed to be polar
+                x = x_input * cos(y_input * M_PI / 180); // x_input is r and y_input is theta
+                y = x_input * sin(y_input * M_PI / 180);
+            }
         }
 
         long double angle() {
@@ -24,10 +40,6 @@ class Vector2 {
         
         long double length() {
             return sqrt(y*y+x*x);
-        }
-
-        static Vector2 Vector2_polar(long double length, long double angle) {
-            return Vector2(length * cos(angle * M_PI / 180), length * sin(angle * M_PI / 180));
         }
 
         friend Vector2 operator-(const Vector2 vector_1) {
@@ -50,9 +62,9 @@ class Vector2 {
             return Vector2(scalar * vector_to_multiply.x, scalar * vector_to_multiply.y);
         }
 
-        //string values() {
-        //    return "x: " + x + ", y: " + y + ", length: " + self.length + ", angle: " + self.angle();
-        //}
+        std::string values() {
+            return "x: " + patch::to_string(this->x) + ", y: " + patch::to_string(this->y) + ", length: " + patch::to_string(this->length()) + ", angle: " + patch::to_string(this->angle());
+        }
 };
 
 int main() {
@@ -62,13 +74,13 @@ int main() {
     Vector2 wheel4(2, 0);
     Vector2 wheel5 = 5 * wheel4;
     Vector2 wheel6 = -wheel5;
-    Vector2 wheel7 = Vector2_polar(10, 180);
-    std::cout << wheel1.length() << " " << wheel1.angle() << "\n";
-    std::cout << wheel2.length() << " " << wheel2.angle() << "\n";
-    std::cout << wheel3.length() << " " << wheel3.angle() << "\n";
-    std::cout << wheel4.length() << " " << wheel4.angle() << "\n";
-    std::cout << wheel5.length() << " " << wheel5.angle() << "\n";
-    std::cout << wheel6.length() << " " << wheel6.angle() << "\n";
-    std::cout << wheel7.x << " " << wheel7.y << "\n";
+    Vector2 wheel7(10, 180, "polar");
+    std::cout << wheel1.values() << "\n";
+    std::cout << wheel2.values() << "\n";
+    std::cout << wheel3.values() << "\n";
+    std::cout << wheel4.values() << "\n";
+    std::cout << wheel5.values() << "\n";
+    std::cout << wheel6.values() << "\n";
+    std::cout << wheel7.values() << "\n";
     std::cout << "it4" << "\n";
 }
