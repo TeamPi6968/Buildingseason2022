@@ -13,13 +13,10 @@ namespace patch {
 }
 
 Vector2::Vector2(long double x_input, long double y_input, std::string type = "cartesian") { // type should be "cartesian" or "polar"
-    if (type == "cartesian")
-    {
+    if (type == "cartesian") {
         x = x_input;
         y = y_input;
-    }
-    else
-    {                                            // when vector type is not cartesian, type is assumed to be polar
+    } else {                                            // when vector type is not cartesian, type is assumed to be polar
         x = x_input * cos(y_input * M_PI / 180); // x_input is r and y_input is theta, in DEGREES (not radians)
         y = x_input * sin(y_input * M_PI / 180);
     }
@@ -28,8 +25,7 @@ Vector2::Vector2(long double x_input, long double y_input, std::string type = "c
 long double Vector2::angle() {
     long double angle_180 = atan2(y, x) * 180 / M_PI;
     // std::cout << angle_180 << " " << atan2(y,x) << "\n";
-    if (angle_180 < 0)
-    {
+    if (angle_180 < 0) {
         return 360 + angle_180;
     }
     return angle_180;
