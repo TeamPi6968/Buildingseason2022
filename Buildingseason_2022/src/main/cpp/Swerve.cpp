@@ -1,5 +1,4 @@
 #include "Swerve.h"
-#include "Vector2.h"
 
 //Create a swerve module
 Swerve::Swerve(frc::PS4Controller *controller){
@@ -46,12 +45,9 @@ void Swerve::calculate_vector_straffe(){
   xVal_straffe = swerveJoystick->GetLeftX();
   yVal_straffe = swerveJoystick->GetLeftY();
   //Calculate vector
-  vector_straffe = sqrt(pow(xVal_straffe, 2) + pow(yVal_straffe, 2));
+  vector_straffe = Vector2::Vector2(xVal_straffe, yVal_straffe);
   //Set values to zero when the vector is smaller than 0.1 due the misreadings when you don't touch the joystick
-  if(vector_straffe<=0.1){
-    xVal_straffe = 0;
-    yVal_straffe = 0;
-  }
+  if (vector_straffe.length() < 0.1) {vector_straffe = Vector2::ZeroVector();}
 
   frc::SmartDashboard::PutNumber("Cont X value", xVal_straffe);
   frc::SmartDashboard::PutNumber("Cont Y value", yVal_straffe);
@@ -59,12 +55,12 @@ void Swerve::calculate_vector_straffe(){
 
 void Swerve::calculate_vector_rotation(){
   //Get values of controller
-  vector_rotation = swerveJoystick->GetL2Axis();
+  rotation_value = swerveJoystick->GetL2Axis();
   //Set values to zero when the vector is smaller than 0.1 due the misreadings when you don't touch the joystick
-  if(vector_rotation<=0.1 && vector_rotation >= -0.1)
-  {
-    vector_rotation = 0;
+  if(-0.1 <= rotation_value <= 0.1) {
+    rotation_value = 0;
   }
+  vector_rotation = Vector2::Vector2(rotation_value, -45, "polar");
 }
 
 void Swerve::calculate_total_vector(){
@@ -76,6 +72,11 @@ void Swerve::calculate_total_vector(){
         |
         Y
   */
+  Wheel_FL = Vector2::MirrorX(Vector2::ToUnitCircle((vector_straffe + Vector2::Rotate(vector_rotation, 90)) * 0.5));
+  Wheel_FR = Vector2::MirrorX(Vector2::ToUnitCircle((vector_straffe + vector_rotation) * 0.5));
+  Wheel_BR = Vector2::MirrorX(Vector2::ToUnitCircle((vector_straffe + Vector2::Rotate(vector_rotation, -90)) * 0.5));
+  Wheel_BL = Vector2::MirrorX(Vector2::ToUnitCircle((vector_straffe + Vector2::Rotate(vector_rotation, 180)) * 0.5));
+ /*
   Total_XW1 = (xVal_straffe+(vector_rotation/sqrt(2)))/2;
   Total_YW1 = (yVal_straffe+(vector_rotation/sqrt(2)))/2;
   Total_XW2 = (xVal_straffe+(vector_rotation/sqrt(2)))/2;
@@ -88,9 +89,9 @@ void Swerve::calculate_total_vector(){
   Total_Vector_W1 = sqrt(pow(Total_XW1, 2) + pow(Total_YW1, 2)); 
   Total_Vector_W2 = sqrt(pow(Total_XW2, 2) + pow(Total_YW2, 2));
   Total_Vector_W3 = sqrt(pow(Total_XW3, 2) + pow(Total_YW3, 2));
-  Total_Vector_W4 = sqrt(pow(Total_XW4, 2) + pow(Total_YW4, 2));
+  Total_Vector_W4 = sqrt(pow(Total_XW4, 2) + pow(Total_YW4, 2));*/
 }
-
+/*
 double Swerve::calculate_total_angle_of_wheel(double X, double Y){
   if((X >= 0) && (Y <= 0)) //Angle is in first quarter
   //Angle <= 90, Rotaions <= 2.5, Total pulzen 4096*2.5 = 10240 (be careful directions on the code is different)
@@ -112,7 +113,7 @@ double Swerve::calculate_total_angle_of_wheel(double X, double Y){
   { 
     return 360 - (((atan(Y/X))*90)/M_PI_2);
   }
-}
+}*/
 
 /*
 void Swerve::calculate_total_angle_w2(){
@@ -174,7 +175,7 @@ void Swerve::calculate_total_angle_w4(){
 */
 
 void Swerve::set_rotations_w1(){
-    if(Total_angle_W1 >= 0 && Total_angle_W1 <= 90) //Wheel in Q1
+    if(0 <= Wheel_FL.angle() <= 90) //Wheel in Q1
     {
     w1_wasIn1 = true;
     if(w1_wasIn4) //Came from Q4 so made one round 
@@ -183,7 +184,7 @@ void Swerve::set_rotations_w1(){
       w1_wasIn4 = false;
     }
     }
-    else if(Total_angle_W1 >= 270 && Total_angle_W1 < 360) //Wheel in Q4
+    else if(270 <= Wheel_Fl.angle() < 360) //Wheel in Q4
     {
     w1_wasIn4 = true;
     if(w1_wasIn1) //Came from Q1 so made one round 
@@ -200,7 +201,7 @@ void Swerve::set_rotations_w1(){
 }
 
 void Swerve::set_rotations_w2(){
-    if(Total_angle_W2 >= 0 && Total_angle_W2 <= 90)
+    if(0 <= Wheel_FR.angle() <= 90)
     {
     w2_wasIn1 = true;
     if(w2_wasIn4)
@@ -209,7 +210,7 @@ void Swerve::set_rotations_w2(){
       w2_wasIn4 = false;
     }
     }
-    else if(Total_angle_W2 >= 270 && Total_angle_W2 < 360)
+    else if(270 <= Wheel_FR.angle() < 360)
     {
     w2_wasIn4 = true;
     if(w2_wasIn1)
@@ -226,7 +227,7 @@ void Swerve::set_rotations_w2(){
 }
 
 void Swerve::set_rotations_w3(){
-    if(Total_angle_W3 >= 0 && Total_angle_W3 <= 90)
+    if(0 <= Wheel_BR.angle() <= 90)
     {
     w3_wasIn1 = true;
     if(w3_wasIn4)
@@ -235,7 +236,7 @@ void Swerve::set_rotations_w3(){
       w3_wasIn4 = false;
     }
     }
-    else if(Total_angle_W3 >= 270 && Total_angle_W3 < 360)
+    else if(270 <= Wheel_BR.angle() < 360)
     {
     w3_wasIn4 = true;
     if(w3_wasIn1)
@@ -252,7 +253,7 @@ void Swerve::set_rotations_w3(){
 }
 
 void Swerve::set_rotations_w4(){
-    if(Total_angle_W4 >= 0 && Total_angle_W4 <= 90)
+    if(0 <= Wheel_BL.angle() <= 90)
     {
     w4_wasIn1 = true;
     if(w4_wasIn4)
@@ -261,7 +262,7 @@ void Swerve::set_rotations_w4(){
       w4_wasIn4 = false;
     }
     }
-    else if(Total_angle_W4 >= 270 && Total_angle_W4 < 360)
+    else if(270 <= Wheel_BL.angle() < 360)
     {
     w4_wasIn4 = true;
     if(w4_wasIn1)
@@ -295,10 +296,11 @@ void Swerve::set_motor_position(){ //Rotate the module
 //else 
 //{
   // gear ratio is  1 by 27
-  positionFR =(rotatieverhouding*oneTurn * (Total_angle_W1/360))+(rotationCounter_w1*rotatieverhouding*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
-  positionFL =(rotatieverhouding*oneTurn * (Total_angle_W2/360))+(rotationCounter_w2*rotatieverhouding*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
-  positionBL =(rotatieverhouding*oneTurn * (Total_angle_W3/360))+(rotationCounter_w3*rotatieverhouding*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
-  positionBR =(rotatieverhouding*oneTurn * (Total_angle_W4/360))+(rotationCounter_w4*rotatieverhouding*oneTurn); //(45056 * (angle/360)) + rot_count*45056   
+  positionFL =(rotatieverhouding*oneTurn * (Wheel_FL.angle()/360))+(rotationCounter_w2*rotatieverhouding*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
+  positionFR =(rotatieverhouding*oneTurn * (Wheel_FR.angle()/360))+(rotationCounter_w1*rotatieverhouding*oneTurn); //(45056 * (angle/360)) + rot_count*45056
+  positionBR =(rotatieverhouding*oneTurn * (Wheel_BR.angle()/360))+(rotationCounter_w4*rotatieverhouding*oneTurn); //(45056 * (angle/360)) + rot_count*45056   
+  positionBL =(rotatieverhouding*oneTurn * (Wheel_BL.angle()/360))+(rotationCounter_w3*rotatieverhouding*oneTurn); //(45056 * (angle/360)) + rot_count*45056 
+  
   //test
 
 //   //test because controller 2 circles
@@ -369,14 +371,14 @@ void Swerve::Swerve_mainloop(){ //Mainloop of the drivetrain
     calculate_vector_straffe();
     calculate_vector_rotation();
     calculate_total_vector();
-    Total_angle_W1 = calculate_total_angle_of_wheel(Total_XW1, Total_YW1);
-    Total_angle_W2 = calculate_total_angle_of_wheel(Total_XW2, Total_YW2);
-    Total_angle_W3 = calculate_total_angle_of_wheel(Total_XW3, Total_YW3);
-    Total_angle_W4 = calculate_total_angle_of_wheel(Total_XW4, Total_YW4); 
-    frc::SmartDashboard::PutNumber("angle w1",Total_angle_W1);
-    frc::SmartDashboard::PutNumber("angle w2",Total_angle_W2);
-    frc::SmartDashboard::PutNumber("angle w3",Total_angle_W3);
-    frc::SmartDashboard::PutNumber("angle w4",Total_angle_W4);
+    //Total_angle_W1 = calculate_total_angle_of_wheel(Total_XW1, Total_YW1);
+    //Total_angle_W2 = calculate_total_angle_of_wheel(Total_XW2, Total_YW2);
+    //Total_angle_W3 = calculate_total_angle_of_wheel(Total_XW3, Total_YW3);
+    //Total_angle_W4 = calculate_total_angle_of_wheel(Total_XW4, Total_YW4); 
+    frc::SmartDashboard::PutNumber("angle FL",Wheel_FL.angle());
+    frc::SmartDashboard::PutNumber("angle FR",Wheel_FR.angle());
+    frc::SmartDashboard::PutNumber("angle BL",Wheel_BL.angle());
+    frc::SmartDashboard::PutNumber("angle BR",Wheel_BR.angle());
     set_rotations_w1();
     set_rotations_w2();
     set_rotations_w3();

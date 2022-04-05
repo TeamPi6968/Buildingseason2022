@@ -4,6 +4,7 @@
 #include <frc/smartdashboard/SmartDashboard.h> 
 #include <ctre/phoenix.h>
 #include <frc/PS4controller.h>
+#include "Vector2.h"
 
 class Swerve{
   private:
@@ -87,10 +88,10 @@ class Swerve{
   double speedmode = 0.5;
 
   //Variables of the wheels X,Y,Vector and Angle
-  double Total_XW1 = 0;
+  double velocity_max = 0.5;
+  /*double Total_XW1 = 0;
   double Total_YW1 = 0;
   double Total_Vector_W1 = 0;
-  double velocity_max = 0.5;
   double Total_angle_W1 = 0;
   double Total_XW2 = 0;
   double Total_YW2 = 0;
@@ -103,12 +104,17 @@ class Swerve{
   double Total_XW4 = 0;
   double Total_YW4 = 0;
   double Total_Vector_W4 = 0;
-  double Total_angle_W4 = 0;
+  double Total_angle_W4 = 0;*/
+  Vector2 Wheel_FL;
+  Vector2 Wheel_FR;
+  Vector2 Wheel_BL;
+  Vector2 Wheel_BR;
 
   //Variables of the movements
   double xVal_straffe = 0;
   double yVal_straffe = 0;
-  double vector_straffe = 0;
-  double vector_rotation = 0;
+  Vector2 vector_straffe = 0;
+  double rotation_value = 0;
+  Vector2 vector_rotation = 0;
 
 };
