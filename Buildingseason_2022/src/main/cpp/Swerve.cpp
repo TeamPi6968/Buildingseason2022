@@ -41,13 +41,10 @@ void Swerve::Configure_PID(){ //poop
 }
 
 void Swerve::calculate_vector_straffe(){
-  //Get values of controller
-  xVal_straffe = swerveJoystick->GetLeftX();
+  xVal_straffe = swerveJoystick->GetLeftX(); // Get values of controller
   yVal_straffe = swerveJoystick->GetLeftY();
-  //Calculate vector
-  vector_straffe = Vector2::Vector2(xVal_straffe, yVal_straffe);
-  //Set values to zero when the vector is smaller than 0.1 due the misreadings when you don't touch the joystick
-  if (vector_straffe.length() < 0.1) {vector_straffe = Vector2::ZeroVector();}
+  vector_straffe = Vector2::Vector2(xVal_straffe, yVal_straffe); // Create vector from joystick values
+  if (vector_straffe.length() < 0.1) {vector_straffe = Vector2::ZeroVector();} // If joystick in deadzone, value will be 0
 
   frc::SmartDashboard::PutNumber("Cont X value", xVal_straffe);
   frc::SmartDashboard::PutNumber("Cont Y value", yVal_straffe);
@@ -56,14 +53,15 @@ void Swerve::calculate_vector_straffe(){
 void Swerve::calculate_vector_rotation(){
   //Get values of controller
   rotation_value = swerveJoystick->GetL2Axis();
-  //Set values to zero when the vector is smaller than 0.1 due the misreadings when you don't touch the joystick
-  if(-0.1 <= rotation_value <= 0.1) {
+  if (-0.1 <= rotation_value <= 0.1) { // if joystick in deadzone, value will be 0
     rotation_value = 0;
+    vector_rotation = Vector2::ZeroVector();
+  } else {
+    vector_rotation = Vector2::Vector2(rotation_value, -45, "polar");
   }
-  vector_rotation = Vector2::Vector2(rotation_value, -45, "polar");
 }
 
-void Swerve::calculate_total_vector(){
+void Swerve::calculate_total_vector() {
   //Calculate the X and Y values of the vector of every wheel
   /*
         -Y
@@ -76,103 +74,10 @@ void Swerve::calculate_total_vector(){
   Wheel_FR = Vector2::MirrorX(Vector2::ToUnitCircle((vector_straffe + vector_rotation) * 0.5));
   Wheel_BR = Vector2::MirrorX(Vector2::ToUnitCircle((vector_straffe + Vector2::Rotate(vector_rotation, -90)) * 0.5));
   Wheel_BL = Vector2::MirrorX(Vector2::ToUnitCircle((vector_straffe + Vector2::Rotate(vector_rotation, 180)) * 0.5));
- /*
-  Total_XW1 = (xVal_straffe+(vector_rotation/sqrt(2)))/2;
-  Total_YW1 = (yVal_straffe+(vector_rotation/sqrt(2)))/2;
-  Total_XW2 = (xVal_straffe+(vector_rotation/sqrt(2)))/2;
-  Total_YW2 = (yVal_straffe-(vector_rotation/sqrt(2)))/2;
-  Total_XW3 = (xVal_straffe-(vector_rotation/sqrt(2)))/2;
-  Total_YW3 = (yVal_straffe-(vector_rotation/sqrt(2)))/2;
-  Total_XW4 = (xVal_straffe-(vector_rotation/sqrt(2)))/2;
-  Total_YW4 = (yVal_straffe+(vector_rotation/sqrt(2)))/2;
-  //Calculate the magnitute of the resulting vector
-  Total_Vector_W1 = sqrt(pow(Total_XW1, 2) + pow(Total_YW1, 2)); 
-  Total_Vector_W2 = sqrt(pow(Total_XW2, 2) + pow(Total_YW2, 2));
-  Total_Vector_W3 = sqrt(pow(Total_XW3, 2) + pow(Total_YW3, 2));
-  Total_Vector_W4 = sqrt(pow(Total_XW4, 2) + pow(Total_YW4, 2));*/
+  // Add straffe and rotation vectors,
+  // Clamp them to the unit circle (length can't be >1)
+  // Mirror the vector relative to the x-axis (Y becomes -Y)
 }
-/*
-double Swerve::calculate_total_angle_of_wheel(double X, double Y){
-  if((X >= 0) && (Y <= 0)) //Angle is in first quarter
-  //Angle <= 90, Rotaions <= 2.5, Total pulzen 4096*2.5 = 10240 (be careful directions on the code is different)
-  {
-    return ((atan(-Y/X))/M_PI_2) * 90;
-  }
-  else if((X < 0) && (Y <= 0)) //Angle is in second quarter
-  //Angle 180 >= && Angle > 90, Rotaions <= 5, Total pulzen 4096*5 = 20.480
-  {
-    return 180 - (((atan(Y/X))*90)/M_PI_2);
-  }
-  else if(X < 0 && Y > 0) //Angle is in third quarter  
-  //Angle 270 >= && Angle > 180, Rotaions <= 7.5, Total pulzen 4096*7.5 = 30.720  
-  {
-    return 270 - (((atan(-X/Y))*90)/M_PI_2); 
-  } 
-  else if(X >= 0 && Y >= 0) //Angle is in fourth quarter  
-  //Angle 360 >= && Angle > 270, Rotaions <= 10, Total pulzen 4096*10 = 40960
-  { 
-    return 360 - (((atan(Y/X))*90)/M_PI_2);
-  }
-}*/
-
-/*
-void Swerve::calculate_total_angle_w2(){
-    if((Total_XW2 >= 0) && (Total_YW2 <= 0))   // first quarter, angle <= 90, rotaions <= 2.75, total nb <= 11264 (be careful directions on the code is different)
-    {
-    Total_angle_W2 = ((atan(-Total_YW2/Total_XW2))/M_PI_2) * 90;
-    }
-    else if((Total_XW2 < 0) && (Total_YW2 <= 0))   // second quarter, angle 180>= angle > 90 , rotaions <= 5.5, total nb <= 22528 
-    {
-    Total_angle_W2 = 180 - (((atan(Total_YW2/Total_XW2))*90)/M_PI_2);
-    }
-    else if(Total_XW2 < 0 && Total_YW2 > 0)   // Third quarter, angle 270 >= angle > 180 , rotaions <= 8.25, total nb <= 33792 
-    {    
-    Total_angle_W2 = 270 - (((atan(-Total_XW2/Total_YW2))*90)/M_PI_2);// this angle is from 270 line (backwards) negative x positve y
-    }
-    else if(Total_XW2 >= 0 && Total_YW2 >= 0)   // forth quarter, angle 360 >= angle > 270 , rotaions <= 11, total nb <= 45056 
-    {
-    Total_angle_W2 = 360 - (((atan(Total_YW2/Total_XW2))*90)/M_PI_2);      // this angle is from 0 line (backwards)
-    }
-}
-
-void Swerve::calculate_total_angle_w3(){
-    if((Total_XW3 >= 0) && (Total_YW3 <= 0))   // first quarter, angle <= 90, rotaions <= 2.75, total nb <= 11264 (be careful directions on the code is different)
-    {
-    Total_angle_W3 = ((atan(-Total_YW3/Total_XW3))/M_PI_2) * 90;
-    }
-    else if((Total_XW3 < 0) && (Total_YW3 <= 0))   // second quarter, angle 180>= angle > 90 , rotaions <= 5.5, total nb <= 22528 
-    {
-    Total_angle_W3 = 180 - (((atan(Total_YW3/Total_XW3))*90)/M_PI_2);
-    }
-    else if(Total_XW3 < 0 && Total_YW3 > 0)   // Third quarter, angle 270 >= angle > 180 , rotaions <= 8.25, total nb <= 33792 
-    {    
-    Total_angle_W3 = 270 - (((atan(-Total_XW3/Total_YW3))*90)/M_PI_2);// this angle is from 270 line (backwards) negative x positve y
-    }
-    else if(Total_XW3 >= 0 && Total_YW3 >= 0)   // forth quarter, angle 360 >= angle > 270 , rotaions <= 11, total nb <= 45056 
-    {
-    Total_angle_W3 = 360 - (((atan(Total_YW3/Total_XW3))*90)/M_PI_2);      // this angle is from 0 line (backwards)
-    }
-}
-
-void Swerve::calculate_total_angle_w4(){
-    if((Total_XW4 >= 0) && (Total_YW4 <= 0))   // first quarter, angle <= 90, rotaions <= 2.75, total nb <= 11264 (be careful directions on the code is different)
-    {
-    Total_angle_W4 = ((atan(-Total_YW4/Total_XW4))/M_PI_2) * 90;
-    }
-    else if((Total_XW4 < 0) && (Total_YW4 <= 0))   // second quarter, angle 180>= angle > 90 , rotaions <= 5.5, total nb <= 22528 
-    {
-    Total_angle_W4 = 180 - (((atan(Total_YW4/Total_XW4))*90)/M_PI_2);
-    }
-    else if(Total_XW4 < 0 && Total_YW4 > 0)   // Third quarter, angle 270 >= angle > 180 , rotaions <= 8.25, total nb <= 33792 
-    {    
-    Total_angle_W4 = 270 - (((atan(-Total_XW4/Total_YW4))*90)/M_PI_2);// this angle is from 270 line (backwards) negative x positve y
-    }
-    else if(Total_XW4 >= 0 && Total_YW4 >= 0)   // forth quarter, angle 360 >= angle > 270 , rotaions <= 11, total nb <= 45056 
-    {
-    Total_angle_W4 = 360 - (((atan(Total_YW4/Total_XW4))*90)/M_PI_2);      // this angle is from 0 line (backwards)
-    }
-}
-*/
 
 void Swerve::set_rotations_w1(){
     if(0 <= Wheel_FL.angle() <= 90) //Wheel in Q1
@@ -358,13 +263,13 @@ void Swerve::allign_wheels(){
 }
 void Swerve::set_motor_speed(){ //Drive the motors
   
-  motorFRD.Set(ControlMode::PercentOutput, Total_Vector_W1/speedmode);
+  motorFRD.Set(ControlMode::PercentOutput, Wheel_FR.length()/speedmode);
   
-  motorFLD.Set(ControlMode::PercentOutput, -Total_Vector_W2/speedmode);
+  motorFLD.Set(ControlMode::PercentOutput, Wheel_FL.length()/speedmode); // original code was "-Total_Vector_W2", why the minus sign?
  
-  motorRLD.Set(ControlMode::PercentOutput, -Total_Vector_W3/speedmode);
+  motorRLD.Set(ControlMode::PercentOutput, Wheel_BL.length()/speedmode); // original code was "-Total_Vector_W#", why the minus sign?
   
-  motorRRD.Set(ControlMode::PercentOutput, Total_Vector_W4/speedmode);
+  motorRRD.Set(ControlMode::PercentOutput, Wheel_BR.length()/speedmode);
 }
 
 void Swerve::Swerve_mainloop(){ //Mainloop of the drivetrain
