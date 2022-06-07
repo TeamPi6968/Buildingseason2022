@@ -11,18 +11,27 @@ void Swerve::Initialize_swerve(){
   frc::SmartDashboard::PutNumber("Cont X value", 0);
   frc::SmartDashboard::PutNumber("Cont Y value", 0);
   frc::SmartDashboard::PutNumber("X", vector_rotation);
+  //Setting wheel positions to 0°
+   /*
+          90°
+          |
+  180° ---|--- 0°
+          |
+         270°
+  */
   rotationCounter_w1 = 0;
   rotationCounter_w2 = 0;
   rotationCounter_w3 = 0;
   rotationCounter_w4 = 0;
-
+  
+  //Wheels move to position 90°
   motorFLR.SetSelectedSensorPosition((rotatieverhouding/4)*oneTurn);
   motorFRR.SetSelectedSensorPosition((rotatieverhouding/4)*oneTurn);        
   motorRRR.SetSelectedSensorPosition((rotatieverhouding/4)*oneTurn);
   motorRLR.SetSelectedSensorPosition((rotatieverhouding/4)*oneTurn);
 }
 //Configure the PID values for the swerve
-void Swerve::Configure_PID(){ //poop
+void Swerve::Configure_PID(){ 
   //PID values of Front Left Rotation
   motorFLR.Config_kP(0, kp);
   motorFLR.Config_kI(0, ki);
@@ -312,7 +321,6 @@ void Swerve::set_motor_position(){ //Rotate the module
   frc::SmartDashboard::PutNumber("steps positionFL",positionFL);  
   frc::SmartDashboard::PutNumber("steps positionBL",positionBL);  
   frc::SmartDashboard::PutNumber("steps positionBR",positionBR);     
-//}
   motorFRR.Set(ControlMode::Position, positionFR);  
   motorFLR.Set(ControlMode::Position, positionFL);     
   motorRLR.Set(ControlMode::Position, positionBL);     
