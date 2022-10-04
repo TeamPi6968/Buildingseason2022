@@ -47,7 +47,7 @@ class Robot : public frc::TimedRobot {
   frc::Compressor compressor{60, frc::PneumaticsModuleType::REVPH};
 
 
-  const bool DisableCompressor = false;
+  const bool DisableCompressor = true;
 
 };
 
