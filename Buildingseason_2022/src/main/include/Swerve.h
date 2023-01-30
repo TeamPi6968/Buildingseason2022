@@ -4,7 +4,9 @@
 #include <frc/smartdashboard/SmartDashboard.h> 
 #include <ctre/phoenix.h>
 #include <frc/PS4controller.h>
-
+  /**
+   * Class for the serve
+   */
 class Swerve{
   private:
 
@@ -21,7 +23,14 @@ class Swerve{
 
   public:
   Swerve(frc::PS4Controller *controller);
-
+    /**
+   *   Setting wheel first to positions 0°
+   * ________90°
+   * 180° ----|--- 0°
+   * _______-90°          
+   * Next step is that the wheels move to position 90°
+   * 
+   */
   void Initialize_swerve();
   void Configure_PID();
   void Swerve_mainloop();
@@ -32,7 +41,16 @@ class Swerve{
   void set_rotations_w4();
   void calculate_vector_straffe();
   void calculate_vector_rotation();
+  /** Calculate total vector
+   */
   void calculate_total_vector();
+  /** calculate the angle of the wheel
+   * @param X 
+   * The X value of the vector
+   * @param Y
+   * The Y value of the vector
+   * @return The angle position of the wheel
+   */
   double calculate_total_angle_of_wheel(double X, double Y);
   void test_angle();
 
