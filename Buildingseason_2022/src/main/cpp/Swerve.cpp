@@ -77,14 +77,18 @@ void Swerve::calculate_vector_rotation(){
 }
 
 void Swerve::calculate_total_vector(){
-  //Calculate the X and Y values of the vector of every wheel
-  /*
-        -Y
-        |
-  -X ---|--- X
-        |
-        Y
-  */
+/**
+* Calculate the X and Y values of the vector of every wheel
+*
+*        -Y
+*        |
+*  -X ---|--- X
+*        |
+*        Y
+*  
+*/
+
+
   Total_XW1 = (xVal_straffe+(vector_rotation/sqrt(2)))/2;
   Total_YW1 = (yVal_straffe+(vector_rotation/sqrt(2)))/2;
   Total_XW2 = (xVal_straffe+(vector_rotation/sqrt(2)))/2;
